@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>吃了飯 嗎 — Have You Eaten (Rice) Yet?</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Noto+Serif+TC:wght@300;400;700;900&family=Special+Elite&family=Courier+Prime:ital@0;1&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --paper:        #f7f0e3;
+      --warm-white:   #fdf8f0;
+      --terracotta:   #c4603a;
+      --terra-light:  #d9836a;
+      --terra-pale:   #ead5c8;
+      --sage:         #7c9e82;
+      --sage-dark:    #4a6b50;
+      --sage-pale:    #d4e3d6;
+      --ochre:        #c8912a;
+      --ochre-light:  #e5b84a;
+      --ochre-pale:   #f2e0b0;
+      --ink:          #2a1f14;
+      --mid:          #5a3e2b;
+      --border:       #c9a87a;
+      --border-light: #e0c9a0;
+      --red-accent:   #9e2b2b;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--paper);
+      background-image:
+        radial-gradient(ellipse at 20% 20%, rgba(196,96,58,0.06) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 80%, rgba(124,158,130,0.07) 0%, transparent 60%),
+        repeating-linear-gradient(
+          0deg, transparent, transparent 32px,
+          rgba(201,168,122,0.1) 32px, rgba(201,168,122,0.1) 33px
+        );
+      color: var(--ink);
+      font-family: 'Courier Prime', monospace;
+      font-size: 15px;
+      line-height: 1.8;
+      min-height: 100vh;
+    }
+
+    /* ── TOP BANNER ── */
+    .top-banner {
+      background: var(--terracotta);
+      color: var(--warm-white);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 7px 32px;
+      font-family: 'Special Elite', cursive;
+      font-size: 10px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+    }
+    .top-banner .zh {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      font-weight: 300;
+    }
+
+    /* ── MASTHEAD ── */
+    .masthead {
+      background: var(--warm-white);
+      border-bottom: 4px double var(--border);
+      padding: 0;
+      position: relative;
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      min-height: 220px;
+    }
+    .masthead::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        repeating-linear-gradient(
+          90deg,
+          transparent 0, transparent 80px,
+          rgba(196,96,58,0.04) 80px, rgba(196,96,58,0.04) 81px
+        );
+      pointer-events: none;
+    }
+    .masthead-left {
+      padding: 30px 24px 30px 40px;
+      border-right: 1px dashed var(--border-light);
+    }
+    .masthead-left .zh-tagline {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--terracotta);
+      letter-spacing: 0.2em;
+      margin-bottom: 10px;
+    }
+    .masthead-left p {
+      font-family: 'IM Fell English', serif;
+      font-style: italic;
+      font-size: 12px;
+      color: var(--mid);
+      line-height: 1.7;
+      opacity: 0.8;
+    }
+    .masthead-center {
+      padding: 20px 40px;
+      text-align: center;
+    }
+    .masthead-bowl {
+      font-size: 52px;
+      display: block;
+      margin-bottom: 10px;
+      animation: gentleBob 4s ease-in-out infinite;
+    }
+    @keyframes gentleBob {
+      0%, 100% { transform: translateY(0); }
+      50%       { transform: translateY(-6px); }
+    }
+    .masthead h1 {
+      font-family: 'Noto Serif TC', serif;
+      font-weight: 900;
+      font-size: clamp(1.6rem, 3.5vw, 2.6rem);
+      color: var(--terracotta);
+      letter-spacing: 0.08em;
+      line-height: 1.1;
+      text-shadow: 2px 2px 0 var(--terra-pale);
+    }
+    .masthead h1 .en {
+      display: block;
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(0.85rem, 1.8vw, 1.15rem);
+      font-weight: 400;
+      font-style: italic;
+      color: var(--mid);
+      letter-spacing: 0.05em;
+      margin-top: 6px;
+      text-shadow: none;
+    }
+    .masthead-right {
+      padding: 30px 40px 30px 24px;
+      border-left: 1px dashed var(--border-light);
+      text-align: right;
+    }
+    .masthead-right .issue-label {
+      font-family: 'Special Elite', cursive;
+      font-size: 9px;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: var(--sage-dark);
+      margin-bottom: 10px;
+    }
+    .masthead-right .zh-quote {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--mid);
+      line-height: 2;
+      opacity: 0.75;
+    }
+    .masthead-ornament {
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 14px;
+      color: var(--ochre);
+      letter-spacing: 0.8em;
+    }
+
+    /* ── NAV ── */
+    nav {
+      background: var(--ink);
+      display: flex;
+      justify-content: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 3px solid var(--terracotta);
+    }
+    nav a {
+      font-family: 'Special Elite', cursive;
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--border-light);
+      text-decoration: none;
+      padding: 14px 30px;
+      border-right: 1px solid rgba(255,255,255,0.08);
+      transition: background 0.2s, color 0.2s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+    }
+    nav a:first-child { border-left: 1px solid rgba(255,255,255,0.08); }
+    nav a .nav-zh {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 10px;
+      font-weight: 300;
+      letter-spacing: 0.15em;
+      opacity: 0.6;
+    }
+    nav a:hover, nav a.active {
+      background: var(--terracotta);
+      color: var(--warm-white);
+    }
+    nav a:hover .nav-zh, nav a.active .nav-zh { opacity: 0.9; }
+
+    /* ── PAGE WRAPPER ── */
+    .page-wrapper {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 50px 24px 100px;
+    }
+
+    /* ── OPENING SCROLL ── */
+    .opening-scroll {
+      display: grid;
+      grid-template-columns: 1fr 3px 1fr;
+      gap: 44px;
+      align-items: start;
+      margin-bottom: 64px;
+      padding: 44px 40px;
+      background: var(--warm-white);
+      border: 2px solid var(--border-light);
+      border-top: 5px solid var(--terracotta);
+      position: relative;
+      box-shadow: 8px 8px 0 var(--terra-pale);
+      animation: fadeUp 0.7s ease both;
+    }
+    .opening-scroll::before {
+      content: '開卷';
+      position: absolute;
+      top: -14px; left: 36px;
+      background: var(--terracotta);
+      color: var(--warm-white);
+      font-family: 'Noto Serif TC', serif;
+      font-size: 11px;
+      letter-spacing: 0.3em;
+      padding: 3px 14px;
+    }
+    .scroll-divider {
+      background: repeating-linear-gradient(
+        180deg, var(--border) 0, var(--border) 5px, transparent 5px, transparent 10px
+      );
+      align-self: stretch;
+    }
+    .scroll-zh {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 15px;
+      font-weight: 300;
+      color: var(--mid);
+      line-height: 2.2;
+      letter-spacing: 0.1em;
+    }
+    .scroll-zh strong {
+      font-weight: 700;
+      color: var(--terracotta);
+    }
+    .scroll-en {
+      font-family: 'IM Fell English', serif;
+      font-style: italic;
+      font-size: 15px;
+      color: var(--mid);
+      line-height: 1.9;
+    }
+    .scroll-en strong {
+      font-style: normal;
+      font-weight: 700;
+      color: var(--terracotta);
+    }
+
+    /* ── SECTION HEADERS ── */
+    .section-header {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 20px;
+      margin: 68px 0 36px;
+    }
+    .section-header .line {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border), transparent);
+    }
+    .section-header .center {
+      text-align: center;
+    }
+    .section-header .label-zh {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 11px;
+      font-weight: 300;
+      letter-spacing: 0.4em;
+      color: var(--sage-dark);
+      display: block;
+      margin-bottom: 4px;
+    }
+    .section-header h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      color: var(--terracotta);
+      font-style: italic;
+      font-weight: 700;
+      line-height: 1;
+    }
+    .section-header .deco {
+      color: var(--ochre);
+      font-size: 14px;
+      letter-spacing: 0.6em;
+      margin-top: 5px;
+      display: block;
+    }
+
+    /* ── CARD GRID ── */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+      gap: 26px;
+    }
+
+    /* ── CARD ── */
+    .card {
+      background: var(--warm-white);
+      border: 1px solid var(--border-light);
+      transition: transform 0.25s, box-shadow 0.25s;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+    .card:hover {
+      transform: translate(-4px, -4px);
+      box-shadow: 6px 6px 0 var(--border-light);
+    }
+    .card-top-stripe { height: 5px; width: 100%; }
+    .card-body { padding: 22px 24px 18px; }
+    .card-tag-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+    .card .tag-en {
+      font-family: 'Special Elite', cursive;
+      font-size: 9px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      padding: 3px 10px;
+    }
+    .card .tag-zh {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 11px;
+      font-weight: 300;
+      color: var(--mid);
+      opacity: 0.6;
+    }
+    .card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      color: var(--ink);
+      font-weight: 700;
+      line-height: 1.3;
+      margin-bottom: 6px;
+    }
+    .card .zh-title {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--mid);
+      margin-bottom: 12px;
+      letter-spacing: 0.08em;
+    }
+    .card p {
+      font-size: 13px;
+      color: var(--mid);
+      line-height: 1.8;
+    }
+    .card-footer {
+      border-top: 1px dashed var(--border-light);
+      padding: 9px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .card-footer .read {
+      font-family: 'Special Elite', cursive;
+      font-size: 9px;
+      letter-spacing: 0.25em;
+      color: var(--sage-dark);
+      text-transform: uppercase;
+    }
+
+    /* food */
+    .food .card-top-stripe  { background: var(--terracotta); }
+    .food .tag-en           { background: var(--terra-pale); color: var(--terracotta); }
+    /* travels */
+    .travels .card-top-stripe { background: var(--sage); }
+    .travels .tag-en          { background: var(--sage-pale); color: var(--sage-dark); }
+    /* personal therapy */
+    .therapy .card-top-stripe { background: var(--ochre); }
+    .therapy .tag-en          { background: var(--ochre-pale); color: var(--ochre); }
+
+    /* ── HORIZONTAL FEATURE CARD ── */
+    .feature-card {
+      background: var(--warm-white);
+      border: 2px solid var(--border-light);
+      border-left: 6px solid var(--terracotta);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      margin-bottom: 28px;
+      transition: transform 0.25s, box-shadow 0.25s;
+      cursor: pointer;
+      overflow: hidden;
+    }
+    .feature-card:hover {
+      transform: translate(-4px, -4px);
+      box-shadow: 6px 6px 0 var(--terra-pale);
+    }
+    .feature-card-body { padding: 30px 32px; }
+    .feature-card-body .overline {
+      font-family: 'Special Elite', cursive;
+      font-size: 9px;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: var(--terracotta);
+      margin-bottom: 12px;
+      display: block;
+    }
+    .feature-card-body h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--ink);
+      line-height: 1.2;
+      margin-bottom: 6px;
+    }
+    .feature-card-body .zh-h3 {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 14px;
+      font-weight: 300;
+      color: var(--mid);
+      margin-bottom: 16px;
+      letter-spacing: 0.1em;
+    }
+    .feature-card-body p {
+      font-size: 13px;
+      color: var(--mid);
+      line-height: 1.85;
+    }
+    .feature-card-visual {
+      background: var(--ochre-pale);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 30px;
+      border-left: 1px dashed var(--border);
+    }
+    .feature-card-visual .big-icon { font-size: 64px; }
+    .feature-card-visual .zh-caption {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 12px;
+      font-weight: 300;
+      color: var(--mid);
+      letter-spacing: 0.2em;
+      text-align: center;
+      opacity: 0.7;
+    }
+
+    /* ── RIBBON QUOTE ── */
+    .ribbon-quote {
+      background: var(--terracotta);
+      color: var(--warm-white);
+      margin: 60px 0;
+      padding: 40px 60px;
+      position: relative;
+      text-align: center;
+      border-top: 3px solid var(--ochre-light);
+      border-bottom: 3px solid var(--ochre-light);
+    }
+    .ribbon-quote::before,
+    .ribbon-quote::after {
+      content: '米';
+      font-family: 'Noto Serif TC', serif;
+      font-size: 80px;
+      color: rgba(255,255,255,0.08);
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      line-height: 1;
+    }
+    .ribbon-quote::before { left: 20px; }
+    .ribbon-quote::after  { right: 20px; }
+    .ribbon-quote blockquote {
+      font-family: 'Noto Serif TC', serif;
+      font-size: clamp(1rem, 2.5vw, 1.4rem);
+      font-weight: 300;
+      letter-spacing: 0.15em;
+      line-height: 2;
+      position: relative; z-index: 1;
+    }
+    .ribbon-quote .en-translation {
+      font-family: 'IM Fell English', serif;
+      font-style: italic;
+      font-size: 0.95rem;
+      opacity: 0.75;
+      margin-top: 12px;
+      display: block;
+      position: relative; z-index: 1;
+    }
+    .ribbon-quote cite {
+      display: block;
+      margin-top: 16px;
+      font-family: 'Special Elite', cursive;
+      font-style: normal;
+      font-size: 9px;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      opacity: 0.6;
+      position: relative; z-index: 1;
+    }
+
+    /* ── ABOUT STRIP ── */
+    .about-strip {
+      display: grid;
+      grid-template-columns: auto 1px 1fr;
+      gap: 44px;
+      align-items: center;
+      padding: 44px 48px;
+      background: var(--ink);
+      color: var(--warm-white);
+      border-top: 4px solid var(--ochre);
+      margin: 60px 0 0;
+    }
+    .about-avatar {
+      width: 100px; height: 100px;
+      background: var(--terracotta);
+      border: 3px solid var(--ochre);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 46px;
+      flex-shrink: 0;
+    }
+    .about-divider {
+      background: repeating-linear-gradient(
+        180deg, var(--border) 0, var(--border) 5px, transparent 5px, transparent 10px
+      );
+      align-self: stretch;
+    }
+    .about-content .role {
+      font-family: 'Special Elite', cursive;
+      font-size: 9px;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: var(--ochre-light);
+      margin-bottom: 8px;
+    }
+    .about-content h3 {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 1.3rem;
+      color: var(--ochre-light);
+      margin-bottom: 4px;
+      letter-spacing: 0.1em;
+    }
+    .about-content .en-name {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1rem;
+      color: var(--terra-pale);
+      margin-bottom: 14px;
+    }
+    .about-content p {
+      font-size: 13px;
+      color: rgba(253,248,240,0.75);
+      line-height: 1.9;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--ink);
+      border-top: 4px double var(--terracotta);
+      text-align: center;
+      padding: 32px 20px;
+    }
+    footer .footer-zh {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--ochre-light);
+      letter-spacing: 0.15em;
+      margin-bottom: 4px;
+    }
+    footer .footer-en {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1rem;
+      color: var(--terra-pale);
+    }
+    footer .footer-ornament {
+      font-size: 16px;
+      letter-spacing: 0.6em;
+      color: var(--terracotta);
+      margin: 12px 0;
+    }
+    footer p {
+      font-family: 'Special Elite', cursive;
+      font-size: 9px;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--border);
+      opacity: 0.45;
+      margin-top: 4px;
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .section-header { animation: fadeUp 0.5s ease both; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 720px) {
+      .masthead { grid-template-columns: 1fr; min-height: auto; }
+      .masthead-left, .masthead-right { display: none; }
+      .masthead-center { padding: 28px 20px; }
+      .opening-scroll { grid-template-columns: 1fr; padding: 28px 22px; }
+      .scroll-divider { display: none; }
+      .feature-card { grid-template-columns: 1fr; }
+      .feature-card-visual { display: none; }
+      .about-strip { grid-template-columns: 1fr; text-align: center; padding: 28px 22px; }
+      .about-avatar { margin: 0 auto; }
+      .about-divider { display: none; }
+      nav a { padding: 12px 14px; }
+      .ribbon-quote { padding: 32px 28px; }
+      .top-banner { flex-direction: column; gap: 4px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TOP BANNER -->
+  <div class="top-banner">
+    <span>A Bilingual Journal of Food, Travel & the Soul</span>
+    <span class="zh">飲食 · 旅行 · 心靈日記</span>
+  </div>
+
+  <!-- MASTHEAD -->
+  <header class="masthead">
+    <div class="masthead-left">
+      <p class="zh-tagline">每一口飯，都是一個故事</p>
+      <p>Every grain of rice carries a memory.<br/>Every journey begins at the table.</p>
+    </div>
+    <div class="masthead-center">
+      <span class="masthead-bowl">🍚</span>
+      <h1>
+        吃了飯 嗎
+        <span class="en">Have You Eaten (Rice) Yet?</span>
+      </h1>
+    </div>
+    <div class="masthead-right">
+      <p class="issue-label">A personal dispatch</p>
+      <p class="zh-quote">
+        民以食為天<br/>
+        食以味為先<br/>
+        味以心為本
+      </p>
+    </div>
+    <div class="masthead-ornament">✦ ✦ ✦</div>
+  </header>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#food" class="active">
+      🍜 Food
+      <span class="nav-zh">食物</span>
+    </a>
+    <a href="#travels">
+      🗺 Travels
+      <span class="nav-zh">旅行</span>
+    </a>
+    <a href="#therapy">
+      ✒ Personal Therapy
+      <span class="nav-zh">心靈角落</span>
+    </a>
+    <a href="#about">
+      About
+      <span class="nav-zh">關於</span>
+    </a>
+  </nav>
+
+  <div class="page-wrapper">
+
+    <!-- OPENING SCROLL -->
+    <div class="opening-scroll">
+      <div class="scroll-zh">
+        <strong>吃了飯 嗎？</strong><br/>
+        在我們的文化裡，這句話從來不只是問你是否吃過東西。<br/>
+        它是一個問候，一個擁抱，一種說「我在乎你」的方式。<br/>
+        這個部落格，就是我用文字端出來的一碗飯。
+      </div>
+      <div class="scroll-divider"></div>
+      <div class="scroll-en">
+        <strong>"Have you eaten yet?"</strong><br/>
+        In our culture, this question was never really about food.
+        It was a greeting, an embrace, a way of saying
+        <em>I see you, I care for you, come sit with me.</em>
+        This blog is my bowl of rice — offered with both hands.
+      </div>
+    </div>
+
+    <!-- FOOD SECTION -->
+    <div id="food">
+      <div class="section-header">
+        <div class="line"></div>
+        <div class="center">
+          <span class="label-zh">第一章 · 食物</span>
+          <h2>On Food</h2>
+          <span class="deco">— ✦ —</span>
+        </div>
+        <div class="line"></div>
+      </div>
+
+      <!-- Feature Card -->
+      <div class="feature-card">
+        <div class="feature-card-body">
+          <span class="overline">Editor's Pick · 本期推薦</span>
+          <h3>The Congee My Grandmother Never Measured</h3>
+          <p class="zh-h3">阿嬤從不量米的那碗粥</p>
+          <p>She cooked by instinct — a handful of rice, water until it felt right, heat turned low and time turned generous. I have tried to write down the recipe. It does not fit on paper. Some things can only be passed hand to hand.</p>
+        </div>
+        <div class="feature-card-visual">
+          <div class="big-icon">🥣</div>
+          <p class="zh-caption">用愛熬的粥<br/>没有食譜</p>
+        </div>
+      </div>
+
+      <div class="card-grid food">
+        <div class="card">
+          <div class="card-top-stripe"></div>
+          <div class="card-body">
+            <div class="card-tag-row">
+              <span class="tag-en">Street Food</span>
+              <span class="tag-zh">街頭小食</span>
+            </div>
+            <h3>The Night Market Stall That Changes Everything</h3>
+            <p class="zh-title">那個改變一切的夜市攤位</p>
+            <p>Eleven o'clock at night. A plastic stool. Braised pork rice that tasted like the entire island in a single bite.</p>
+          </div>
+          <div class="card-footer">
+            <span class="read">4 min read · 四分鐘</span>
+            <span>🍱</span>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-top-stripe"></div>
+          <div class="card-body">
+            <div class="card-tag-row">
+              <span class="tag-en">Recipe</span>
+              <span class="tag-zh">食譜</span>
+            </div>
+            <h3>Three-Cup Chicken and the Argument About Basil</h3>
+            <p class="zh-title">三杯雞與關於九層塔的爭論</p>
+            <p>Every family makes it differently. Every family believes their version is correct. They are all right. That is the whole point.</p>
+          </div>
+          <div class="card-footer">
+            <span class="read">6 min read · 六分鐘</span>
+            <span>🌿</span>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-top-stripe"></div>
+          <div class="card-body">
+            <div class="card-tag-row">
+              <span class="tag-en">Café</span>
+              <span class="tag-zh">咖啡廳</span>
+            </div>
+            <h3>A Café That Smells Exactly Like 1987</h3>
+            <p class="zh-title">聞起來像一九八七年的咖啡廳</p>
+            <p>Worn wooden counters. A fan turning overhead. Milk tea served in a glass that has clearly lived a full life.</p>
+          </div>
+          <div class="card-footer">
+            <span class="read">3 min read · 三分鐘</span>
+            <span>☕</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIBBON QUOTE -->
+    <div class="ribbon-quote">
+      <blockquote>吃飯皇帝大</blockquote>
+      <span class="en-translation">"Eating is the most important thing in the world." — A very correct Chinese proverb</span>
+      <cite>The Philosophy of This Blog, Stated Plainly</cite>
+    </div>
+
+    <!-- TRAVELS SECTION -->
+    <div id="travels">
+      <div class="section-header">
+        <div class="line"></div>
+        <div class="center">
+          <span class="label-zh">第二章 · 旅行</span>
+          <h2>On Travels</h2>
+          <span class="deco">— ✦ —</span>
+        </div>
+        <div class="line"></div>
+      </div>
+
+      <div class="card-grid travels">
+        <div class="card">
+          <div class="card-top-stripe"></div>
+          <div class="card-body">
+            <div class="card-tag-row">
+              <span class="tag-en">City</span>
+              <span class="tag-zh">城市</span>
+            </div>
+            <h3>Tainan at Six in the Morning</h3>
+            <p class="zh-title">清晨六點的台南</p>
+            <p>The oldest city in Taiwan wakes slowly, like someone who knows they do not need to rush. The breakfast shops open first. Everything else can wait.</p>
+          </div>
+          <div class="card-footer">
+            <span class="read">5 min read · 五分鐘</span>
+            <span>🏯</span>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-top-stripe"></div>
+          <div class="card-body">
+            <div class="card-tag-row">
+              <span class="tag-en">On Foot</span>
+              <span class="tag-zh">徒步而行</span>
+            </div>
+            <h3>The Alley Behind the Temple Nobody Visits</h3>
+            <p class="zh-title">廟後面那條沒人去的巷子</p>
+            <p>Tourist maps are an act of editorial judgement. What they leave off is often more interesting than what they include.</p>
+          </div>
+          <div class="card-footer">
+            <span class="read">5 min read · 五分鐘</span>
+            <span>🏮</span>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-top-stripe"></div>
+          <div class="card-body">
+            <div class="card-tag-row">
+              <span class="tag-en">Train</span>
+              <span class="tag-zh">火車</span>
+            </div>
+            <h3>Four Hours on a Slow Train Going Nowhere in Particular</h3>
+            <p class="zh-title">四小時的慢車，去哪裡都好</p>
+            <p>The best journeys have no agenda. A window seat, a bento box, mountains appearing and disappearing like thoughts.</p>
+          </div>
+          <div class="card-footer">
+            <span class="read">7 min read · 七分鐘</span>
+            <span>🚂</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PERSONAL THERAPY SECTION -->
+    <div id="therapy">
+      <div class="section-header">
+        <div class="line"></div>
+        <div class="center">
+          <span class="label-zh">第三章 · 心靈角落</span>
+          <h2>Personal Therapy</h2>
+          <span class="deco">— ✦ —</span>
+        </div>
+        <div class="line"></div>
+      </div>
+
+      <div class="card-grid therapy">
+        <div class="card">
+          <div class="card-top-stripe"></div>
+          <div class="card-body">
+            <div class="card-tag-row">
+              <span class="tag-en">Opinion</span>
+              <span class="tag-zh">觀點</span>
+            </div>
+            <h3>On Growing Up Between Two Languages</h3>
+            <p class="zh-title">在兩種語言之間長大</p>
+            <p>Some feelings only exist in Chinese. Some thoughts arrive first in English. I live in the space between them and I have learned to call it home.</p>
+          </div>
+          <div class="card-footer">
+            <span class="read">6 min read · 六分鐘</span>
+            <span>💬</span>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-top-stripe"></div>
+          <div class="card-body">
+            <div class="card-tag-row">
+              <span class="tag-en">Reflection</span>
+              <span class="tag-zh">反思</span>
+            </div>
+            <h3>What My Parents Meant When They Didn't Say "I Love You"</h3>
+            <p class="zh-title">父母不說「我愛你」時，他們說的是什麼</p>
+            <p>They said it in soup. In a plate of cut fruit left outside your door at midnight. In the way they never asked, just showed up.</p>
+          </div>
+          <div class="card-footer">
+            <span class="read">8 min read · 八分鐘</span>
+            <span>🍊</span>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-top-stripe"></div>
+          <div class="card-body">
+            <div class="card-tag-row">
+              <span class="tag-en">Current Events</span>
+              <span class="tag-zh">時事</span>
+            </div>
+            <h3>A Quiet Concern About How Fast Everything Is Moving</h3>
+            <p class="zh-title">關於一切太快的一點擔憂</p>
+            <p>Not a manifesto. Just a person sitting with a cup of tea, watching the world accelerate, and wondering when we agreed to this speed.</p>
+          </div>
+          <div class="card-footer">
+            <span class="read">5 min read · 五分鐘</span>
+            <span>🍵</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ABOUT -->
+    <div id="about" class="about-strip">
+      <div class="about-avatar">🧑</div>
+      <div class="about-divider"></div>
+      <div class="about-content">
+        <p class="role">Your Host · 你的主人</p>
+        <h3>關於這個部落格的主人</h3>
+        <p class="en-name">A Note From the Author</p>
+        <p>
+          I grew up being asked "吃了飯 嗎？" as a greeting, a check-in, a love language.
+          This blog is my attempt to answer that question honestly — through food eaten,
+          places wandered, and thoughts too restless to stay inside my head.
+          Everything here is written in two languages because I think in two languages,
+          and some things are simply more true in Traditional Chinese.
+          Pull up a chair. 歡迎。
+        </p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-zh">吃了飯 嗎</div>
+    <div class="footer-en">Have You Eaten (Rice) Yet?</div>
+    <div class="footer-ornament">✦ ✦ ✦</div>
+    <p>A bilingual journal · 中英雙語日記 · Written with both hands</p>
+    <p style="margin-top:6px; font-size:8px; opacity:0.3;">Every word seasoned with memory · 每個字都用記憶調味</p>
+  </footer>
+
+</body>
+</html>
