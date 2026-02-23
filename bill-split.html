@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>And My Share Is $_? — 吃了飯 嗎</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Noto+Serif+TC:wght@300;400;700;900&family=Special+Elite&family=Courier+Prime:ital@0;1&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --paper:        #f7f0e3;
+      --warm-white:   #fdf8f0;
+      --terracotta:   #c4603a;
+      --terra-light:  #d9836a;
+      --terra-pale:   #ead5c8;
+      --sage:         #7c9e82;
+      --sage-dark:    #4a6b50;
+      --sage-pale:    #d4e3d6;
+      --ochre:        #c8912a;
+      --ochre-light:  #e5b84a;
+      --ochre-pale:   #f2e0b0;
+      --ink:          #2a1f14;
+      --mid:          #5a3e2b;
+      --border:       #c9a87a;
+      --border-light: #e0c9a0;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--paper);
+      background-image:
+        radial-gradient(ellipse at 20% 20%, rgba(196,96,58,0.06) 0%, transparent 60%),
+        repeating-linear-gradient(
+          0deg, transparent, transparent 32px,
+          rgba(201,168,122,0.1) 32px, rgba(201,168,122,0.1) 33px
+        );
+      color: var(--ink);
+      font-family: 'Courier Prime', monospace;
+      font-size: 15px;
+      line-height: 1.8;
+      min-height: 100vh;
+    }
+
+    /* ── TOP BANNER ── */
+    .top-banner {
+      background: var(--terracotta);
+      color: var(--warm-white);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 7px 32px;
+      font-family: 'Special Elite', cursive;
+      font-size: 10px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+    }
+    .top-banner .zh {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      font-weight: 300;
+    }
+
+    /* ── MASTHEAD ── */
+    .masthead {
+      background: var(--warm-white);
+      border-bottom: 4px double var(--border);
+      text-align: center;
+      padding: 22px 20px 16px;
+      position: relative;
+    }
+    .masthead-top {
+      font-family: 'Special Elite', cursive;
+      font-size: 10px;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--terracotta);
+      margin-bottom: 6px;
+    }
+    .masthead h1 {
+      font-family: 'Noto Serif TC', serif;
+      font-weight: 900;
+      font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+      color: var(--terracotta);
+      letter-spacing: 0.08em;
+      text-shadow: 2px 2px 0 var(--terra-pale);
+    }
+    .masthead h1 .en {
+      display: block;
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(0.8rem, 1.6vw, 1rem);
+      font-weight: 400;
+      font-style: italic;
+      color: var(--mid);
+      margin-top: 4px;
+      text-shadow: none;
+      letter-spacing: 0.05em;
+    }
+
+    /* ── NAV ── */
+    nav {
+      background: var(--ink);
+      display: flex;
+      justify-content: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 3px solid var(--terracotta);
+    }
+    nav a {
+      font-family: 'Special Elite', cursive;
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--border-light);
+      text-decoration: none;
+      padding: 14px 28px;
+      border-right: 1px solid rgba(255,255,255,0.08);
+      transition: background 0.2s, color 0.2s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+    }
+    nav a:first-child { border-left: 1px solid rgba(255,255,255,0.08); }
+    nav a .nav-zh {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 10px;
+      font-weight: 300;
+      letter-spacing: 0.15em;
+      opacity: 0.6;
+    }
+    nav a:hover, nav a.active {
+      background: var(--terracotta);
+      color: var(--warm-white);
+    }
+
+    /* ── PAGE WRAPPER ── */
+    .page-wrapper {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 56px 24px 100px;
+    }
+
+    /* ── POST HEADER ── */
+    .post-header {
+      text-align: center;
+      margin-bottom: 52px;
+      padding-bottom: 32px;
+      border-bottom: 3px double var(--border);
+      animation: fadeUp 0.6s ease both;
+    }
+    .post-tag-row {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    .post-tag {
+      display: inline-block;
+      background: var(--terra-pale);
+      color: var(--terracotta);
+      font-family: 'Special Elite', cursive;
+      font-size: 9px;
+      letter-spacing: 0.4em;
+      padding: 4px 14px;
+      text-transform: uppercase;
+    }
+    .post-tag-zh {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 11px;
+      font-weight: 300;
+      color: var(--mid);
+      opacity: 0.6;
+      letter-spacing: 0.2em;
+    }
+    .post-header h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 5vw, 3.4rem);
+      font-weight: 900;
+      color: var(--terracotta);
+      line-height: 1.1;
+      margin-bottom: 10px;
+    }
+    .post-header .zh-title {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 1.1rem;
+      font-weight: 300;
+      color: var(--mid);
+      letter-spacing: 0.15em;
+      margin-bottom: 18px;
+    }
+    .post-header .subtitle {
+      font-family: 'IM Fell English', serif;
+      font-style: italic;
+      font-size: 1.05rem;
+      color: var(--mid);
+      line-height: 1.6;
+      margin-bottom: 18px;
+      max-width: 560px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .post-meta {
+      font-family: 'Special Elite', cursive;
+      font-size: 10px;
+      letter-spacing: 0.3em;
+      color: var(--mid);
+      text-transform: uppercase;
+      opacity: 0.65;
+    }
+    .post-meta span { margin: 0 8px; }
+    .post-ornament {
+      font-size: 16px;
+      color: var(--ochre);
+      letter-spacing: 0.5em;
+      margin-top: 16px;
+    }
+
+    /* ── POST BODY ── */
+    .post-body { animation: fadeUp 0.6s 0.1s ease both; }
+
+    .post-body p {
+      font-family: 'Courier Prime', monospace;
+      font-size: 15px;
+      line-height: 2;
+      color: var(--mid);
+      margin-bottom: 26px;
+    }
+    .post-body p:first-of-type::first-letter {
+      font-family: 'Playfair Display', serif;
+      font-size: 4.5rem;
+      font-weight: 900;
+      color: var(--terracotta);
+      float: left;
+      line-height: 0.75;
+      margin: 6px 10px 0 0;
+    }
+    .post-body .zh-aside {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--mid);
+      opacity: 0.7;
+      letter-spacing: 0.1em;
+      line-height: 2;
+      margin-bottom: 26px;
+      padding-left: 20px;
+      border-left: 2px solid var(--border-light);
+    }
+
+    /* ── SOLUTION BOXES ── */
+    .solution-box {
+      margin: 44px 0;
+      border: 2px solid var(--border-light);
+      background: var(--warm-white);
+      position: relative;
+      overflow: hidden;
+    }
+    .solution-box::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 5px;
+    }
+    .solution-box.humor::before   { background: var(--ochre); }
+    .solution-box.tactful::before { background: var(--sage); }
+    .solution-box.direct::before  { background: var(--terracotta); }
+
+    .solution-header {
+      padding: 20px 28px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
+    }
+    .solution-number {
+      font-family: 'Playfair Display', serif;
+      font-size: 3.5rem;
+      font-weight: 900;
+      line-height: 1;
+      opacity: 0.12;
+      flex-shrink: 0;
+    }
+    .solution-box.humor   .solution-number { color: var(--ochre); }
+    .solution-box.tactful .solution-number { color: var(--sage-dark); }
+    .solution-box.direct  .solution-number { color: var(--terracotta); }
+
+    .solution-label-group { flex: 1; }
+    .solution-label {
+      font-family: 'Special Elite', cursive;
+      font-size: 9px;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      margin-bottom: 5px;
+      display: block;
+    }
+    .solution-box.humor   .solution-label { color: var(--ochre); }
+    .solution-box.tactful .solution-label { color: var(--sage-dark); }
+    .solution-box.direct  .solution-label { color: var(--terracotta); }
+
+    .solution-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--ink);
+      line-height: 1.2;
+      margin-bottom: 4px;
+    }
+    .solution-zh {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 12px;
+      font-weight: 300;
+      color: var(--mid);
+      letter-spacing: 0.12em;
+      opacity: 0.7;
+    }
+    .solution-body {
+      padding: 16px 28px 28px;
+    }
+    .solution-body p {
+      font-size: 14px;
+      color: var(--mid);
+      line-height: 1.95;
+      margin-bottom: 16px;
+    }
+    .solution-body p:last-child { margin-bottom: 0; }
+
+    /* ── EXAMPLE BOX ── */
+    .example-box {
+      background: var(--ochre-pale);
+      border: 1px solid var(--border);
+      padding: 20px 24px;
+      margin-top: 20px;
+      position: relative;
+    }
+    .example-box::before {
+      content: 'Real-World Example · 實際範例';
+      position: absolute;
+      top: -11px; left: 16px;
+      background: var(--ochre);
+      color: var(--warm-white);
+      font-family: 'Special Elite', cursive;
+      font-size: 9px;
+      letter-spacing: 0.3em;
+      padding: 3px 12px;
+      text-transform: uppercase;
+    }
+    .example-box p {
+      font-family: 'IM Fell English', serif;
+      font-style: italic;
+      font-size: 14px;
+      color: var(--ink);
+      line-height: 1.85;
+      margin-bottom: 10px !important;
+    }
+    .example-box .receipt {
+      background: var(--warm-white);
+      border: 1px dashed var(--border);
+      padding: 16px 20px;
+      font-family: 'Courier Prime', monospace;
+      font-size: 13px;
+      color: var(--ink);
+      line-height: 2;
+      margin-top: 14px;
+    }
+    .example-box .receipt .total-line {
+      border-top: 1px dashed var(--border);
+      margin-top: 8px;
+      padding-top: 8px;
+      font-weight: 700;
+      color: var(--terracotta);
+    }
+    .example-box .receipt .fair-line {
+      color: var(--sage-dark);
+      font-weight: 700;
+    }
+
+    /* ── PULL QUOTE ── */
+    .pull-quote {
+      margin: 48px 0;
+      padding: 30px 40px;
+      border-top: 3px double var(--ochre);
+      border-bottom: 3px double var(--ochre);
+      text-align: center;
+      position: relative;
+    }
+    .pull-quote::before {
+      content: '\201C';
+      font-family: 'Playfair Display', serif;
+      font-size: 100px;
+      color: var(--terra-pale);
+      line-height: 0.4;
+      position: absolute;
+      top: 50px; left: 8px;
+      pointer-events: none;
+    }
+    .pull-quote blockquote {
+      font-family: 'IM Fell English', serif;
+      font-style: italic;
+      font-size: 1.2rem;
+      color: var(--terracotta);
+      line-height: 1.65;
+      position: relative; z-index: 1;
+    }
+    .pull-quote .zh-quote {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--mid);
+      letter-spacing: 0.15em;
+      margin-top: 12px;
+      display: block;
+      opacity: 0.7;
+      position: relative; z-index: 1;
+    }
+
+    /* ── CLOSING NOTE ── */
+    .closing-note {
+      background: var(--ink);
+      color: var(--warm-white);
+      padding: 32px 36px;
+      margin-top: 52px;
+      position: relative;
+      border-top: 4px solid var(--ochre);
+    }
+    .closing-note::before {
+      content: '後記';
+      position: absolute;
+      top: -13px; left: 28px;
+      background: var(--ochre);
+      color: var(--ink);
+      font-family: 'Noto Serif TC', serif;
+      font-size: 11px;
+      letter-spacing: 0.3em;
+      padding: 3px 12px;
+      font-weight: 700;
+    }
+    .closing-note p {
+      font-size: 13px;
+      line-height: 1.95;
+      color: rgba(253,248,240,0.8);
+      margin-bottom: 12px;
+    }
+    .closing-note p:last-child { margin-bottom: 0; }
+    .closing-note .zh-closing {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--ochre-light);
+      letter-spacing: 0.12em;
+      line-height: 2;
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px dashed rgba(255,255,255,0.15);
+    }
+
+    /* ── POST FOOTER ── */
+    .post-footer {
+      margin-top: 52px;
+      padding-top: 24px;
+      border-top: 3px double var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .post-footer .back-link {
+      font-family: 'Special Elite', cursive;
+      font-size: 10px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--terracotta);
+      text-decoration: none;
+      border: 1px solid var(--border);
+      padding: 8px 18px;
+      transition: background 0.2s, color 0.2s;
+    }
+    .post-footer .back-link:hover {
+      background: var(--terracotta);
+      color: var(--warm-white);
+    }
+    .post-footer .entry-info {
+      font-family: 'Special Elite', cursive;
+      font-size: 10px;
+      letter-spacing: 0.25em;
+      color: var(--mid);
+      opacity: 0.55;
+      text-transform: uppercase;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--ink);
+      border-top: 4px double var(--terracotta);
+      text-align: center;
+      padding: 28px 20px;
+    }
+    footer .footer-zh {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--ochre-light);
+      letter-spacing: 0.15em;
+    }
+    footer .footer-en {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 0.95rem;
+      color: var(--terra-pale);
+    }
+    footer .footer-ornament {
+      font-size: 14px;
+      letter-spacing: 0.6em;
+      color: var(--terracotta);
+      margin: 10px 0;
+    }
+    footer p {
+      font-family: 'Special Elite', cursive;
+      font-size: 9px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--border);
+      opacity: 0.4;
+      margin-top: 4px;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(14px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 600px) {
+      .top-banner { flex-direction: column; gap: 4px; }
+      nav a { padding: 12px 12px; font-size: 10px; }
+      .post-body p:first-of-type::first-letter { font-size: 3rem; }
+      .pull-quote { padding: 24px 20px; }
+      .solution-header { flex-direction: column; gap: 8px; }
+      .solution-number { font-size: 2.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TOP BANNER -->
+  <div class="top-banner">
+    <span>吃了飯 嗎 · Food Section · 食物</span>
+    <span class="zh">飲食 · 旅行 · 心靈日記</span>
+  </div>
+
+  <!-- MASTHEAD -->
+  <header class="masthead">
+    <p class="masthead-top">吃了飯 嗎 · A Bilingual Journal</p>
+    <h1>
+      吃了飯 嗎
+      <span class="en">Have You Eaten (Rice) Yet?</span>
+    </h1>
+  </header>
+
+  <!-- NAV -->
+  <nav>
+    <a href="index.html">🏠 Home <span class="nav-zh">首頁</span></a>
+    <a href="index.html#food" class="active">🍜 Food <span class="nav-zh">食物</span></a>
+    <a href="index.html#travels">🗺 Travels <span class="nav-zh">旅行</span></a>
+    <a href="index.html#therapy">✒ Personal Therapy <span class="nav-zh">心靈角落</span></a>
+  </nav>
+
+  <div class="page-wrapper">
+
+    <!-- POST HEADER -->
+    <div class="post-header">
+      <div class="post-tag-row">
+        <span class="post-tag">Food · 食物</span>
+        <span class="post-tag-zh">飲食觀察</span>
+      </div>
+      <h2>And My Share Is $_?</h2>
+      <p class="zh-title">我的那份是多少錢？</p>
+      <p class="subtitle">
+        On the delicate, decades-long, completely unspoken agreement
+        among friends that everyone pays the same — and why, finally, it might be time to say something.
+      </p>
+      <p class="post-meta">
+        <span>Food</span>·
+        <span>8 min read · 八分鐘</span>·
+        <span>Entry No. 001</span>
+      </p>
+      <div class="post-ornament">✦ ✦ ✦</div>
+    </div>
+
+    <!-- POST BODY -->
+    <div class="post-body">
+
+      <p>
+        So. Here's the thing. You've been going to dinner with the same group of friends
+        for years. Maybe it's every Friday. Maybe it's once a month, a standing reservation,
+        a ritual. You sit down. You order. Some people get the lobster. Some people get the
+        soup. And then the bill comes — and without anyone saying a word, without any
+        discussion, without even a pause — it gets divided. Equally. Down the middle.
+        Every single time.
+      </p>
+
+      <p class="zh-aside">
+        這種事情你懂的。帳單來了，大家看都不看，直接除以人數。<br/>
+        從來沒有人說什麼。因為這就是「我們的方式」。
+      </p>
+
+      <p>
+        And here's what's interesting. Nobody decided this was the arrangement.
+        It just — became the arrangement. The way certain things do, in friendships,
+        in families, in offices. You don't sign a contract. You just do it once,
+        and then you do it again, and then suddenly you've been doing it for six years
+        and it is simply The Way Things Are. The person who ordered the $25 pasta
+        pays the same as the person who ordered the $50 ribeye plus two glasses of wine.
+        Every month. Without fail. Without comment.
+      </p>
+
+      <p>
+        Until one day — and this is the part I find genuinely fascinating — someone
+        starts to notice. Maybe it's you. Maybe you've always noticed and just never
+        said anything because what are you going to say? You don't want to be the person
+        who makes dinner weird. Nobody wants to be that person. And so you say nothing.
+        You pay your equal share. You go home. And you think about it the whole drive back.
+      </p>
+
+      <div class="pull-quote">
+        <blockquote>
+          The bill, divided equally, is not really about money.<br/>
+          It is a small, recurring test of whether anyone in the group<br/>
+          will be the one to say the thing nobody is saying.
+        </blockquote>
+        <span class="zh-quote">帳單平分，從來不只是錢的問題。</span>
+      </div>
+
+      <p>
+        Today we're going to talk about that thing. The unspoken arrangement.
+        The equal split. And — more importantly — three ways you might actually
+        go about changing it. Because it can be changed. It just requires a little
+        strategy, a little courage, and depending on which approach you choose,
+        possibly a very good sense of humour.
+      </p>
+
+      <!-- SOLUTION 1 -->
+      <div class="solution-box humor">
+        <div class="solution-header">
+          <div class="solution-label-group">
+            <span class="solution-label">Solution One · 第一個方法 · With Humour</span>
+            <p class="solution-title">The "I Just Downloaded an App" Gambit</p>
+            <p class="solution-zh">「我剛下載了一個 App」策略</p>
+          </div>
+          <div class="solution-number">01</div>
+        </div>
+        <div class="solution-body">
+          <p>
+            Here's the beauty of living in the age of technology: you can blame the app.
+            You show up to dinner, you wait until the bill arrives, and then — with the
+            energy of someone who has just discovered something genuinely delightful —
+            you pull out your phone and say: <em>"Oh! Has everyone tried Splitwise?
+            I just downloaded it this week, it's actually kind of amazing, it tracks
+            everything, it knows who ordered what, can we just try it once?
+            Just to see?"</em>
+          </p>
+          <p>
+            Note the enthusiasm. Note the innocence. You are not challenging the arrangement.
+            You are not making a point. You are simply a person who has downloaded an app
+            and would like to share the experience with friends. The app is doing the math.
+            The app is being fair. You are just standing there, delighted by technology,
+            completely blameless.
+          </p>
+          <p>
+            You can also supplement this approach with a light, self-deprecating remark —
+            something like <em>"I know, I know, I'm that person now"</em> — which immediately
+            defuses any tension and makes everyone laugh. Nobody gets annoyed at a person
+            who is laughing at themselves. This is ancient social wisdom. Use it freely.
+          </p>
+          <p class="zh-aside" style="border-left: 2px solid var(--ochre-pale); font-style: italic;">
+            重點是：讓 App 當壞人。你只是個科技愛好者，什麼都不知道。
+          </p>
+        </div>
+      </div>
+
+      <!-- SOLUTION 2 -->
+      <div class="solution-box tactful">
+        <div class="solution-header">
+          <div class="solution-label-group">
+            <span class="solution-label">Solution Two · 第二個方法 · With Tact</span>
+            <p class="solution-title">The Gentle Reframe, Before You Even Sit Down</p>
+            <p class="solution-zh">還沒坐下，就先輕輕說清楚</p>
+          </div>
+          <div class="solution-number">02</div>
+        </div>
+        <div class="solution-body">
+          <p>
+            The most tactful move is to handle this before the bill ever arrives.
+            Not with a speech. Not with a declaration. Just a quiet, warm, almost
+            offhand comment as you're all settling in and looking at the menu.
+            Something like: <em>"I was thinking — since we're all ordering different
+            things tonight, should we just each get what we want and pay for our own?
+            That way nobody feels like they have to hold back."</em>
+          </p>
+          <p>
+            What you're doing here is giving everyone permission. You're not saying
+            the old system was unfair. You're not naming anyone. You are simply
+            presenting a new frame — one where paying for your own food is framed
+            not as an act of accounting, but as an act of <em>freedom</em>.
+            Now everyone can order what they actually want without the silent
+            calculation of whether it's worth it given the split.
+          </p>
+          <p>
+            The key word is <em>"tonight."</em> You're not announcing a permanent
+            policy change. You're suggesting something for this particular evening.
+            And if it goes well — which it will — it quietly becomes the new normal.
+            No confrontation required. No feelings hurt. Just a gentle pivot,
+            executed with grace.
+          </p>
+          <p class="zh-aside" style="border-left: 2px solid var(--sage-pale);">
+            在菜單還沒點之前說，是最有禮貌的時機。<br/>
+            讓大家覺得這是一種自由，而不是一種指責。
+          </p>
+        </div>
+      </div>
+
+      <!-- SOLUTION 3 -->
+      <div class="solution-box direct">
+        <div class="solution-header">
+          <div class="solution-label-group">
+            <span class="solution-label">Solution Three · 第三個方法 · Direct & Clear</span>
+            <p class="solution-title">The Honest Conversation, With Numbers</p>
+            <p class="solution-zh">直接說清楚，附上數字</p>
+          </div>
+          <div class="solution-number">03</div>
+        </div>
+        <div class="solution-body">
+          <p>
+            Sometimes the kindest thing you can do is simply be honest.
+            Not aggressive. Not accusatory. Just clear. You wait for a calm moment —
+            maybe before dinner, maybe over a casual coffee — and you say something like:
+            <em>"Hey, I've been thinking about how we split the bill when we go out.
+            I feel a bit uncomfortable paying the same amount when we all order
+            such different things. Would you all be open to each person paying
+            for what they actually ordered? I think it'd just make things feel
+            more fair for everyone."</em>
+          </p>
+          <p>
+            That's it. No drama. No blame. Just a clear, honest statement of how
+            you feel and a concrete proposal for how to fix it. Friends who care
+            about you will hear this and think — actually, yes, that makes sense.
+            And if anyone pushes back, you have the numbers ready.
+          </p>
+
+          <div class="example-box">
+            <p>
+              Here's a real scenario. Six friends at dinner. Here's what everyone ordered:
+            </p>
+            <div class="receipt">
+              <div>Sarah &nbsp;&nbsp;&nbsp;— Soup + House salad &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$22</div>
+              <div>James &nbsp;&nbsp;&nbsp;— Ribeye + 2 glasses wine &nbsp;&nbsp;$58</div>
+              <div>Mei &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;— Pasta + sparkling water &nbsp;&nbsp;$27</div>
+              <div>Tom &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;— Lobster + cocktail &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$65</div>
+              <div>Linda &nbsp;&nbsp;&nbsp;— Chicken + iced tea &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$30</div>
+              <div>You &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;— Noodle soup + water &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$18</div>
+              <div class="total-line">Total (before tax &amp; tip): &nbsp;&nbsp;&nbsp;&nbsp;$220</div>
+              <div style="margin-top:8px; color: var(--mid);">Equal split per person: &nbsp;&nbsp;&nbsp;&nbsp;<strong>$36.67</strong></div>
+              <div class="fair-line">Pay for what you ordered: &nbsp;&nbsp;<strong>$18 + your share of tip</strong></div>
+            </div>
+            <p style="margin-top: 14px !important; font-size: 13px;">
+              Under the equal split, you pay <strong>$36.67</strong> for an
+              <strong>$18 meal</strong>. That's more than double. Over twelve dinners
+              a year, that's roughly <strong>$223 extra</strong> you're contributing
+              toward other people's ribeye and lobster. Said plainly and warmly,
+              with a receipt in front of everyone, this is hard to argue with.
+            </p>
+          </div>
+
+          <p style="margin-top: 20px;">
+            The direct approach works because it respects everyone at the table —
+            including you. Fairness is not an awkward topic among real friends.
+            And any friend who gets genuinely upset that you'd like to pay for
+            your own noodle soup is a conversation worth having, one way or another.
+          </p>
+          <p class="zh-aside" style="border-left: 2px solid var(--terra-pale);">
+            直接說，是最尊重朋友的方式。<br/>
+            真正的朋友不會因為公平而生氣。
+          </p>
+        </div>
+      </div>
+
+      <!-- CLOSING -->
+      <div class="closing-note">
+        <p>
+          Here's the thing about all three of these approaches. They all work.
+          And they all require the same ingredient — the willingness to be the
+          person who says something. That's the hard part. Not the words.
+          Not the math. Just the moment of deciding that your comfort, and your
+          wallet, and your sense of fairness are worth one slightly awkward
+          sentence at a dinner table.
+        </p>
+        <p>
+          The equal split has survived this long because everyone assumed
+          everyone else was fine with it. The moment one person speaks up,
+          the whole arrangement is up for renegotiation. And in my experience,
+          once it's said — once it's finally, gently, honestly said —
+          most people around the table quietly exhale and think:
+          <em>thank goodness someone finally brought that up.</em>
+        </p>
+        <p class="zh-closing">
+          說出來，需要一點勇氣。<br/>
+          但通常說出來之後，你會發現——<br/>
+          其實大家都在等有人開口。<br/>
+          那個人，就是你。
+        </p>
+      </div>
+
+    </div>
+
+    <!-- POST FOOTER -->
+    <div class="post-footer">
+      <a href="index.html" class="back-link">← 回首頁 · Back Home</a>
+      <span class="entry-info">Food · 食物 · Entry No. 001</span>
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-zh">吃了飯 嗎</div>
+    <div class="footer-en">Have You Eaten (Rice) Yet?</div>
+    <div class="footer-ornament">✦ ✦ ✦</div>
+    <p>A bilingual journal · 中英雙語日記 · Written with both hands</p>
+  </footer>
+
+</body>
+</html>
