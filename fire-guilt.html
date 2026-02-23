@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>The Guilt of FIRE — 吃了飯 嗎</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Noto+Serif+TC:wght@300;400;700;900&family=Special+Elite&family=Courier+Prime:ital@0;1&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --paper:        #f7f0e3;
+      --warm-white:   #fdf8f0;
+      --terracotta:   #c4603a;
+      --terra-light:  #d9836a;
+      --terra-pale:   #ead5c8;
+      --sage:         #7c9e82;
+      --sage-dark:    #4a6b50;
+      --sage-pale:    #d4e3d6;
+      --ochre:        #c8912a;
+      --ochre-light:  #e5b84a;
+      --ochre-pale:   #f2e0b0;
+      --ink:          #2a1f14;
+      --mid:          #5a3e2b;
+      --border:       #c9a87a;
+      --border-light: #e0c9a0;
+      --pale-blue:    #b8ccd4;
+      --powder-blue:  #d6e4e8;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--paper);
+      background-image:
+        radial-gradient(ellipse at 20% 20%, rgba(196,96,58,0.06) 0%, transparent 60%),
+        repeating-linear-gradient(
+          0deg, transparent, transparent 32px,
+          rgba(201,168,122,0.1) 32px, rgba(201,168,122,0.1) 33px
+        );
+      color: var(--ink);
+      font-family: 'Courier Prime', monospace;
+      font-size: 15px;
+      line-height: 1.8;
+      min-height: 100vh;
+    }
+
+    /* ── TOP BANNER ── */
+    .top-banner {
+      background: var(--terracotta);
+      color: var(--warm-white);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 7px 32px;
+      font-family: 'Special Elite', cursive;
+      font-size: 10px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+    }
+    .top-banner .zh {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      font-weight: 300;
+    }
+
+    /* ── MASTHEAD ── */
+    .masthead {
+      background: var(--warm-white);
+      border-bottom: 4px double var(--border);
+      text-align: center;
+      padding: 22px 20px 16px;
+    }
+    .masthead-top {
+      font-family: 'Special Elite', cursive;
+      font-size: 10px;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--terracotta);
+      margin-bottom: 6px;
+    }
+    .masthead h1 {
+      font-family: 'Noto Serif TC', serif;
+      font-weight: 900;
+      font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+      color: var(--terracotta);
+      letter-spacing: 0.08em;
+      text-shadow: 2px 2px 0 var(--terra-pale);
+    }
+    .masthead h1 .en {
+      display: block;
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(0.8rem, 1.6vw, 1rem);
+      font-weight: 400;
+      font-style: italic;
+      color: var(--mid);
+      margin-top: 4px;
+      text-shadow: none;
+      letter-spacing: 0.05em;
+    }
+
+    /* ── NAV ── */
+    nav {
+      background: var(--ink);
+      display: flex;
+      justify-content: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 3px solid var(--terracotta);
+    }
+    nav a {
+      font-family: 'Special Elite', cursive;
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--border-light);
+      text-decoration: none;
+      padding: 14px 28px;
+      border-right: 1px solid rgba(255,255,255,0.08);
+      transition: background 0.2s, color 0.2s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+    }
+    nav a:first-child { border-left: 1px solid rgba(255,255,255,0.08); }
+    nav a .nav-zh {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 10px;
+      font-weight: 300;
+      letter-spacing: 0.15em;
+      opacity: 0.6;
+    }
+    nav a:hover, nav a.active {
+      background: var(--terracotta);
+      color: var(--warm-white);
+    }
+
+    /* ── PAGE WRAPPER ── */
+    .page-wrapper {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 56px 24px 100px;
+    }
+
+    /* ── POST HEADER ── */
+    .post-header {
+      text-align: center;
+      margin-bottom: 52px;
+      padding-bottom: 32px;
+      border-bottom: 3px double var(--border);
+      animation: fadeUp 0.6s ease both;
+    }
+    .post-tag-row {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    .post-tag {
+      display: inline-block;
+      background: var(--powder-blue);
+      color: var(--ink);
+      font-family: 'Special Elite', cursive;
+      font-size: 9px;
+      letter-spacing: 0.4em;
+      padding: 4px 14px;
+      text-transform: uppercase;
+    }
+    .post-tag-zh {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 11px;
+      font-weight: 300;
+      color: var(--mid);
+      opacity: 0.6;
+      letter-spacing: 0.2em;
+    }
+    .post-header h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 5vw, 3.4rem);
+      font-weight: 900;
+      color: var(--ink);
+      line-height: 1.1;
+      margin-bottom: 10px;
+    }
+    .post-header .zh-title {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 1.1rem;
+      font-weight: 300;
+      color: var(--mid);
+      letter-spacing: 0.15em;
+      margin-bottom: 18px;
+    }
+    .post-header .subtitle {
+      font-family: 'IM Fell English', serif;
+      font-style: italic;
+      font-size: 1.05rem;
+      color: var(--mid);
+      line-height: 1.6;
+      margin-bottom: 18px;
+      max-width: 560px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .post-meta {
+      font-family: 'Special Elite', cursive;
+      font-size: 10px;
+      letter-spacing: 0.3em;
+      color: var(--mid);
+      text-transform: uppercase;
+      opacity: 0.65;
+    }
+    .post-meta span { margin: 0 8px; }
+    .post-ornament {
+      font-size: 16px;
+      color: var(--ochre);
+      letter-spacing: 0.5em;
+      margin-top: 16px;
+    }
+
+    /* ── POST BODY ── */
+    .post-body { animation: fadeUp 0.6s 0.1s ease both; }
+
+    .post-body p {
+      font-family: 'Courier Prime', monospace;
+      font-size: 15px;
+      line-height: 2;
+      color: var(--mid);
+      margin-bottom: 26px;
+    }
+    .post-body p:first-of-type::first-letter {
+      font-family: 'Playfair Display', serif;
+      font-size: 4.5rem;
+      font-weight: 900;
+      color: var(--ink);
+      float: left;
+      line-height: 0.75;
+      margin: 6px 10px 0 0;
+    }
+    .post-body h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem;
+      font-style: italic;
+      color: var(--ink);
+      margin: 40px 0 14px;
+      padding-left: 18px;
+      border-left: 3px solid var(--ochre);
+      line-height: 1.3;
+    }
+    .post-body .zh-aside {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--mid);
+      opacity: 0.75;
+      letter-spacing: 0.1em;
+      line-height: 2.2;
+      margin-bottom: 26px;
+      padding-left: 20px;
+      border-left: 2px solid var(--border-light);
+    }
+
+    /* ── PULL QUOTE ── */
+    .pull-quote {
+      margin: 48px 0;
+      padding: 30px 40px;
+      border-top: 3px double var(--ochre);
+      border-bottom: 3px double var(--ochre);
+      text-align: center;
+      position: relative;
+    }
+    .pull-quote::before {
+      content: '\201C';
+      font-family: 'Playfair Display', serif;
+      font-size: 100px;
+      color: var(--terra-pale);
+      line-height: 0.4;
+      position: absolute;
+      top: 50px; left: 8px;
+      pointer-events: none;
+    }
+    .pull-quote blockquote {
+      font-family: 'IM Fell English', serif;
+      font-style: italic;
+      font-size: 1.2rem;
+      color: var(--ink);
+      line-height: 1.7;
+      position: relative; z-index: 1;
+    }
+    .pull-quote .zh-quote {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--mid);
+      letter-spacing: 0.15em;
+      margin-top: 12px;
+      display: block;
+      opacity: 0.7;
+      position: relative; z-index: 1;
+    }
+
+    /* ── ANNOTATION BOX ── */
+    .annotation {
+      background: var(--powder-blue);
+      border: 2px solid var(--pale-blue);
+      padding: 22px 28px;
+      margin: 36px 0;
+      position: relative;
+    }
+    .annotation::before {
+      content: 'A NOTE TO SELF · 給自己的話';
+      position: absolute;
+      top: -11px; left: 20px;
+      background: var(--pale-blue);
+      color: var(--ink);
+      font-family: 'Special Elite', cursive;
+      font-size: 9px;
+      letter-spacing: 0.3em;
+      padding: 2px 12px;
+      text-transform: uppercase;
+    }
+    .annotation p {
+      font-family: 'IM Fell English', serif;
+      font-style: italic;
+      font-size: 14px;
+      color: var(--ink);
+      line-height: 1.9;
+      margin: 0 !important;
+    }
+    .annotation .zh-note {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--mid);
+      letter-spacing: 0.1em;
+      line-height: 2.2;
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px dashed var(--pale-blue);
+    }
+
+    /* ── FIRE COUNTER ── */
+    .fire-counter {
+      background: var(--warm-white);
+      border: 2px solid var(--border-light);
+      border-top: 5px solid var(--ink);
+      padding: 28px 32px;
+      margin: 40px 0;
+      position: relative;
+    }
+    .fire-counter::before {
+      content: 'THE FIRE GUILT INVENTORY · 財務自由的罪惡感清單';
+      position: absolute;
+      top: -13px; left: 24px;
+      background: var(--ink);
+      color: var(--warm-white);
+      font-family: 'Special Elite', cursive;
+      font-size: 9px;
+      letter-spacing: 0.3em;
+      padding: 3px 12px;
+      text-transform: uppercase;
+    }
+    .guilt-item {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 16px;
+      align-items: center;
+      padding: 12px 0;
+      border-bottom: 1px dashed var(--border-light);
+    }
+    .guilt-item:last-child { border-bottom: none; }
+    .guilt-icon { font-size: 20px; }
+    .guilt-text {
+      font-family: 'Courier Prime', monospace;
+      font-size: 13px;
+      color: var(--mid);
+      line-height: 1.6;
+    }
+    .guilt-text .zh {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 11px;
+      font-weight: 300;
+      opacity: 0.65;
+      letter-spacing: 0.1em;
+      display: block;
+      margin-top: 2px;
+    }
+    .guilt-verdict {
+      font-family: 'Special Elite', cursive;
+      font-size: 9px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      white-space: nowrap;
+    }
+    .verdict-irrational { background: var(--sage-pale); color: var(--sage-dark); }
+    .verdict-valid      { background: var(--ochre-pale); color: var(--ochre); }
+    .verdict-funny      { background: var(--terra-pale); color: var(--terracotta); }
+
+    /* ── CLOSING NOTE ── */
+    .closing-note {
+      background: var(--ink);
+      color: var(--warm-white);
+      padding: 32px 36px;
+      margin-top: 52px;
+      position: relative;
+      border-top: 4px solid var(--ochre);
+    }
+    .closing-note::before {
+      content: '後記';
+      position: absolute;
+      top: -13px; left: 28px;
+      background: var(--ochre);
+      color: var(--ink);
+      font-family: 'Noto Serif TC', serif;
+      font-size: 11px;
+      letter-spacing: 0.3em;
+      padding: 3px 12px;
+      font-weight: 700;
+    }
+    .closing-note p {
+      font-size: 13px;
+      line-height: 1.95;
+      color: rgba(253,248,240,0.8);
+      margin-bottom: 12px;
+    }
+    .closing-note p:last-child { margin-bottom: 0; }
+    .closing-note .zh-closing {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--ochre-light);
+      letter-spacing: 0.12em;
+      line-height: 2.2;
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px dashed rgba(255,255,255,0.15);
+    }
+
+    /* ── POST FOOTER ── */
+    .post-footer {
+      margin-top: 52px;
+      padding-top: 24px;
+      border-top: 3px double var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .post-footer .back-link {
+      font-family: 'Special Elite', cursive;
+      font-size: 10px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--terracotta);
+      text-decoration: none;
+      border: 1px solid var(--border);
+      padding: 8px 18px;
+      transition: background 0.2s, color 0.2s;
+    }
+    .post-footer .back-link:hover {
+      background: var(--terracotta);
+      color: var(--warm-white);
+    }
+    .post-footer .entry-info {
+      font-family: 'Special Elite', cursive;
+      font-size: 10px;
+      letter-spacing: 0.25em;
+      color: var(--mid);
+      opacity: 0.55;
+      text-transform: uppercase;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--ink);
+      border-top: 4px double var(--terracotta);
+      text-align: center;
+      padding: 28px 20px;
+    }
+    footer .footer-zh {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--ochre-light);
+      letter-spacing: 0.15em;
+    }
+    footer .footer-en {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 0.95rem;
+      color: var(--terra-pale);
+    }
+    footer .footer-ornament {
+      font-size: 14px;
+      letter-spacing: 0.6em;
+      color: var(--terracotta);
+      margin: 10px 0;
+    }
+    footer p {
+      font-family: 'Special Elite', cursive;
+      font-size: 9px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--border);
+      opacity: 0.4;
+      margin-top: 4px;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(14px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 600px) {
+      .top-banner { flex-direction: column; gap: 4px; }
+      nav a { padding: 12px 12px; font-size: 10px; }
+      .post-body p:first-of-type::first-letter { font-size: 3rem; }
+      .pull-quote { padding: 24px 20px; }
+      .guilt-item { grid-template-columns: auto 1fr; }
+      .guilt-verdict { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TOP BANNER -->
+  <div class="top-banner">
+    <span>吃了飯 嗎 · Personal Therapy · 心靈角落</span>
+    <span class="zh">飲食 · 旅行 · 心靈日記</span>
+  </div>
+
+  <!-- MASTHEAD -->
+  <header class="masthead">
+    <p class="masthead-top">吃了飯 嗎 · A Bilingual Journal</p>
+    <h1>
+      吃了飯 嗎
+      <span class="en">Have You Eaten (Rice) Yet?</span>
+    </h1>
+  </header>
+
+  <!-- NAV -->
+  <nav>
+    <a href="index.html">🏠 Home <span class="nav-zh">首頁</span></a>
+    <a href="index.html#food">🍜 Food <span class="nav-zh">食物</span></a>
+    <a href="index.html#travels">🗺 Travels <span class="nav-zh">旅行</span></a>
+    <a href="index.html#therapy" class="active">✒ Personal Therapy <span class="nav-zh">心靈角落</span></a>
+  </nav>
+
+  <div class="page-wrapper">
+
+    <!-- POST HEADER -->
+    <div class="post-header">
+      <div class="post-tag-row">
+        <span class="post-tag">Personal Therapy · 心靈角落</span>
+        <span class="post-tag-zh">財務自由</span>
+      </div>
+      <h2>The Guilt of FIRE</h2>
+      <p class="zh-title">財務自由的罪惡感</p>
+      <p class="subtitle">
+        On walking away from a well-paying job, the strange weight of freedom,
+        and why "congratulations" never quite covers what you're actually feeling.
+      </p>
+      <p class="post-meta">
+        <span>Personal Therapy</span>·
+        <span>8 min read · 八分鐘</span>·
+        <span>Entry No. 001</span>
+      </p>
+      <div class="post-ornament">✦ ✦ ✦</div>
+    </div>
+
+    <!-- POST BODY -->
+    <div class="post-body">
+
+      <p>
+        FIRE stands for Financial Independence, Retire Early. It is a movement,
+        a strategy, a Reddit community, and depending on who you ask, either
+        the smartest thing a person can do or a elaborate excuse to stop doing
+        anything useful. I achieved it. I walked away from a well-paying job.
+        And then I sat down, looked at my calendar — completely, gloriously empty —
+        and felt, inexplicably, terrible.
+      </p>
+
+      <p class="zh-aside">
+        財務自由了。提早退休了。行事曆空白一片。<br/>
+        然後呢？然後我坐在那裡，莫名其妙地感到很糟糕。
+      </p>
+
+      <p>
+        Nobody warns you about this part. The FIRE literature is very good at
+        telling you how to save, how to invest, what your withdrawal rate should be,
+        how to calculate your number. It is considerably less helpful on the subject
+        of what happens to your identity when you remove the thing that has been
+        defining it for the past twenty years. Turns out your sense of self
+        was more entangled with your job title than you thought.
+        Who knew. Well — everybody knew. You just didn't think it applied to you.
+      </p>
+
+      <h3>The Guilt Arrives Uninvited, Like a Relative</h3>
+
+      <p>
+        The guilt has several flavours. There is the social guilt — the mild panic
+        when someone at a dinner party asks what you do, and you have to explain
+        that you don't, exactly, do anything, and watch their face cycle through
+        confusion, envy, and something that looks uncomfortably like judgement,
+        all within about four seconds. There is the productivity guilt —
+        the creeping suspicion that a person who is not generating output is
+        not a real person. And there is the age guilt, which is perhaps
+        the strangest of all: the feeling that retirement is something that
+        happens at sixty-five, after decades of earning it, and that doing it
+        earlier is somehow — cheating.
+      </p>
+
+      <p class="zh-aside">
+        罪惡感有好幾種口味。<br/>
+        社交版：「你現在做什麼？」「呃……我不太做什麼。」<br/>
+        生產力版：不產出任何東西的人，算人嗎？<br/>
+        年齡版：退休不是應該六十五歲才輪到我嗎？
+      </p>
+
+      <div class="pull-quote">
+        <blockquote>
+          Retirement at sixty-five is considered wisdom.<br/>
+          Retirement at forty is considered suspicious.<br/>
+          The math is identical. Only the optics differ.
+        </blockquote>
+        <span class="zh-quote">六十五歲退休叫智慧。四十歲退休叫可疑。數學一樣，只是觀感不同。</span>
+      </div>
+
+      <h3>A Brief Inventory of Irrational Feelings</h3>
+
+      <p>
+        In the spirit of intellectual honesty — which is the only kind worth having —
+        here is a catalogue of the guilt I have experienced, along with my
+        own assessment of whether each item is rational, irrational, or simply funny:
+      </p>
+
+      <!-- FIRE GUILT INVENTORY -->
+      <div class="fire-counter">
+        <div class="guilt-item">
+          <div class="guilt-icon">💼</div>
+          <div class="guilt-text">
+            Feeling like I should go back to work because other people are still working
+            <span class="zh">別人還在上班，我就這樣走了？</span>
+          </div>
+          <div class="guilt-verdict verdict-irrational">Irrational</div>
+        </div>
+        <div class="guilt-item">
+          <div class="guilt-icon">⏰</div>
+          <div class="guilt-text">
+            Waking up at 7am with nothing scheduled and feeling vaguely criminal
+            <span class="zh">早上七點，行事曆空白，感覺自己在犯罪</span>
+          </div>
+          <div class="guilt-verdict verdict-funny">Quite Funny</div>
+        </div>
+        <div class="guilt-item">
+          <div class="guilt-icon">🧠</div>
+          <div class="guilt-text">
+            Worrying that my skills are degrading by the day and I am becoming useless
+            <span class="zh">擔心技能每天在退化，慢慢變成廢人</span>
+          </div>
+          <div class="guilt-verdict verdict-valid">Worth Noting</div>
+        </div>
+        <div class="guilt-item">
+          <div class="guilt-icon">💬</div>
+          <div class="guilt-text">
+            Not knowing how to answer "what do you do?" at social events
+            <span class="zh">社交場合不知道怎麼回答「你在做什麼？」</span>
+          </div>
+          <div class="guilt-verdict verdict-irrational">Irrational</div>
+        </div>
+        <div class="guilt-item">
+          <div class="guilt-icon">🌅</div>
+          <div class="guilt-text">
+            Enjoying a Tuesday morning walk and feeling like I don't deserve it
+            <span class="zh">週二早上去散步，覺得自己不配</span>
+          </div>
+          <div class="guilt-verdict verdict-funny">Very Funny</div>
+        </div>
+        <div class="guilt-item">
+          <div class="guilt-icon">🔄</div>
+          <div class="guilt-text">
+            Secretly wondering if I should go back to a corporate job just so I have something to complain about
+            <span class="zh">暗暗想說，要不要回去上班，至少有東西可以抱怨</span>
+          </div>
+          <div class="guilt-verdict verdict-funny">Deeply Funny</div>
+        </div>
+      </div>
+
+      <h3>The Corporate Job Was Never the Point</h3>
+
+      <p>
+        Here is what I have come to understand. The corporate job was never
+        the point — it was the vehicle. You don't mourn the bus after you've
+        arrived at the destination. You got on the bus because you needed
+        to get somewhere. You got somewhere. The bus has moved on.
+        This is correct. This is how buses work.
+      </p>
+
+      <p>
+        The harder question is not whether to go back. It is what to do
+        with the time. And this is where most FIRE literature fails you completely,
+        because it treats "what to do with your time" as self-evident.
+        It is not self-evident. It is, in fact, the entire question.
+        Money solves the financial problem. It does not solve the meaning problem.
+        Those are two different problems and you need two different solutions.
+      </p>
+
+      <p class="zh-aside">
+        錢解決了財務問題。<br/>
+        錢解決不了意義的問題。<br/>
+        這是兩個不同的問題，需要兩個不同的答案。
+      </p>
+
+      <h3>On Embracing Freedom Without Apologising For It</h3>
+
+      <p>
+        The freedom is real. This is worth stating plainly, because the guilt
+        can make you forget it. You made deliberate choices over many years.
+        You delayed gratification. You built something. The freedom you now have
+        is not luck — it is the compound interest of thousands of small decisions
+        made correctly over a long time. You are allowed to enjoy it.
+        You are, in fact, obligated to enjoy it. Wasting freedom is its own
+        kind of waste, and arguably a worse one than wasting money.
+      </p>
+
+      <div class="annotation">
+        <p>
+          The guilt is not evidence that you've done something wrong.
+          It is evidence that you were conditioned, for decades, to measure
+          your worth in output. That conditioning does not disappear the day
+          you stop producing. It fades. Slowly. Give it time.
+          Go for the Tuesday walk. You have earned the Tuesday walk.
+        </p>
+        <div class="zh-note">
+          罪惡感不是你做錯了的證明。<br/>
+          它只是幾十年的制約留下的痕跡。<br/>
+          去散步吧。週二早上的散步，你值得。
+        </div>
+      </div>
+
+      <p>
+        You are not too young to have stopped. You are exactly the right age —
+        the age at which you had the resources, the clarity, and the courage
+        to make the choice. Most people never get there. Not because they couldn't,
+        but because they never decided to. You decided. That decision deserves
+        respect, including from yourself. Especially from yourself.
+      </p>
+
+      <p>
+        The question is not whether to go back to a corporate job.
+        The question is what kind of person you want to be in this new chapter —
+        and what that person spends their Tuesday mornings doing.
+        That is a much more interesting question. It turns out it is also
+        a much harder one. Welcome to the real work.
+      </p>
+
+      <div class="closing-note">
+        <p>
+          FIRE is not retirement in the traditional sense. It is not a hammock
+          and a piña colada and the end of all productive thought.
+          It is, if done correctly, the beginning of the first chapter
+          you actually chose to write. The previous chapters were good.
+          They funded this one. But this one is yours — unscheduled,
+          unoptimised, and entirely up to you.
+        </p>
+        <p>
+          The guilt will pass. The freedom will remain.
+          Learn to tell the difference between the two.
+        </p>
+        <div class="zh-closing">
+          罪惡感會過去的。<br/>
+          自由會留下來。<br/>
+          學著分清楚這兩件事。<br/>
+          然後，好好過你的週二早上。
+        </div>
+      </div>
+
+    </div>
+
+    <!-- POST FOOTER -->
+    <div class="post-footer">
+      <a href="index.html" class="back-link">← 回首頁 · Back Home</a>
+      <span class="entry-info">Personal Therapy · 心靈角落 · Entry No. 001</span>
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-zh">吃了飯 嗎</div>
+    <div class="footer-en">Have You Eaten (Rice) Yet?</div>
+    <div class="footer-ornament">✦ ✦ ✦</div>
+    <p>A bilingual journal · 中英雙語日記 · Written with both hands</p>
+  </footer>
+
+</body>
+</html>
