@@ -1,0 +1,951 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Eat Like Julia — 吃了飯 嗎</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Noto+Serif+TC:wght@300;400;700;900&family=Special+Elite&family=Courier+Prime:ital@0;1&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --paper:        #f7f0e3;
+      --warm-white:   #fdf8f0;
+      --terracotta:   #c4603a;
+      --terra-light:  #d9836a;
+      --terra-pale:   #ead5c8;
+      --sage:         #7c9e82;
+      --sage-dark:    #4a6b50;
+      --sage-pale:    #d4e3d6;
+      --ochre:        #c8912a;
+      --ochre-light:  #e5b84a;
+      --ochre-pale:   #f2e0b0;
+      --ink:          #2a1f14;
+      --mid:          #5a3e2b;
+      --border:       #c9a87a;
+      --border-light: #e0c9a0;
+      --wine:         #722f37;
+      --wine-pale:    #f0dfe1;
+      --french-blue:  #2d4a7a;
+      --french-pale:  #dce6f5;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--paper);
+      background-image:
+        radial-gradient(ellipse at 20% 20%, rgba(196,96,58,0.06) 0%, transparent 60%),
+        repeating-linear-gradient(
+          0deg, transparent, transparent 32px,
+          rgba(201,168,122,0.1) 32px, rgba(201,168,122,0.1) 33px
+        );
+      color: var(--ink);
+      font-family: 'Courier Prime', monospace;
+      font-size: 15px;
+      line-height: 1.8;
+      min-height: 100vh;
+    }
+
+    /* ── TOP BANNER ── */
+    .top-banner {
+      background: var(--terracotta);
+      color: var(--warm-white);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 7px 32px;
+      font-family: 'Special Elite', cursive;
+      font-size: 10px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+    }
+    .top-banner .zh {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      font-weight: 300;
+    }
+
+    /* ── MASTHEAD ── */
+    .masthead {
+      background: var(--warm-white);
+      border-bottom: 4px double var(--border);
+      text-align: center;
+      padding: 22px 20px 16px;
+    }
+    .masthead-top {
+      font-family: 'Special Elite', cursive;
+      font-size: 10px;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--terracotta);
+      margin-bottom: 6px;
+    }
+    .masthead h1 {
+      font-family: 'Noto Serif TC', serif;
+      font-weight: 900;
+      font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+      color: var(--terracotta);
+      letter-spacing: 0.08em;
+      text-shadow: 2px 2px 0 var(--terra-pale);
+    }
+    .masthead h1 .en {
+      display: block;
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(0.8rem, 1.6vw, 1rem);
+      font-weight: 400;
+      font-style: italic;
+      color: var(--mid);
+      margin-top: 4px;
+      text-shadow: none;
+    }
+
+    /* ── NAV ── */
+    nav {
+      background: var(--ink);
+      display: flex;
+      justify-content: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 3px solid var(--terracotta);
+    }
+    nav a {
+      font-family: 'Special Elite', cursive;
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--border-light);
+      text-decoration: none;
+      padding: 14px 28px;
+      border-right: 1px solid rgba(255,255,255,0.08);
+      transition: background 0.2s, color 0.2s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+    }
+    nav a:first-child { border-left: 1px solid rgba(255,255,255,0.08); }
+    nav a .nav-zh {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 10px;
+      font-weight: 300;
+      letter-spacing: 0.15em;
+      opacity: 0.6;
+    }
+    nav a:hover, nav a.active {
+      background: var(--terracotta);
+      color: var(--warm-white);
+    }
+
+    /* ── PAGE WRAPPER ── */
+    .page-wrapper {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 56px 24px 100px;
+    }
+
+    /* ── POST HEADER ── */
+    .post-header {
+      text-align: center;
+      margin-bottom: 52px;
+      padding-bottom: 32px;
+      border-bottom: 3px double var(--border);
+      animation: fadeUp 0.6s ease both;
+    }
+    .post-tag-row {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    .post-tag {
+      display: inline-block;
+      background: var(--terra-pale);
+      color: var(--terracotta);
+      font-family: 'Special Elite', cursive;
+      font-size: 9px;
+      letter-spacing: 0.4em;
+      padding: 4px 14px;
+      text-transform: uppercase;
+    }
+    .post-tag-zh {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 11px;
+      font-weight: 300;
+      color: var(--mid);
+      opacity: 0.6;
+      letter-spacing: 0.2em;
+    }
+    .post-header h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 5vw, 3.6rem);
+      font-weight: 900;
+      color: var(--terracotta);
+      line-height: 1.1;
+      margin-bottom: 10px;
+    }
+    .post-header .zh-title {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 1.1rem;
+      font-weight: 300;
+      color: var(--mid);
+      letter-spacing: 0.15em;
+      margin-bottom: 18px;
+    }
+    .post-header .subtitle {
+      font-family: 'IM Fell English', serif;
+      font-style: italic;
+      font-size: 1.05rem;
+      color: var(--mid);
+      line-height: 1.6;
+      margin-bottom: 18px;
+      max-width: 580px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .post-meta {
+      font-family: 'Special Elite', cursive;
+      font-size: 10px;
+      letter-spacing: 0.3em;
+      color: var(--mid);
+      text-transform: uppercase;
+      opacity: 0.65;
+    }
+    .post-meta span { margin: 0 8px; }
+    .post-ornament {
+      font-size: 16px;
+      color: var(--ochre);
+      letter-spacing: 0.5em;
+      margin-top: 16px;
+    }
+
+    /* ── POST BODY ── */
+    .post-body { animation: fadeUp 0.6s 0.1s ease both; }
+    .post-body p {
+      font-family: 'Courier Prime', monospace;
+      font-size: 15px;
+      line-height: 2;
+      color: var(--mid);
+      margin-bottom: 24px;
+    }
+    .post-body p:first-of-type::first-letter {
+      font-family: 'Playfair Display', serif;
+      font-size: 4.5rem;
+      font-weight: 900;
+      color: var(--terracotta);
+      float: left;
+      line-height: 0.75;
+      margin: 6px 10px 0 0;
+    }
+    .post-body h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      font-style: italic;
+      color: var(--ink);
+      margin: 40px 0 14px;
+      padding-left: 18px;
+      border-left: 3px solid var(--terracotta);
+      line-height: 1.3;
+    }
+    .post-body .zh-aside {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--mid);
+      opacity: 0.75;
+      letter-spacing: 0.1em;
+      line-height: 2.2;
+      margin-bottom: 24px;
+      padding-left: 18px;
+      border-left: 2px solid var(--border-light);
+    }
+
+    /* ── JULIA BIO BOX ── */
+    .julia-bio {
+      background: var(--ink);
+      color: var(--warm-white);
+      padding: 28px 32px;
+      margin: 44px 0;
+      position: relative;
+      border-top: 4px solid var(--ochre);
+      border-bottom: 4px solid var(--ochre);
+    }
+    .julia-bio::before {
+      content: 'WHO IS JULIA CHILD? · 誰是茱莉亞？';
+      position: absolute;
+      top: -13px; left: 24px;
+      background: var(--ochre);
+      color: var(--ink);
+      font-family: 'Special Elite', cursive;
+      font-size: 9px;
+      letter-spacing: 0.3em;
+      padding: 3px 12px;
+      font-weight: 700;
+    }
+    .julia-bio p {
+      font-size: 13px;
+      line-height: 1.95;
+      color: rgba(253,248,240,0.85);
+      margin-bottom: 10px !important;
+    }
+    .julia-bio p:last-child { margin-bottom: 0 !important; }
+    .julia-bio .bio-zh {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 12px;
+      font-weight: 300;
+      color: var(--ochre-light);
+      letter-spacing: 0.1em;
+      line-height: 2.2;
+      margin-top: 14px;
+      padding-top: 14px;
+      border-top: 1px dashed rgba(255,255,255,0.15);
+    }
+
+    /* ── RESTAURANT BOX ── */
+    .restaurant-box {
+      background: var(--french-pale);
+      border: 2px solid #b0c0dc;
+      border-left: 6px solid var(--french-blue);
+      padding: 24px 28px;
+      margin: 36px 0;
+      position: relative;
+    }
+    .restaurant-box::before {
+      content: 'TONIGHT\'S DESTINATION · 今晚的目的地';
+      position: absolute;
+      top: -12px; left: 20px;
+      background: var(--french-blue);
+      color: var(--warm-white);
+      font-family: 'Special Elite', cursive;
+      font-size: 9px;
+      letter-spacing: 0.3em;
+      padding: 3px 12px;
+    }
+    .restaurant-box h4 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--french-blue);
+      margin-bottom: 4px;
+    }
+    .restaurant-box .rest-meta {
+      font-family: 'Special Elite', cursive;
+      font-size: 9px;
+      letter-spacing: 0.3em;
+      color: var(--french-blue);
+      opacity: 0.7;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .restaurant-box p {
+      font-size: 13px;
+      color: var(--mid);
+      line-height: 1.85;
+      margin-bottom: 0 !important;
+    }
+
+    /* ── COURSE CARDS ── */
+    .course {
+      margin: 36px 0;
+      border: 1px solid var(--border-light);
+      background: var(--warm-white);
+      overflow: hidden;
+      position: relative;
+    }
+    .course-header {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 0;
+      align-items: stretch;
+    }
+    .course-number {
+      background: var(--terracotta);
+      color: var(--warm-white);
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      font-weight: 900;
+      writing-mode: vertical-rl;
+      text-orientation: mixed;
+      padding: 20px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 52px;
+      letter-spacing: 0.1em;
+    }
+    .course-title-block {
+      padding: 18px 24px 14px;
+      border-bottom: 1px dashed var(--border-light);
+    }
+    .course-label {
+      font-family: 'Special Elite', cursive;
+      font-size: 9px;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: var(--terracotta);
+      display: block;
+      margin-bottom: 4px;
+    }
+    .course-dish {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--ink);
+      line-height: 1.2;
+    }
+    .course-dish-zh {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 12px;
+      font-weight: 300;
+      color: var(--mid);
+      letter-spacing: 0.1em;
+      margin-top: 3px;
+    }
+    .course-body {
+      padding: 18px 24px 20px;
+    }
+    .course-body p {
+      font-size: 14px;
+      color: var(--mid);
+      line-height: 1.9;
+      margin-bottom: 14px;
+    }
+    .course-body p:last-child { margin-bottom: 0; }
+    .julia-says {
+      background: var(--ochre-pale);
+      border-left: 3px solid var(--ochre);
+      padding: 12px 16px;
+      margin-top: 14px;
+      font-family: 'IM Fell English', serif;
+      font-style: italic;
+      font-size: 14px;
+      color: var(--ink);
+      line-height: 1.75;
+    }
+    .julia-says::before {
+      content: 'Julia says: ';
+      font-style: normal;
+      font-family: 'Special Elite', cursive;
+      font-size: 9px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--ochre);
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    /* ── WINE PAIRING ── */
+    .wine-pairing {
+      background: var(--wine-pale);
+      border: 1px solid #d4a8ad;
+      border-left: 5px solid var(--wine);
+      padding: 14px 20px;
+      margin-top: 14px;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 14px;
+      align-items: center;
+    }
+    .wine-icon { font-size: 28px; }
+    .wine-text { }
+    .wine-label {
+      font-family: 'Special Elite', cursive;
+      font-size: 9px;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--wine);
+      display: block;
+      margin-bottom: 3px;
+    }
+    .wine-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--wine);
+      line-height: 1.2;
+    }
+    .wine-note {
+      font-family: 'Courier Prime', monospace;
+      font-size: 12px;
+      color: var(--mid);
+      margin-top: 3px;
+    }
+
+    /* ── PULL QUOTE ── */
+    .pull-quote {
+      margin: 48px 0;
+      padding: 28px 40px;
+      border-top: 3px double var(--ochre);
+      border-bottom: 3px double var(--ochre);
+      text-align: center;
+      position: relative;
+    }
+    .pull-quote::before {
+      content: '\201C';
+      font-family: 'Playfair Display', serif;
+      font-size: 100px;
+      color: var(--terra-pale);
+      line-height: 0.4;
+      position: absolute;
+      top: 50px; left: 8px;
+      pointer-events: none;
+    }
+    .pull-quote blockquote {
+      font-family: 'IM Fell English', serif;
+      font-style: italic;
+      font-size: 1.2rem;
+      color: var(--terracotta);
+      line-height: 1.65;
+      position: relative; z-index: 1;
+    }
+    .pull-quote .zh-quote {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 12px;
+      font-weight: 300;
+      color: var(--mid);
+      letter-spacing: 0.15em;
+      margin-top: 10px;
+      display: block;
+      opacity: 0.7;
+      position: relative; z-index: 1;
+    }
+
+    /* ── POST FOOTER ── */
+    .post-footer {
+      margin-top: 52px;
+      padding-top: 24px;
+      border-top: 3px double var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .post-footer .back-link {
+      font-family: 'Special Elite', cursive;
+      font-size: 10px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--terracotta);
+      text-decoration: none;
+      border: 1px solid var(--border);
+      padding: 8px 18px;
+      transition: background 0.2s, color 0.2s;
+    }
+    .post-footer .back-link:hover {
+      background: var(--terracotta);
+      color: var(--warm-white);
+    }
+    .post-footer .entry-info {
+      font-family: 'Special Elite', cursive;
+      font-size: 10px;
+      letter-spacing: 0.25em;
+      color: var(--mid);
+      opacity: 0.55;
+      text-transform: uppercase;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--ink);
+      border-top: 4px double var(--terracotta);
+      text-align: center;
+      padding: 28px 20px;
+    }
+    footer .footer-zh {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--ochre-light);
+      letter-spacing: 0.15em;
+    }
+    footer .footer-en {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 0.95rem;
+      color: var(--terra-pale);
+    }
+    footer .footer-ornament {
+      font-size: 14px;
+      letter-spacing: 0.6em;
+      color: var(--terracotta);
+      margin: 10px 0;
+    }
+    footer p {
+      font-family: 'Special Elite', cursive;
+      font-size: 9px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--border);
+      opacity: 0.4;
+      margin-top: 4px;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(14px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 600px) {
+      .top-banner { flex-direction: column; gap: 4px; }
+      nav a { padding: 12px 12px; font-size: 10px; }
+      .post-body p:first-of-type::first-letter { font-size: 3rem; }
+      .course-number { writing-mode: horizontal-tb; min-width: auto; padding: 10px 14px; font-size: 1.2rem; }
+      .wine-pairing { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TOP BANNER -->
+  <div class="top-banner">
+    <span>吃了飯 嗎 · Food · 食物</span>
+    <span class="zh">飲食 · 旅行 · 心靈日記</span>
+  </div>
+
+  <!-- MASTHEAD -->
+  <header class="masthead">
+    <p class="masthead-top">吃了飯 嗎 · A Bilingual Journal</p>
+    <h1>
+      吃了飯 嗎
+      <span class="en">Have You Eaten (Rice) Yet?</span>
+    </h1>
+  </header>
+
+  <!-- NAV -->
+  <nav>
+    <a href="index.html">🏠 Home <span class="nav-zh">首頁</span></a>
+    <a href="index.html#food" class="active">🍜 Food <span class="nav-zh">食物</span></a>
+    <a href="index.html#travels">🗺 Travels <span class="nav-zh">旅行</span></a>
+    <a href="index.html#therapy">✒ Personal Therapy <span class="nav-zh">心靈角落</span></a>
+  </nav>
+
+  <div class="page-wrapper">
+
+    <!-- POST HEADER -->
+    <div class="post-header">
+      <div class="post-tag-row">
+        <span class="post-tag">Food · 食物</span>
+        <span class="post-tag-zh">法式料理指南</span>
+      </div>
+      <h2>Eat Like Julia</h2>
+      <p class="zh-title">像茱莉亞一樣吃</p>
+      <p class="subtitle">
+        A dinner guide for your out-of-town guest visiting San Francisco —
+        ordered, explained, and fully endorsed by a 6'2" former spy who learned
+        to cook in Paris and never looked back.
+      </p>
+      <p class="post-meta">
+        <span>Food</span>·
+        <span>10 min read · 十分鐘</span>·
+        <span>Entry No. 002</span>
+      </p>
+      <div class="post-ornament">✦ ✦ ✦</div>
+    </div>
+
+    <!-- POST BODY -->
+    <div class="post-body">
+
+      <p>
+        Your friend is visiting from out of town. They want a proper French dinner in San Francisco.
+        You want to impress them without pretending you know more than you do.
+        Good news: Julia Child has already done the homework. All you have to do is follow her lead.
+        And maybe not knock anything off the table.
+      </p>
+
+      <p class="zh-aside">
+        朋友從外地來，想吃一頓正式的法式晚餐。<br/>
+        你想讓他們印象深刻，但又不想裝作自己是美食專家。<br/>
+        放心。茱莉亞·柴爾德已經幫你做好功課了。
+      </p>
+
+      <!-- JULIA BIO -->
+      <div class="julia-bio">
+        <p>
+          Before she was America's most beloved cooking teacher, Julia Child was a 6'2"
+          California girl from Pasadena who couldn't boil an egg. She joined the OSS —
+          the precursor to the CIA — during World War II after being rejected from the
+          military for being too tall. Her first assignment involved developing shark repellent.
+          Yes, really. She was posted to Ceylon and then Kunming, China, where she handled
+          top-secret intelligence and, somewhere along the way, met her husband Paul.
+        </p>
+        <p>
+          When Paul was assigned to Paris in 1948, Julia ate her first proper French meal —
+          sole meunière at a restaurant in Rouen — and described it as an opening up of the
+          soul. She enrolled at Le Cordon Bleu, became a serious student of French cuisine,
+          and spent the next decade writing <em>Mastering the Art of French Cooking</em>,
+          which changed how Americans cooked. She passed away in 2004, two days before her
+          92nd birthday, with a bowl of French onion soup on her bedside table. Of course.
+        </p>
+        <div class="bio-zh">
+          茱莉亞·柴爾德出生於加州帕薩迪納，身高六呎二。<br/>
+          她不是廚師出身，而是前情報官員——真正的那種。<br/>
+          她在中國雲南昆明處理過最高機密文件。<br/>
+          後來嫁給了在巴黎吃遍美食的丈夫，這才開始學做飯。<br/>
+          有時候，人生的轉彎來得很晚，但來得剛剛好。
+        </div>
+      </div>
+
+      <h3>First, Where Are You Going?</h3>
+
+      <p>
+        San Francisco has no shortage of French restaurants. But tonight, we're going to
+        <strong>Frances</strong> on 17th Street in the Castro — a Michelin-starred
+        neighbourhood restaurant that doesn't feel like it's trying to impress you,
+        which is exactly why it does. Less white tablecloth, more good food. Julia
+        would have liked it immediately.
+      </p>
+
+      <div class="restaurant-box">
+        <h4>Frances</h4>
+        <p class="rest-meta">3870 17th St, San Francisco · The Castro · Michelin Starred · $$ · Tue–Sat from 5:15pm</p>
+        <p>
+          Named after chef-owner Melissa Perello's grandmother — which is already a good sign —
+          Frances opened in 2009 and earned its Michelin star without any fuss. The menu
+          changes seasonally, sometimes weekly, built around whatever the Northern California
+          farmers markets are doing that day. Californian produce with a Mediterranean bent,
+          rustic but precise — no trendy powders or foams in sight. Book ahead.
+          Reservations are difficult to score and walk-ins are a gamble
+          you probably don't want to take with an out-of-town guest.
+        </p>
+      </div>
+
+      <p>
+        You're seated. The bread has arrived. Your guest is looking at the menu with that
+        particular expression people get when everything sounds good and nothing makes sense.
+        This is where Julia steps in.
+      </p>
+
+      <div class="pull-quote">
+        <blockquote>
+          "The secret of a happy marriage is finding the right person.<br/>
+          You know they're right if you love to be with them all the time —<br/>
+          and you love to be with them especially when you're eating."
+        </blockquote>
+        <span class="zh-quote">— Julia Child，她說的是婚姻，但也可能是說法國菜。</span>
+      </div>
+
+      <!-- COURSE 1 -->
+      <div class="course">
+        <div class="course-header">
+          <div class="course-number">一</div>
+          <div class="course-title-block">
+            <span class="course-label">Appetizer · 前菜</span>
+            <div class="course-dish">Seared Foie Gras</div>
+            <div class="course-dish-zh">煎鵝肝</div>
+          </div>
+        </div>
+        <div class="course-body">
+          <p>
+            Start here. Foie gras is the kind of dish people either love immediately or
+            spend ten minutes explaining why they don't eat it. Either way, it makes for
+            good dinner conversation. Seared gives you a caramelised crust with a silky
+            centre — the contrast is the whole point. Do not skip the brioche it comes with.
+            That is not a suggestion.
+          </p>
+          <div class="julia-says">
+            Julia learned her foie gras in Paris, where it was treated not as indulgence
+            but as craft. In her years at Le Cordon Bleu, she understood that French cooking
+            was never about excess — it was about respect for the ingredient. "Find something
+            you're passionate about and keep tremendously interested in it," she once said.
+            For foie gras, she clearly was.
+          </div>
+          <div class="wine-pairing">
+            <div class="wine-icon">🍷</div>
+            <div class="wine-text">
+              <span class="wine-label">Wine Pairing · 酒款搭配</span>
+              <div class="wine-name">Sauternes — Château d'Yquem</div>
+              <div class="wine-note">Sweet, golden, complex. The classic pairing. Foie gras and Sauternes is not a suggestion — it's a law Julia would have happily enforced.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- COURSE 2 -->
+      <div class="course">
+        <div class="course-header">
+          <div class="course-number">二</div>
+          <div class="course-title-block">
+            <span class="course-label">Salad · 沙拉</span>
+            <div class="course-dish">Roasted Beet Salad with Chèvre</div>
+            <div class="course-dish-zh">烤甜菜沙拉佐山羊起司</div>
+          </div>
+        </div>
+        <div class="course-body">
+          <p>
+            Between the richness of foie gras and whatever is coming next, you need something
+            that reminds your palate that vegetables exist. Roasted beets with goat cheese do
+            this gracefully. The earthiness of the beet, the tang of the chèvre, a handful of
+            walnuts for texture. Simple. Effective. Nobody ever regrets the beet salad.
+          </p>
+          <div class="julia-says">
+            Julia spent time in Germany when Paul was stationed there in the early 1950s.
+            Root vegetables — beets, turnips, parsnips — were staples she came to respect.
+            She brought that appreciation back to her French cooking, understanding that
+            peasant ingredients, treated properly, can outperform fancy ones. The beet is
+            living proof.
+          </div>
+          <div class="wine-pairing">
+            <div class="wine-icon">🥂</div>
+            <div class="wine-text">
+              <span class="wine-label">Wine Pairing · 酒款搭配</span>
+              <div class="wine-name">Sancerre — Henri Bourgeois</div>
+              <div class="wine-note">Crisp Loire Valley Sauvignon Blanc. Cuts through the goat cheese beautifully. Refreshes without competing.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- COURSE 3 -->
+      <div class="course">
+        <div class="course-header">
+          <div class="course-number">三</div>
+          <div class="course-title-block">
+            <span class="course-label">Main Course · 主菜</span>
+            <div class="course-dish">Sole Meunière</div>
+            <div class="course-dish-zh">檸檬奶油比目魚</div>
+          </div>
+        </div>
+        <div class="course-body">
+          <p>
+            This is the one. If you order nothing else on this list, order this.
+            Sole meunière is lightly floured fish, pan-fried in butter, finished with
+            lemon and parsley. It sounds almost insultingly simple. It is not.
+            Done correctly, it is one of the finest things you can eat. Done incorrectly,
+            it tastes like a gym cafeteria. Frances does not make gym cafeteria food.
+          </p>
+          <div class="julia-says">
+            This was Julia's first real French meal. In 1948, newly arrived in France, she
+            sat down at La Couronne in Rouen and ordered sole meunière. She described the
+            experience to the New York Times as an opening up of the soul and spirit.
+            A 6'2" former intelligence officer from Pasadena, reduced to a profound moment
+            of clarity over a piece of fish in butter. That is the power of French cooking.
+            And also of good butter.
+          </div>
+          <div class="wine-pairing">
+            <div class="wine-icon">🍾</div>
+            <div class="wine-text">
+              <span class="wine-label">Wine Pairing · 酒款搭配</span>
+              <div class="wine-name">Burgundy White — Meursault Premier Cru</div>
+              <div class="wine-note">Rich, nutty Chardonnay from Burgundy. Matches the butter in the dish without overwhelming the delicate fish. Julia's choice. Obviously.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- COURSE 4 -->
+      <div class="course">
+        <div class="course-header">
+          <div class="course-number">四</div>
+          <div class="course-title-block">
+            <span class="course-label">Cheese · 起司</span>
+            <div class="course-dish">The Cheese Cart</div>
+            <div class="course-dish-zh">起司車</div>
+          </div>
+        </div>
+        <div class="course-body">
+          <p>
+            In France, cheese comes before dessert. Not after. This is not negotiable and
+            also the correct way. Frances's cheese selection rotates with the season —
+            ask your server what's on. As a general rule: one soft, one semi-firm, one aged.
+            Do not take more than three. You are not at a buffet.
+          </p>
+          <div class="julia-says">
+            Julia embraced the French cheese course completely and without apology.
+            During her Paris years, she educated herself on every French region's contribution —
+            Normandy's Camembert, Burgundy's Époisses, the Pyrenees' Ossau-Iraty.
+            She understood that cheese was not an afterthought. It was a bridge between
+            the savoury and the sweet. The French figured this out centuries ago.
+            We're still catching up.
+          </div>
+          <div class="wine-pairing">
+            <div class="wine-icon">🍷</div>
+            <div class="wine-text">
+              <span class="wine-label">Wine Pairing · 酒款搭配</span>
+              <div class="wine-name">Côtes du Rhône Rouge — Château Rayas</div>
+              <div class="wine-note">A medium-bodied red with enough structure for aged cheese, enough elegance not to bully the soft ones. Works with everything on the cart.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- COURSE 5 -->
+      <div class="course">
+        <div class="course-header">
+          <div class="course-number">五</div>
+          <div class="course-title-block">
+            <span class="course-label">Dessert · 甜點</span>
+            <div class="course-dish">Crème Brûlée</div>
+            <div class="course-dish-zh">法式焦糖燉蛋</div>
+          </div>
+        </div>
+        <div class="course-body">
+          <p>
+            End here. Always end with crème brûlée at a French restaurant, for the same reason
+            you always end a conversation with a good joke — it's the last thing people remember.
+            Crack the top. Listen for the sound. If it doesn't make a sound, send it back.
+            You are allowed to do this. Julia would have.
+          </p>
+          <div class="julia-says">
+            In her later years, Julia simplified her cooking considerably. The elaborate
+            multi-step recipes of <em>Mastering the Art of French Cooking</em> gave way
+            to a more relaxed approach — good ingredients, proper technique, don't fuss.
+            Crème brûlée embodies this perfectly. Cream, eggs, sugar, vanilla, heat.
+            Nothing hidden. Everything matters. Like most things worth doing.
+          </div>
+          <div class="wine-pairing">
+            <div class="wine-icon">🥂</div>
+            <div class="wine-text">
+              <span class="wine-label">Wine Pairing · 酒款搭配</span>
+              <div class="wine-name">Champagne — Billecart-Salmon Blanc de Blancs</div>
+              <div class="wine-note">Crisp, bright, celebratory. End the meal the way Julia would have ended any good evening — with Champagne and no apologies.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <h3>One Last Thing</h3>
+
+      <p>
+        Julia Child spent her life teaching Americans that French food was not intimidating,
+        not pretentious, and not beyond reach. She did this from a kitchen in Cambridge,
+        Massachusetts, on public television, with a budget that would make modern food
+        media weep. She was also, somewhere in her past, a woman who flew over the Himalayas
+        on a C-46 and handled top-secret documents in Kunming, China. She called the war
+        the thing that made her. French cooking was what she did with that making.
+      </p>
+
+      <p>
+        Order the sole meunière. Drink the Meursault. Crack the crème brûlée.
+        Your out-of-town guest will think you know exactly what you're doing.
+        You don't have to tell them you had help.
+      </p>
+
+      <p class="zh-aside">
+        點比目魚。喝白酒。敲碎焦糖布蕾的頂部，聽那個聲音。<br/>
+        你的朋友會以為你是美食專家。<br/>
+        你不需要告訴他們，你只是跟著茱莉亞走。
+      </p>
+
+    </div>
+
+    <!-- POST FOOTER -->
+    <div class="post-footer">
+      <a href="index.html" class="back-link">← 回首頁 · Back Home</a>
+      <span class="entry-info">Food · 食物 · Entry No. 002</span>
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-zh">吃了飯 嗎</div>
+    <div class="footer-en">Have You Eaten (Rice) Yet?</div>
+    <div class="footer-ornament">✦ ✦ ✦</div>
+    <p>A bilingual journal · 中英雙語日記 · Written with both hands</p>
+  </footer>
+
+</body>
+</html>
