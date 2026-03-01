@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Plant Based Diet — 吃了飯 嗎</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Noto+Serif+TC:wght@300;400;700;900&family=Special+Elite&family=Courier+Prime:ital@0;1&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --paper:        #f7f0e3;
+      --warm-white:   #fdf8f0;
+      --terracotta:   #c4603a;
+      --terra-pale:   #ead5c8;
+      --sage:         #7c9e82;
+      --sage-dark:    #4a6b50;
+      --sage-pale:    #d4e3d6;
+      --sage-mid:     #a8c8ae;
+      --ochre:        #c8912a;
+      --ochre-light:  #e5b84a;
+      --ochre-pale:   #f2e0b0;
+      --ink:          #2a1f14;
+      --mid:          #5a3e2b;
+      --border:       #c9a87a;
+      --border-light: #e0c9a0;
+      --plum:         #6b3a5e;
+      --plum-pale:    #ecdce8;
+      --sky:          #4a7c8e;
+      --sky-pale:     #d8eaf0;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--paper);
+      background-image:
+        radial-gradient(ellipse at 20% 20%, rgba(124,158,130,0.07) 0%, transparent 60%),
+        repeating-linear-gradient(
+          0deg, transparent, transparent 32px,
+          rgba(201,168,122,0.1) 32px, rgba(201,168,122,0.1) 33px
+        );
+      color: var(--ink);
+      font-family: 'Courier Prime', monospace;
+      font-size: 15px;
+      line-height: 1.8;
+      min-height: 100vh;
+    }
+
+    /* ── TOP BANNER ── */
+    .top-banner {
+      background: var(--sage-dark);
+      color: var(--warm-white);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 7px 32px;
+      font-family: 'Special Elite', cursive;
+      font-size: 10px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+    }
+    .top-banner .zh {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      font-weight: 300;
+    }
+
+    /* ── MASTHEAD ── */
+    .masthead {
+      background: var(--warm-white);
+      border-bottom: 4px double var(--border);
+      text-align: center;
+      padding: 22px 20px 16px;
+    }
+    .masthead-top {
+      font-family: 'Special Elite', cursive;
+      font-size: 10px;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--terracotta);
+      margin-bottom: 6px;
+    }
+    .masthead h1 {
+      font-family: 'Noto Serif TC', serif;
+      font-weight: 900;
+      font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+      color: var(--terracotta);
+      letter-spacing: 0.08em;
+      text-shadow: 2px 2px 0 var(--terra-pale);
+    }
+    .masthead h1 .en {
+      display: block;
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(0.8rem, 1.6vw, 1rem);
+      font-weight: 400;
+      font-style: italic;
+      color: var(--mid);
+      margin-top: 4px;
+      text-shadow: none;
+    }
+
+    /* ── NAV ── */
+    nav {
+      background: var(--ink);
+      display: flex;
+      justify-content: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 3px solid var(--terracotta);
+    }
+    nav a {
+      font-family: 'Special Elite', cursive;
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--border-light);
+      text-decoration: none;
+      padding: 14px 28px;
+      border-right: 1px solid rgba(255,255,255,0.08);
+      transition: background 0.2s, color 0.2s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+    }
+    nav a:first-child { border-left: 1px solid rgba(255,255,255,0.08); }
+    nav a .nav-zh {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 10px;
+      font-weight: 300;
+      letter-spacing: 0.15em;
+      opacity: 0.6;
+    }
+    nav a:hover, nav a.active {
+      background: var(--terracotta);
+      color: var(--warm-white);
+    }
+
+    /* ── PAGE WRAPPER ── */
+    .page-wrapper {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 56px 24px 100px;
+    }
+
+    /* ── POST HEADER ── */
+    .post-header {
+      text-align: center;
+      margin-bottom: 52px;
+      padding-bottom: 32px;
+      border-bottom: 3px double var(--border);
+      animation: fadeUp 0.6s ease both;
+    }
+    .post-tag-row {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    .post-tag {
+      display: inline-block;
+      background: var(--sage-pale);
+      color: var(--sage-dark);
+      font-family: 'Special Elite', cursive;
+      font-size: 9px;
+      letter-spacing: 0.4em;
+      padding: 4px 14px;
+      text-transform: uppercase;
+    }
+    .post-tag-zh {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 11px;
+      font-weight: 300;
+      color: var(--mid);
+      opacity: 0.6;
+      letter-spacing: 0.2em;
+    }
+    .post-header h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 5vw, 3.4rem);
+      font-weight: 900;
+      color: var(--sage-dark);
+      line-height: 1.1;
+      margin-bottom: 10px;
+    }
+    .post-header .zh-title {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 1.1rem;
+      font-weight: 300;
+      color: var(--mid);
+      letter-spacing: 0.15em;
+      margin-bottom: 18px;
+    }
+    .post-header .subtitle {
+      font-family: 'IM Fell English', serif;
+      font-style: italic;
+      font-size: 1.05rem;
+      color: var(--mid);
+      line-height: 1.6;
+      margin-bottom: 18px;
+      max-width: 580px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .post-meta {
+      font-family: 'Special Elite', cursive;
+      font-size: 10px;
+      letter-spacing: 0.3em;
+      color: var(--mid);
+      text-transform: uppercase;
+      opacity: 0.65;
+    }
+    .post-meta span { margin: 0 8px; }
+    .post-ornament {
+      font-size: 16px;
+      color: var(--sage);
+      letter-spacing: 0.5em;
+      margin-top: 16px;
+    }
+
+    /* ── POST BODY ── */
+    .post-body { animation: fadeUp 0.6s 0.1s ease both; }
+    .post-body p {
+      font-family: 'Courier Prime', monospace;
+      font-size: 15px;
+      line-height: 2;
+      color: var(--mid);
+      margin-bottom: 24px;
+    }
+    .post-body p:first-of-type::first-letter {
+      font-family: 'Playfair Display', serif;
+      font-size: 4.5rem;
+      font-weight: 900;
+      color: var(--sage-dark);
+      float: left;
+      line-height: 0.75;
+      margin: 6px 10px 0 0;
+    }
+    .post-body h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      font-style: italic;
+      color: var(--ink);
+      margin: 44px 0 14px;
+      padding-left: 18px;
+      border-left: 3px solid var(--sage);
+      line-height: 1.3;
+    }
+    .post-body .zh-aside {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--mid);
+      opacity: 0.75;
+      letter-spacing: 0.1em;
+      line-height: 2.2;
+      margin-bottom: 24px;
+      padding-left: 18px;
+      border-left: 2px solid var(--border-light);
+    }
+
+    /* ── POLLAN QUOTE ── */
+    .pollan-quote {
+      background: var(--sage-dark);
+      color: var(--warm-white);
+      text-align: center;
+      padding: 36px 48px;
+      margin: 48px 0;
+      position: relative;
+    }
+    .pollan-quote::before,
+    .pollan-quote::after {
+      content: '🌿';
+      position: absolute;
+      font-size: 40px;
+      opacity: 0.2;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+    .pollan-quote::before { left: 16px; }
+    .pollan-quote::after  { right: 16px; }
+    .pollan-quote blockquote {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+      font-style: italic;
+      line-height: 1.6;
+      position: relative; z-index: 1;
+    }
+    .pollan-quote cite {
+      display: block;
+      margin-top: 12px;
+      font-family: 'Special Elite', cursive;
+      font-style: normal;
+      font-size: 9px;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      opacity: 0.6;
+      position: relative; z-index: 1;
+    }
+    .pollan-quote .zh-quote {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 13px;
+      font-weight: 300;
+      opacity: 0.7;
+      margin-top: 10px;
+      letter-spacing: 0.15em;
+      display: block;
+      position: relative; z-index: 1;
+    }
+
+    /* ── PILLAR CARDS ── */
+    .pillar {
+      margin: 40px 0;
+      border: 1px solid var(--border-light);
+      background: var(--warm-white);
+      overflow: hidden;
+    }
+    .pillar-header {
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      align-items: stretch;
+    }
+    .pillar-icon-block {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 36px;
+      padding: 20px;
+    }
+    .pillar.bones  .pillar-icon-block { background: var(--sky-pale); }
+    .pillar.muscle .pillar-icon-block { background: var(--ochre-pale); }
+    .pillar.mind   .pillar-icon-block { background: var(--plum-pale); }
+
+    .pillar-title-block {
+      padding: 16px 22px;
+      border-bottom: 1px dashed var(--border-light);
+    }
+    .pillar-label {
+      font-family: 'Special Elite', cursive;
+      font-size: 9px;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      display: block;
+      margin-bottom: 4px;
+    }
+    .pillar.bones  .pillar-label { color: var(--sky); }
+    .pillar.muscle .pillar-label { color: var(--ochre); }
+    .pillar.mind   .pillar-label { color: var(--plum); }
+
+    .pillar-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--ink);
+      line-height: 1.2;
+    }
+    .pillar-name-zh {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 12px;
+      font-weight: 300;
+      color: var(--mid);
+      letter-spacing: 0.12em;
+      margin-top: 2px;
+    }
+    .pillar-body { padding: 20px 24px; }
+    .pillar-body p {
+      font-size: 14px;
+      color: var(--mid);
+      line-height: 1.9;
+      margin-bottom: 16px;
+    }
+    .pillar-body p:last-child { margin-bottom: 0; }
+
+    /* ── SCIENCE NOTE ── */
+    .science-note {
+      background: var(--sky-pale);
+      border-left: 3px solid var(--sky);
+      padding: 12px 16px;
+      margin: 14px 0;
+      font-family: 'IM Fell English', serif;
+      font-style: italic;
+      font-size: 13px;
+      color: var(--ink);
+      line-height: 1.75;
+    }
+    .science-note.muscle { background: var(--ochre-pale); border-left-color: var(--ochre); }
+    .science-note.mind   { background: var(--plum-pale);  border-left-color: var(--plum); }
+    .science-note::before {
+      content: 'The science · 科學怎麼說';
+      font-family: 'Special Elite', cursive;
+      font-style: normal;
+      font-size: 9px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--sky);
+      display: block;
+      margin-bottom: 6px;
+    }
+    .science-note.muscle::before { color: var(--ochre); }
+    .science-note.mind::before   { color: var(--plum); }
+
+    /* ── MEAL CARD ── */
+    .meal-card {
+      background: var(--sage-pale);
+      border: 1px solid var(--sage-mid);
+      padding: 18px 22px;
+      margin-top: 16px;
+      position: relative;
+    }
+    .meal-card::before {
+      content: 'Try This · 試試看';
+      position: absolute;
+      top: -11px; left: 16px;
+      background: var(--sage-dark);
+      color: var(--warm-white);
+      font-family: 'Special Elite', cursive;
+      font-size: 9px;
+      letter-spacing: 0.3em;
+      padding: 2px 12px;
+    }
+    .meal-card .meal-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--sage-dark);
+      margin-bottom: 6px;
+    }
+    .meal-card .meal-zh {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 11px;
+      font-weight: 300;
+      color: var(--mid);
+      letter-spacing: 0.1em;
+      margin-bottom: 10px;
+    }
+    .meal-card p {
+      font-size: 13px !important;
+      color: var(--sage-dark) !important;
+      line-height: 1.85 !important;
+      margin-bottom: 8px !important;
+    }
+    .meal-card .why {
+      font-family: 'IM Fell English', serif;
+      font-style: italic;
+      font-size: 12px;
+      color: var(--mid);
+      opacity: 0.8;
+      margin-top: 8px;
+    }
+
+    /* ── PULL QUOTE ── */
+    .pull-quote {
+      margin: 48px 0;
+      padding: 28px 40px;
+      border-top: 3px double var(--sage);
+      border-bottom: 3px double var(--sage);
+      text-align: center;
+      position: relative;
+    }
+    .pull-quote::before {
+      content: '\201C';
+      font-family: 'Playfair Display', serif;
+      font-size: 100px;
+      color: var(--sage-pale);
+      line-height: 0.4;
+      position: absolute;
+      top: 50px; left: 8px;
+      pointer-events: none;
+    }
+    .pull-quote blockquote {
+      font-family: 'IM Fell English', serif;
+      font-style: italic;
+      font-size: 1.2rem;
+      color: var(--sage-dark);
+      line-height: 1.65;
+      position: relative; z-index: 1;
+    }
+    .pull-quote .zh-quote {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 12px;
+      font-weight: 300;
+      color: var(--mid);
+      letter-spacing: 0.15em;
+      margin-top: 10px;
+      display: block;
+      opacity: 0.7;
+      position: relative; z-index: 1;
+    }
+
+    /* ── CLOSING NOTE ── */
+    .closing-note {
+      background: var(--sage-dark);
+      color: var(--warm-white);
+      padding: 32px 36px;
+      margin-top: 52px;
+      position: relative;
+      border-top: 4px solid var(--ochre);
+    }
+    .closing-note::before {
+      content: '後記';
+      position: absolute;
+      top: -13px; left: 28px;
+      background: var(--ochre);
+      color: var(--ink);
+      font-family: 'Noto Serif TC', serif;
+      font-size: 11px;
+      letter-spacing: 0.3em;
+      padding: 3px 12px;
+      font-weight: 700;
+    }
+    .closing-note p {
+      font-size: 13px;
+      line-height: 1.95;
+      color: rgba(253,248,240,0.85);
+      margin-bottom: 12px;
+    }
+    .closing-note p:last-child { margin-bottom: 0; }
+    .closing-note .zh-closing {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--ochre-light);
+      letter-spacing: 0.12em;
+      line-height: 2.2;
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px dashed rgba(255,255,255,0.15);
+    }
+
+    /* ── DISCLAIMER ── */
+    .disclaimer {
+      background: var(--terra-pale);
+      border: 1px dashed var(--border);
+      padding: 14px 20px;
+      margin-top: 36px;
+      font-family: 'Special Elite', cursive;
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      color: var(--mid);
+      line-height: 1.8;
+      text-align: center;
+    }
+
+    /* ── POST FOOTER ── */
+    .post-footer {
+      margin-top: 40px;
+      padding-top: 24px;
+      border-top: 3px double var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .post-footer .back-link {
+      font-family: 'Special Elite', cursive;
+      font-size: 10px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--sage-dark);
+      text-decoration: none;
+      border: 1px solid var(--border);
+      padding: 8px 18px;
+      transition: background 0.2s, color 0.2s;
+    }
+    .post-footer .back-link:hover {
+      background: var(--sage-dark);
+      color: var(--warm-white);
+    }
+    .post-footer .entry-info {
+      font-family: 'Special Elite', cursive;
+      font-size: 10px;
+      letter-spacing: 0.25em;
+      color: var(--mid);
+      opacity: 0.55;
+      text-transform: uppercase;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--ink);
+      border-top: 4px double var(--terracotta);
+      text-align: center;
+      padding: 28px 20px;
+    }
+    footer .footer-zh {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--ochre-light);
+      letter-spacing: 0.15em;
+    }
+    footer .footer-en {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 0.95rem;
+      color: var(--terra-pale);
+    }
+    footer .footer-ornament {
+      font-size: 14px;
+      letter-spacing: 0.6em;
+      color: var(--terracotta);
+      margin: 10px 0;
+    }
+    footer p {
+      font-family: 'Special Elite', cursive;
+      font-size: 9px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--border);
+      opacity: 0.4;
+      margin-top: 4px;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(14px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 600px) {
+      .top-banner { flex-direction: column; gap: 4px; }
+      nav a { padding: 12px 12px; font-size: 10px; }
+      .post-body p:first-of-type::first-letter { font-size: 3rem; }
+      .pull-quote { padding: 24px 20px; }
+      .pollan-quote { padding: 28px 20px; }
+      .pillar-header { grid-template-columns: 60px 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TOP BANNER -->
+  <div class="top-banner">
+    <span>吃了飯 嗎 · Food · 食物</span>
+    <span class="zh">飲食 · 旅行 · 心靈日記</span>
+  </div>
+
+  <!-- MASTHEAD -->
+  <header class="masthead">
+    <p class="masthead-top">吃了飯 嗎 · A Bilingual Journal</p>
+    <h1>
+      吃了飯 嗎
+      <span class="en">Have You Eaten (Rice) Yet?</span>
+    </h1>
+  </header>
+
+  <!-- NAV -->
+  <nav>
+    <a href="index.html">🏠 Home <span class="nav-zh">首頁</span></a>
+    <a href="index.html#food" class="active">🍜 Food <span class="nav-zh">食物</span></a>
+    <a href="index.html#travels">🗺 Travels <span class="nav-zh">旅行</span></a>
+    <a href="index.html#therapy">✒ Personal Therapy <span class="nav-zh">心靈角落</span></a>
+  </nav>
+
+  <div class="page-wrapper">
+
+    <!-- POST HEADER -->
+    <div class="post-header">
+      <div class="post-tag-row">
+        <span class="post-tag">Food · 食物</span>
+        <span class="post-tag-zh">植物性飲食</span>
+      </div>
+      <h2>Plant Based Diet</h2>
+      <p class="zh-title">植物性飲食指南</p>
+      <p class="subtitle">
+        For the woman in her mid-50s who is done being told what her body can't do —
+        and ready to hear what it still can, with the right food on her plate.
+      </p>
+      <p class="post-meta">
+        <span>Food</span>·
+        <span>9 min read · 九分鐘</span>·
+        <span>Entry No. 003</span>
+      </p>
+      <div class="post-ornament">🌿 🌿 🌿</div>
+    </div>
+
+    <!-- POST BODY -->
+    <div class="post-body">
+
+      <p>
+        There is a particular kind of invisibility that descends on women in their mid-50s.
+        The medical system starts talking past them. The wellness industry talks down to them.
+        And the food advice — when it exists at all — tends to be either catastrophically
+        complicated or aggressively cheerful in a way that feels faintly insulting.
+        This post is neither. It is just food. Real food. And what it can quietly,
+        reliably do for a body navigating one of its more demanding chapters.
+      </p>
+
+      <p class="zh-aside">
+        更年期後的女性，常常被忽視。<br/>
+        醫療系統說不完的風險，健康產業賣不完的補品。<br/>
+        這篇文章只談食物。真正的食物。以及它能做到的事。
+      </p>
+
+      <!-- POLLAN QUOTE -->
+      <div class="pollan-quote">
+        <blockquote>
+          "Eat food. Not too much. Mostly plants."
+        </blockquote>
+        <span class="zh-quote">吃真正的食物。不要吃太多。以植物為主。</span>
+        <cite>— Michael Pollan, In Defense of Food · 《為食物辯護》</cite>
+      </div>
+
+      <p>
+        Seven words. Michael Pollan distilled decades of nutrition research into seven words
+        and the nutrition industry has never quite forgiven him for it. Because he was right,
+        and being right so simply puts a lot of people out of business. The science behind
+        plant-based eating for post-menopausal women is extensive, peer-reviewed, and
+        unglamorous in the best possible way. No superfoods. No subscription boxes.
+        Just plants, prepared simply, eaten consistently.
+      </p>
+
+      <p>
+        Three things need the most attention at this stage: bones, muscles, and the mind.
+        Conveniently, plants have something useful to say about all three.
+      </p>
+
+      <!-- PILLAR 1: BONES -->
+      <div class="pillar bones">
+        <div class="pillar-header">
+          <div class="pillar-icon-block">🦴</div>
+          <div class="pillar-title-block">
+            <span class="pillar-label">Pillar One · 第一支柱</span>
+            <div class="pillar-name">Strengthening Your Bones</div>
+            <div class="pillar-name-zh">強化骨骼</div>
+          </div>
+        </div>
+        <div class="pillar-body">
+          <p>
+            Estrogen kept your bones dense. When it left, it took some of that protection
+            with it. Bone resorption — the process where old bone breaks down — now happens
+            faster than new bone can be built. This is not a flaw. It is biology.
+            But biology responds to food.
+          </p>
+          <div class="science-note">
+            Post-menopausal women need around 1,200mg of calcium daily — significantly
+            more than before menopause. Combined with vitamin D (800–2,000 IU daily),
+            this reliably slows bone loss and reduces fracture risk, according to
+            2025 evidence-based guidelines from Frontiers in Nutrition.
+          </div>
+          <p>
+            The good news: you do not need dairy to hit those numbers. Dark leafy greens —
+            kale, bok choy, collard greens — deliver calcium in a form the body absorbs well.
+            Tofu set with calcium sulphate is exceptionally rich. Fortified plant milks,
+            white beans, tahini, almonds. Varied, accessible, not expensive.
+          </p>
+          <p>
+            Vitamin D is trickier on a plant-based diet. Mushrooms exposed to sunlight
+            produce some. Fortified foods help. But a supplement is often the most reliable
+            option — check with your doctor before adding one.
+          </p>
+          <div class="meal-card">
+            <div class="meal-title">Miso Soup with Tofu, Bok Choy & Sesame</div>
+            <div class="meal-zh">豆腐、小白菜、芝麻味噌湯</div>
+            <p>Warm water or dashi base. A tablespoon of white miso. Silken tofu cubed. 
+            A handful of bok choy wilted in the broth. Sesame seeds on top. 
+            Done in ten minutes. Calcium from the tofu, bok choy, and sesame. 
+            Magnesium from the miso. Warming and not complicated.</p>
+            <div class="why">Why it works: Tofu set with calcium sulphate provides more calcium per serving than a glass of cow's milk. Bok choy has a higher calcium absorption rate than dairy. The sesame seeds aren't just decoration.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PILLAR 2: MUSCLES -->
+      <div class="pillar muscle">
+        <div class="pillar-header">
+          <div class="pillar-icon-block">💪</div>
+          <div class="pillar-title-block">
+            <span class="pillar-label">Pillar Two · 第二支柱</span>
+            <div class="pillar-name">Supporting Your Muscles</div>
+            <div class="pillar-name-zh">支撐肌肉</div>
+          </div>
+        </div>
+        <div class="pillar-body">
+          <p>
+            Muscle loss after menopause is real, gradual, and largely underreported.
+            The medical term is sarcopenia. The practical translation is: the less muscle
+            you carry, the slower your metabolism, the harder the weight becomes to manage,
+            and the more fragile your body gets over time. None of this is inevitable.
+            Protein and movement are the two most reliable tools you have.
+          </p>
+          <div class="science-note muscle">
+            Protein requirements actually increase after menopause — to 1.1–1.5g per kilogram
+            of body weight daily — to preserve lean muscle mass. Plant-based proteins from
+            tempeh, lentils, chickpeas, and quinoa are fully adequate when varied.
+            A 2025 study found a vegan diet did not compromise muscle protein synthesis
+            in adults compared to omnivorous diets, provided total protein intake was sufficient.
+          </div>
+          <p>
+            The plant-based world has a protein problem — not a real one, but a perception one.
+            People assume plants can't deliver. They can. The key is variety and volume.
+            Lentils. Edamame. Chickpeas. Tempeh. Black beans. Quinoa — one of the few
+            complete plant proteins, meaning it contains all nine essential amino acids.
+            Eat enough of these daily and your muscles have what they need.
+          </p>
+          <p>
+            One thing worth knowing: we absorb protein slightly less efficiently as we age.
+            This means the serving sizes that worked at 35 may need to go up a little at 55.
+            Not dramatically. Just a bit more intentional.
+          </p>
+          <div class="meal-card">
+            <div class="meal-title">Lemon Herb Lentil Bowl with Roasted Vegetables</div>
+            <div class="meal-zh">檸檬香草扁豆碗佐烤蔬菜</div>
+            <p>Cook one cup green or French lentils until just tender. Roast whatever 
+            vegetables are in the fridge — broccoli, sweet potato, red onion — at high heat 
+            until caramelised. Dress with lemon juice, olive oil, cumin, and fresh parsley. 
+            Top with a spoonful of tahini thinned with water. Pumpkin seeds for crunch.</p>
+            <div class="why">Why it works: Lentils deliver around 18g of protein per cooked cup, plus iron and magnesium. Pumpkin seeds add zinc, which supports muscle repair. The whole bowl takes about 30 minutes and tastes better the next day.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pull-quote">
+        <blockquote>
+          Food is not medicine. But it is the closest thing<br/>
+          to medicine that doesn't require a prescription.
+        </blockquote>
+        <span class="zh-quote">食物不是藥，但它是最接近藥的東西，而且不需要處方箋。</span>
+      </div>
+
+      <!-- PILLAR 3: MENTAL HEALTH -->
+      <div class="pillar mind">
+        <div class="pillar-header">
+          <div class="pillar-icon-block">🧠</div>
+          <div class="pillar-title-block">
+            <span class="pillar-label">Pillar Three · 第三支柱</span>
+            <div class="pillar-name">Supporting Your Mental Health</div>
+            <div class="pillar-name-zh">支持心理健康</div>
+          </div>
+        </div>
+        <div class="pillar-body">
+          <p>
+            This one deserves its own conversation. Mood shifts during and after menopause
+            are not imaginary, not weakness, and not permanent. They are the result of
+            estrogen's departure from a nervous system that relied on it for decades.
+            Anxiety, low mood, disrupted sleep, brain fog — these are real, common,
+            and often under-treated. Food is not a cure. But the gut-brain connection
+            is well-documented, and what you eat directly affects the serotonin your
+            body produces. Up to 90% of serotonin is made in the gut, not the brain.
+            Feed the gut well and the brain notices.
+          </p>
+          <div class="science-note mind">
+            Research cited in the American Journal of Medicine found that diets high in
+            ultra-processed foods are associated with nearly 50% higher risk of depression,
+            while every additional 100g of fruits or vegetables consumed daily is linked
+            to a 3% lower risk of depression. Magnesium — abundant in plant foods —
+            plays a direct role in mood regulation, sleep quality, and stress response.
+          </div>
+          <p>
+            Magnesium is the undersung hero of plant-based eating. Dark chocolate, spinach,
+            pumpkin seeds, black beans, avocado, whole grains — all rich in magnesium,
+            which the body converts into GABA, a neurotransmitter that helps the brain
+            slow down and rest. This is why a magnesium-rich dinner often means a
+            better night's sleep. And sleep, at this stage of life, is not a luxury.
+            It is infrastructure.
+          </p>
+          <p>
+            Omega-3 fatty acids are also worth mentioning — linked to cognitive resilience
+            and lower inflammation. On a plant-based diet, the best sources are flaxseeds,
+            chia seeds, walnuts, and hemp seeds. An algae-based DHA/EPA supplement
+            is worth discussing with your doctor if oily fish is not in your diet.
+          </p>
+          <div class="meal-card">
+            <div class="meal-title">Walnut & Dark Chocolate Overnight Oats with Chia</div>
+            <div class="meal-zh">核桃黑巧克力奇亞籽隔夜燕麥</div>
+            <p>The night before: half a cup of rolled oats, one tablespoon chia seeds, 
+            one cup oat or almond milk, a teaspoon of maple syrup. Stir and refrigerate. 
+            In the morning: top with a small handful of walnuts, a square of dark chocolate 
+            (70% or above) broken into pieces, and whatever fruit is around. 
+            Preparation time: four minutes.</p>
+            <div class="why">Why it works: Oats stabilise blood sugar, which directly affects mood. Chia seeds deliver omega-3s and magnesium. Walnuts are one of the richest plant sources of ALA omega-3. The dark chocolate is not optional — it contains magnesium and makes everything better.</div>
+          </div>
+        </div>
+      </div>
+
+      <h3>A Few Things Worth Saying Plainly</h3>
+
+      <p>
+        None of this requires becoming a different person or overhauling your entire kitchen.
+        Pollan's genius was in the simplicity of his instruction. Eat food — real food,
+        not products engineered in laboratories. Not too much — portions matter, but
+        so does enjoyment. Mostly plants — not exclusively, not fanatically,
+        but as the foundation.
+      </p>
+
+      <p>
+        Start with one meal. The lentil bowl. The miso soup. The overnight oats.
+        Make it three times. By the third time it won't feel like an effort —
+        it will just feel like dinner. That's the whole strategy.
+        There isn't a more complicated one worth following.
+      </p>
+
+      <p class="zh-aside">
+        不需要變成另一個人。<br/>
+        不需要重新整理廚房。<br/>
+        從一道菜開始。做三次。<br/>
+        第三次的時候，它就只是晚餐了。
+      </p>
+
+      <!-- CLOSING NOTE -->
+      <div class="closing-note">
+        <p>
+          Post-menopause is not a decline. It is a recalibration — one that rewards
+          attention and punishes neglect, like most things worth keeping.
+          Your bones are still building. Your muscles still respond to what you eat
+          and how you move. Your gut is still listening. The food on your plate
+          is still, quietly and without drama, doing its work.
+        </p>
+        <p>
+          You've navigated harder transitions than this one.
+          Feed yourself accordingly.
+        </p>
+        <div class="zh-closing">
+          更年期後不是衰退。是重新校準。<br/>
+          你的骨骼還在重建。你的肌肉還在回應。<br/>
+          你的腸道還在聆聽你給它的食物。<br/>
+          好好吃飯。你值得。
+        </div>
+      </div>
+
+      <div class="disclaimer">
+        ⚠ This post is for informational purposes only and is not medical advice.
+        Please consult your doctor or a registered dietitian before making significant
+        changes to your diet, especially regarding supplements.
+        · 本文僅供參考，非醫療建議。如需改變飲食習慣，請諮詢醫生或營養師。
+      </div>
+
+    </div>
+
+    <!-- POST FOOTER -->
+    <div class="post-footer">
+      <a href="index.html" class="back-link">← 回首頁 · Back Home</a>
+      <span class="entry-info">Food · 食物 · Entry No. 003</span>
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-zh">吃了飯 嗎</div>
+    <div class="footer-en">Have You Eaten (Rice) Yet?</div>
+    <div class="footer-ornament">✦ ✦ ✦</div>
+    <p>A bilingual journal · 中英雙語日記 · Written with both hands</p>
+  </footer>
+
+</body>
+</html>
