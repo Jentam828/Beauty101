@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mashiko, Japan — 吃了飯 嗎</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Noto+Serif+TC:wght@300;400;700;900&family=Special+Elite&family=Courier+Prime:ital@0;1&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --paper:        #f7f0e3;
+      --warm-white:   #fdf8f0;
+      --terracotta:   #c4603a;
+      --terra-light:  #d9836a;
+      --terra-pale:   #ead5c8;
+      --sage:         #7c9e82;
+      --sage-dark:    #4a6b50;
+      --sage-pale:    #d4e3d6;
+      --ochre:        #c8912a;
+      --ochre-light:  #e5b84a;
+      --ochre-pale:   #f2e0b0;
+      --ink:          #2a1f14;
+      --mid:          #5a3e2b;
+      --border:       #c9a87a;
+      --border-light: #e0c9a0;
+      --clay:         #8b5e3c;
+      --clay-pale:    #f0e0d0;
+      --clay-dark:    #5c3820;
+      --persimmon:    #d4622a;
+      --persimmon-pale: #fae8dc;
+      --forest:       #2d4a3e;
+      --forest-pale:  #d4e8e0;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--paper);
+      background-image:
+        radial-gradient(ellipse at 20% 20%, rgba(139,94,60,0.06) 0%, transparent 55%),
+        radial-gradient(ellipse at 80% 80%, rgba(45,74,62,0.05) 0%, transparent 55%),
+        repeating-linear-gradient(
+          0deg, transparent, transparent 32px,
+          rgba(201,168,122,0.1) 32px, rgba(201,168,122,0.1) 33px
+        );
+      color: var(--ink);
+      font-family: 'Courier Prime', monospace;
+      font-size: 15px;
+      line-height: 1.8;
+      min-height: 100vh;
+    }
+
+    /* ── TOP BANNER ── */
+    .top-banner {
+      background: var(--clay);
+      color: var(--warm-white);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 7px 32px;
+      font-family: 'Special Elite', cursive;
+      font-size: 10px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+    }
+    .top-banner .zh {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      font-weight: 300;
+    }
+
+    /* ── MASTHEAD ── */
+    .masthead {
+      background: var(--warm-white);
+      border-bottom: 4px double var(--border);
+      text-align: center;
+      padding: 22px 20px 16px;
+    }
+    .masthead-top {
+      font-family: 'Special Elite', cursive;
+      font-size: 10px;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--terracotta);
+      margin-bottom: 6px;
+    }
+    .masthead h1 {
+      font-family: 'Noto Serif TC', serif;
+      font-weight: 900;
+      font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+      color: var(--terracotta);
+      letter-spacing: 0.08em;
+      text-shadow: 2px 2px 0 var(--terra-pale);
+    }
+    .masthead h1 .en {
+      display: block;
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(0.8rem, 1.6vw, 1rem);
+      font-weight: 400;
+      font-style: italic;
+      color: var(--mid);
+      margin-top: 4px;
+      text-shadow: none;
+    }
+
+    /* ── NAV ── */
+    nav {
+      background: var(--ink);
+      display: flex;
+      justify-content: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 3px solid var(--terracotta);
+    }
+    nav a {
+      font-family: 'Special Elite', cursive;
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--border-light);
+      text-decoration: none;
+      padding: 14px 28px;
+      border-right: 1px solid rgba(255,255,255,0.08);
+      transition: background 0.2s, color 0.2s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+    }
+    nav a:first-child { border-left: 1px solid rgba(255,255,255,0.08); }
+    nav a .nav-zh {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 10px;
+      font-weight: 300;
+      letter-spacing: 0.15em;
+      opacity: 0.6;
+    }
+    nav a:hover, nav a.active {
+      background: var(--terracotta);
+      color: var(--warm-white);
+    }
+
+    /* ── PAGE WRAPPER ── */
+    .page-wrapper {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 56px 24px 100px;
+    }
+
+    /* ── POST HEADER ── */
+    .post-header {
+      text-align: center;
+      margin-bottom: 52px;
+      padding-bottom: 32px;
+      border-bottom: 3px double var(--border);
+      animation: fadeUp 0.6s ease both;
+    }
+    .post-tag-row {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    .post-tag {
+      display: inline-block;
+      background: var(--clay-pale);
+      color: var(--clay);
+      font-family: 'Special Elite', cursive;
+      font-size: 9px;
+      letter-spacing: 0.4em;
+      padding: 4px 14px;
+      text-transform: uppercase;
+    }
+    .post-tag-zh {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 11px;
+      font-weight: 300;
+      color: var(--mid);
+      opacity: 0.6;
+      letter-spacing: 0.2em;
+    }
+    .post-header h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.2rem, 5vw, 3.8rem);
+      font-weight: 900;
+      color: var(--clay);
+      line-height: 1.1;
+      margin-bottom: 6px;
+    }
+    .post-header .zh-title {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 1.2rem;
+      font-weight: 300;
+      color: var(--mid);
+      letter-spacing: 0.2em;
+      margin-bottom: 18px;
+    }
+    .post-header .subtitle {
+      font-family: 'IM Fell English', serif;
+      font-style: italic;
+      font-size: 1.05rem;
+      color: var(--mid);
+      line-height: 1.65;
+      margin-bottom: 18px;
+      max-width: 560px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .trip-dates {
+      display: inline-flex;
+      gap: 20px;
+      align-items: center;
+      background: var(--clay);
+      color: var(--warm-white);
+      font-family: 'Special Elite', cursive;
+      font-size: 10px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      padding: 7px 20px;
+      margin-bottom: 14px;
+    }
+    .post-meta {
+      font-family: 'Special Elite', cursive;
+      font-size: 10px;
+      letter-spacing: 0.3em;
+      color: var(--mid);
+      text-transform: uppercase;
+      opacity: 0.65;
+      margin-top: 10px;
+    }
+    .post-meta span { margin: 0 8px; }
+    .post-ornament { font-size: 20px; letter-spacing: 0.4em; margin-top: 14px; }
+
+    /* ── POST BODY ── */
+    .post-body { animation: fadeUp 0.6s 0.1s ease both; }
+    .post-body p {
+      font-family: 'Courier Prime', monospace;
+      font-size: 15px;
+      line-height: 2.05;
+      color: var(--mid);
+      margin-bottom: 24px;
+    }
+    .post-body p:first-of-type::first-letter {
+      font-family: 'Playfair Display', serif;
+      font-size: 4.5rem;
+      font-weight: 900;
+      color: var(--clay);
+      float: left;
+      line-height: 0.75;
+      margin: 6px 10px 0 0;
+    }
+    .post-body h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      font-style: italic;
+      color: var(--ink);
+      margin: 44px 0 14px;
+      padding-left: 18px;
+      border-left: 3px solid var(--clay);
+      line-height: 1.3;
+    }
+    .post-body .zh-aside {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--mid);
+      opacity: 0.75;
+      letter-spacing: 0.1em;
+      line-height: 2.2;
+      margin-bottom: 24px;
+      padding-left: 18px;
+      border-left: 2px solid var(--border-light);
+      font-style: italic;
+    }
+
+    /* ── HISTORY BOX ── */
+    .history-box {
+      background: var(--ink);
+      color: var(--warm-white);
+      padding: 28px 32px;
+      margin: 36px 0;
+      position: relative;
+      border-top: 4px solid var(--clay);
+    }
+    .history-box::before {
+      content: attr(data-label);
+      position: absolute;
+      top: -13px; left: 24px;
+      background: var(--clay);
+      color: var(--warm-white);
+      font-family: 'Special Elite', cursive;
+      font-size: 9px;
+      letter-spacing: 0.35em;
+      padding: 3px 14px;
+      text-transform: uppercase;
+    }
+    .history-box p {
+      font-size: 13px !important;
+      line-height: 1.95;
+      color: rgba(253,248,240,0.85) !important;
+      margin-bottom: 10px !important;
+    }
+    .history-box p:last-child { margin-bottom: 0 !important; }
+    .history-box .zh-history {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 12px;
+      font-weight: 300;
+      color: var(--ochre-light);
+      letter-spacing: 0.1em;
+      line-height: 2.2;
+      margin-top: 14px;
+      padding-top: 14px;
+      border-top: 1px dashed rgba(255,255,255,0.15);
+    }
+
+    /* ── PERSONAL NOTE ── */
+    .personal-note {
+      background: var(--clay-pale);
+      border-left: 4px solid var(--clay);
+      padding: 16px 20px;
+      margin: 20px 0;
+      font-family: 'IM Fell English', serif;
+      font-style: italic;
+      font-size: 14px;
+      color: var(--ink);
+      line-height: 1.85;
+    }
+    .personal-note::before {
+      content: 'My Take · 我的看法';
+      font-family: 'Special Elite', cursive;
+      font-style: normal;
+      font-size: 9px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--clay);
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    /* ── WARNING NOTE ── */
+    .warning-note {
+      background: var(--persimmon-pale);
+      border-left: 4px solid var(--persimmon);
+      padding: 14px 20px;
+      margin: 16px 0;
+      font-family: 'Courier Prime', monospace;
+      font-size: 13px;
+      color: var(--ink);
+      line-height: 1.85;
+    }
+    .warning-note::before {
+      content: '⚠ Honest Advice · 誠實建議';
+      font-family: 'Special Elite', cursive;
+      font-size: 9px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--persimmon);
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    /* ── PULL QUOTE ── */
+    .pull-quote {
+      margin: 44px 0;
+      padding: 26px 40px;
+      border-top: 3px double var(--clay);
+      border-bottom: 3px double var(--clay);
+      text-align: center;
+      position: relative;
+    }
+    .pull-quote::before {
+      content: '\201C';
+      font-family: 'Playfair Display', serif;
+      font-size: 100px;
+      color: var(--clay-pale);
+      line-height: 0.4;
+      position: absolute;
+      top: 48px; left: 8px;
+      pointer-events: none;
+    }
+    .pull-quote blockquote {
+      font-family: 'IM Fell English', serif;
+      font-style: italic;
+      font-size: 1.15rem;
+      color: var(--clay-dark);
+      line-height: 1.7;
+      position: relative; z-index: 1;
+    }
+    .pull-quote .zh-quote {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 12px;
+      font-weight: 300;
+      color: var(--mid);
+      letter-spacing: 0.15em;
+      margin-top: 10px;
+      display: block;
+      opacity: 0.7;
+      position: relative; z-index: 1;
+    }
+
+    /* ── ONE DAY AGENDA ── */
+    .agenda {
+      background: var(--warm-white);
+      border: 1px solid var(--border-light);
+      border-top: 5px solid var(--clay);
+      margin: 44px 0;
+      overflow: hidden;
+      position: relative;
+    }
+    .agenda::before {
+      content: 'One Day in Mashiko · 益子一日行程';
+      position: absolute;
+      top: -13px; left: 20px;
+      background: var(--clay);
+      color: var(--warm-white);
+      font-family: 'Special Elite', cursive;
+      font-size: 9px;
+      letter-spacing: 0.3em;
+      padding: 3px 14px;
+    }
+    .agenda-inner { padding: 28px 28px 20px; }
+    .agenda-item {
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      gap: 20px;
+      padding: 14px 0;
+      border-bottom: 1px dashed var(--border-light);
+      align-items: start;
+    }
+    .agenda-item:last-child { border-bottom: none; }
+    .agenda-time {
+      font-family: 'Special Elite', cursive;
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      color: var(--clay);
+      text-transform: uppercase;
+      padding-top: 2px;
+    }
+    .agenda-content { }
+    .agenda-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 4px;
+    }
+    .agenda-detail {
+      font-size: 13px;
+      color: var(--mid);
+      line-height: 1.8;
+    }
+    .agenda-detail .zh {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 11px;
+      font-weight: 300;
+      opacity: 0.65;
+      letter-spacing: 0.08em;
+      display: block;
+      margin-top: 2px;
+    }
+    .agenda-tip {
+      font-family: 'IM Fell English', serif;
+      font-style: italic;
+      font-size: 12px;
+      color: var(--clay);
+      margin-top: 5px;
+    }
+
+    /* ── FESTIVAL BOX ── */
+    .festival-box {
+      background: var(--persimmon-pale);
+      border: 2px solid #e0b090;
+      border-top: 5px solid var(--persimmon);
+      padding: 26px 30px;
+      margin: 44px 0;
+      position: relative;
+    }
+    .festival-box::before {
+      content: 'Mark Your Calendar · 記在行事曆上';
+      position: absolute;
+      top: -13px; left: 20px;
+      background: var(--persimmon);
+      color: var(--warm-white);
+      font-family: 'Special Elite', cursive;
+      font-size: 9px;
+      letter-spacing: 0.3em;
+      padding: 3px 14px;
+    }
+    .festival-box h4 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--persimmon);
+      margin-bottom: 6px;
+    }
+    .festival-box .festival-zh {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--mid);
+      letter-spacing: 0.15em;
+      margin-bottom: 14px;
+    }
+    .festival-box p {
+      font-size: 13px;
+      color: var(--mid);
+      line-height: 1.9;
+      margin-bottom: 10px;
+    }
+    .festival-box p:last-child { margin-bottom: 0; }
+    .festival-dates {
+      display: inline-block;
+      background: var(--persimmon);
+      color: var(--warm-white);
+      font-family: 'Special Elite', cursive;
+      font-size: 10px;
+      letter-spacing: 0.25em;
+      padding: 5px 14px;
+      margin-bottom: 14px;
+      text-transform: uppercase;
+    }
+
+    /* ── POST FOOTER ── */
+    .post-footer {
+      margin-top: 52px;
+      padding-top: 24px;
+      border-top: 3px double var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .post-footer .back-link {
+      font-family: 'Special Elite', cursive;
+      font-size: 10px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--clay);
+      text-decoration: none;
+      border: 1px solid var(--border);
+      padding: 8px 18px;
+      transition: background 0.2s, color 0.2s;
+    }
+    .post-footer .back-link:hover {
+      background: var(--clay);
+      color: var(--warm-white);
+    }
+    .post-footer .entry-info {
+      font-family: 'Special Elite', cursive;
+      font-size: 10px;
+      letter-spacing: 0.25em;
+      color: var(--mid);
+      opacity: 0.55;
+      text-transform: uppercase;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--ink);
+      border-top: 4px double var(--terracotta);
+      text-align: center;
+      padding: 28px 20px;
+    }
+    footer .footer-zh {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--ochre-light);
+      letter-spacing: 0.15em;
+    }
+    footer .footer-en {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 0.95rem;
+      color: var(--terra-pale);
+    }
+    footer .footer-ornament {
+      font-size: 14px;
+      letter-spacing: 0.6em;
+      color: var(--terracotta);
+      margin: 10px 0;
+    }
+    footer p {
+      font-family: 'Special Elite', cursive;
+      font-size: 9px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--border);
+      opacity: 0.4;
+      margin-top: 4px;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(14px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 600px) {
+      .top-banner { flex-direction: column; gap: 4px; }
+      nav a { padding: 12px 12px; font-size: 10px; }
+      .post-body p:first-of-type::first-letter { font-size: 3rem; }
+      .agenda-item { grid-template-columns: 65px 1fr; gap: 12px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TOP BANNER -->
+  <div class="top-banner">
+    <span>吃了飯 嗎 · Travels · 旅行</span>
+    <span class="zh">益子 · 栃木縣 · 日本</span>
+  </div>
+
+  <!-- MASTHEAD -->
+  <header class="masthead">
+    <p class="masthead-top">吃了飯 嗎 · A Bilingual Journal</p>
+    <h1>
+      吃了飯 嗎
+      <span class="en">Have You Eaten (Rice) Yet?</span>
+    </h1>
+  </header>
+
+  <!-- NAV -->
+  <nav>
+    <a href="index.html">🏠 Home <span class="nav-zh">首頁</span></a>
+    <a href="index.html#food">🍜 Food <span class="nav-zh">食物</span></a>
+    <a href="index.html#travels" class="active">🗺 Travels <span class="nav-zh">旅行</span></a>
+    <a href="index.html#therapy">✒ Personal Therapy <span class="nav-zh">心靈角落</span></a>
+  </nav>
+
+  <div class="page-wrapper">
+
+    <!-- POST HEADER -->
+    <div class="post-header">
+      <div class="post-tag-row">
+        <span class="post-tag">Travels · 旅行</span>
+        <span class="post-tag-zh">日本 · 益子</span>
+      </div>
+      <h2>Mashiko, Japan</h2>
+      <p class="zh-title">日本 · 益子</p>
+      <p class="subtitle">
+        A town built around clay, fire, and the patience to turn both
+        into something beautiful. For someone who just started making ceramics,
+        this was not optional.
+      </p>
+      <div class="trip-dates">
+        🏺 Japan Trip · Stop Two · Oct 20–22, 2025
+      </div>
+      <p class="post-meta">
+        <span>Travels</span>·
+        <span>7 min read · 七分鐘</span>·
+        <span>Entry No. 002</span>
+      </p>
+      <div class="post-ornament">🏺 🍂 🌾</div>
+    </div>
+
+    <!-- POST BODY -->
+    <div class="post-body">
+
+      <p>
+        I started taking ceramics lessons a few months ago. I am not good at it yet.
+        The clay has its own opinions and they frequently differ from mine.
+        But somewhere between the centering and the pulling and the quiet
+        concentration that throwing on a wheel demands, I understood why people
+        spend their lives doing this. So when the Japan itinerary was taking shape,
+        Mashiko was not a question. It was the answer.
+      </p>
+
+      <p class="zh-aside">
+        我最近開始學陶藝。我還不太擅長。<br/>
+        泥土有自己的想法，常常和我的不一樣。<br/>
+        但就在拉坯的過程中，我明白了為什麼有人願意一生做這件事。<br/>
+        所以益子，不是選項——是答案。
+      </p>
+
+      <!-- MASHIKO HISTORY -->
+      <div class="history-box" data-label="A Brief History · 益子的歷史">
+        <p>
+          Mashiko is a small town in Tochigi Prefecture, about 80 kilometres north of Tokyo.
+          Pottery has been made here since the Jōmon period — roughly 10,000 years ago —
+          but Mashiko's modern identity as a ceramics town dates to the mid-19th century,
+          when a local potter named Keizaburo Otsuka established a kiln here in 1853,
+          drawn by the quality of the local clay.
+        </p>
+        <p>
+          The town's international reputation came largely through one man:
+          Shoji Hamada, who settled in Mashiko in 1924 and spent the rest of his life there.
+          Hamada was a central figure in the mingei — folk craft — movement, a philosophy
+          that championed the beauty of everyday, handmade objects over the precious
+          and the ornate. He became a Living National Treasure of Japan in 1955.
+          His workshop and home are now part of the Mashiko Museum of Ceramic Art,
+          and Mashiko's reputation as one of Japan's most important pottery towns
+          is built substantially on his legacy.
+        </p>
+        <div class="zh-history">
+          益子是栃木縣的小鎮，距東京約80公里。<br/>
+          縄文時代起便有陶藝歷史，現代窯業從1853年興起。<br/>
+          陶藝家濱田庄司於1924年定居益子，推廣民藝運動，1955年獲選「人間國寶」。<br/>
+          他的故居與工坊現為益子陶藝美術館的一部分。
+        </div>
+      </div>
+
+      <h3>The Walk In</h3>
+
+      <p>
+        I walked from the town centre to the Mashikokan Satoyama Resort Hotel.
+        It is a longer walk than the map suggests, which is fine because the map
+        does not account for stopping. And you will stop. The road out of town
+        is lined with persimmon trees heavy with fruit — deep orange against
+        grey October sky — and farmland running alongside, vegetables and late
+        flowers still holding on. It is the kind of walk that makes you wonder
+        why you don't walk more. Then you remember you live somewhere with hills
+        and no persimmon trees, and the feeling passes.
+      </p>
+
+      <p class="zh-aside">
+        從市中心走到旅館，比地圖上看起來要遠。<br/>
+        但沒關係，因為路上會一直停下來。<br/>
+        柿子樹結滿了果實，深橘色掛在十月的灰色天空下。<br/>
+        農田延伸在路旁，蔬菜和晚開的花還在撐著。
+      </p>
+
+      <!-- MUSEUM -->
+      <h3>Mashiko Museum of Ceramic Art</h3>
+
+      <div class="history-box" data-label="The Museum · 益子陶藝美術館">
+        <p>
+          The Mashiko Museum of Ceramic Art — Mashiko Sankokan — was established in 1992
+          and sits on grounds that include Shoji Hamada's original studio, kiln,
+          and residence, relocated and preserved here. The museum's permanent collection
+          covers Hamada's own work as well as pieces by Bernard Leach, the British
+          potter who was Hamada's lifelong collaborator and friend, and rotating
+          exhibitions of contemporary ceramics.
+        </p>
+        <p>
+          The buildings themselves are worth the visit — traditional Japanese structures
+          set among trees, the kind of place that moves slowly and rewards patience.
+          The actual kilns are visible. The workshop where Hamada made pots that ended up
+          in museums around the world is still there, unchanged. Standing in it feels
+          like standing in working history rather than preserved history,
+          which is a meaningful distinction.
+        </p>
+        <div class="zh-history">
+          益子陶藝美術館成立於1992年，保留了濱田庄司的原始工坊、窯與故居。<br/>
+          館藏包括濱田與英國陶藝家伯納德·利奇的作品，以及當代陶藝展覽。<br/>
+          站在那個工坊裡，感覺不像在參觀歷史，而像是歷史還在運作中。
+        </div>
+      </div>
+
+      <div class="personal-note">
+        If you've just started making pottery, standing in Hamada's studio is either
+        deeply inspiring or mildly humbling, depending on your disposition.
+        I was both. His pots are simple in the way that things made with total
+        mastery appear simple. Nothing wasted. Nothing showing off.
+        I went back twice.
+      </div>
+
+      <div class="pull-quote">
+        <blockquote>
+          The main street is everything you want it to be —
+          ceramic shops, antique shops, cafés, and the quiet understanding
+          that everyone here has come for the same reason and nobody needs
+          to explain themselves.
+        </blockquote>
+        <span class="zh-quote">主街道正是你所期待的樣子。沒有人需要解釋自己為什麼來。</span>
+      </div>
+
+      <!-- HOTEL -->
+      <h3>Mashikokan Satoyama Resort Hotel</h3>
+
+      <p>
+        The hotel sits outside of town in its own green silence. The room is spacious —
+        genuinely spacious, not hotel-brochure spacious — and the grounds have the
+        unhurried feeling of somewhere that has been here long enough to stop trying.
+        The hot spring baths, both indoor and open-air, are exactly what two days of
+        walking and ceramics browsing require. The open-air bath in the evening,
+        surrounded by trees going dark, is one of those experiences you don't fully
+        appreciate until you are back home in your regular shower wondering what happened.
+      </p>
+
+      <p>
+        Dinner is on the expensive side. It is also very good. These two facts coexist
+        without contradiction and you should budget accordingly rather than being surprised
+        at the end.
+      </p>
+
+      <div class="warning-note">
+        The in-room massage sounds appealing after a long day. Skip it.
+        Book the spa room instead — the proper treatment room with a real table
+        and the full setup. The difference is significant enough that I'm mentioning it
+        here rather than keeping it to myself.
+        <br/><br/>
+        <span style="font-family:'Noto Serif TC',serif; font-size:12px; font-weight:300; opacity:0.8;">
+        客房內的按摩聽起來很吸引人。跳過它。<br/>
+        請預訂正式的Spa房——差別很大，值得特別提一下。
+        </span>
+      </div>
+
+      <!-- ONE DAY AGENDA -->
+      <h3>A Day in Mashiko — If You Only Have One</h3>
+
+      <div class="agenda">
+        <div class="agenda-inner">
+
+          <div class="agenda-item">
+            <div class="agenda-time">9:00 AM</div>
+            <div class="agenda-content">
+              <div class="agenda-title">Mashiko Museum of Ceramic Art</div>
+              <div class="agenda-detail">
+                Start here before the tour groups arrive. Allow 90 minutes minimum —
+                more if you find yourself lingering in Hamada's studio, which you will.
+                <span class="zh">趁人潮到來前先參觀。至少留90分鐘，很可能更久。</span>
+              </div>
+              <div class="agenda-tip">Entry fee applies. Check current hours before you go.</div>
+            </div>
+          </div>
+
+          <div class="agenda-item">
+            <div class="agenda-time">11:00 AM</div>
+            <div class="agenda-content">
+              <div class="agenda-title">Ceramic Shops on the Main Street</div>
+              <div class="agenda-detail">
+                The main street (Jōnachi) is lined with galleries and shops selling
+                work by local potters. Budget more time than you think — and more
+                luggage space than you packed. Things will follow you home.
+                <span class="zh">主街道上滿是在地陶藝家的作品。準備比你預期更多的時間——和行李空間。</span>
+              </div>
+              <div class="agenda-tip">Most shops are happy for you to browse slowly. Nobody rushes you.</div>
+            </div>
+          </div>
+
+          <div class="agenda-item">
+            <div class="agenda-time">1:00 PM</div>
+            <div class="agenda-content">
+              <div class="agenda-title">Lunch at Café Novel</div>
+              <div class="agenda-detail">
+                About a 15-minute walk from the main street — worth every step.
+                The kind of place that makes lunch feel like the main event rather
+                than the break between shopping. Simple, well-made food, good coffee,
+                and the particular charm of a café that has no interest in being
+                anything other than what it is.
+                <span class="zh">距主街道步行約15分鐘——每一步都值得。食物用心，咖啡好喝，氣氛剛剛好。強烈推薦。</span>
+              </div>
+              <div class="agenda-tip">No reservations taken — arrive early or be prepared to wait a little.</div>
+            </div>
+          </div>
+
+          <div class="agenda-item">
+            <div class="agenda-time">2:30 PM</div>
+            <div class="agenda-content">
+              <div class="agenda-title">Antique Shops</div>
+              <div class="agenda-detail">
+                Mashiko has an improbable number of antique shops tucked between and
+                behind the ceramic galleries. Ceramics, lacquerware, old textiles,
+                things you cannot name but cannot leave without. Allow the afternoon.
+                <span class="zh">益子的古董店多得令人意外，藏在陶藝店之間。下午就留給這些吧。</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="agenda-item">
+            <div class="agenda-time">4:30 PM</div>
+            <div class="agenda-content">
+              <div class="agenda-title">Cake & Coffee — Any of the Local Cafés</div>
+              <div class="agenda-detail">
+                Sit down. You've been on your feet all day. The cafés along the
+                main street are uniformly charming and the cake is consistently
+                better than it needs to be.
+                <span class="zh">坐下來。走了一整天了。主街道上的咖啡廳都很迷人，蛋糕都比預期好吃。</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="agenda-item">
+            <div class="agenda-time">6:30 PM</div>
+            <div class="agenda-content">
+              <div class="agenda-title">Dinner at Mashikokan Satoyama Resort Hotel</div>
+              <div class="agenda-detail">
+                Reserve when you book the room. The dinner menu is expensive and
+                very good. The hot spring bath before dinner, or after, is the
+                correct ending to a day like this.
+                <span class="zh">訂房時同步預訂晚餐。價格偏高，但品質對得起。飯前或飯後泡溫泉，都是完美的結尾。</span>
+              </div>
+              <div class="agenda-tip">And book the spa room, not the in-room massage. You'll thank yourself later.</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- FESTIVAL -->
+      <div class="festival-box">
+        <h4>Mashiko Pottery Festival</h4>
+        <div class="festival-zh">益子陶器市集</div>
+        <div class="festival-dates">📅 Late April & Early November · 每年四月下旬與十一月上旬</div>
+        <p>
+          I missed it. My trip was October 20–22 and the autumn festival runs in early November —
+          close enough to be annoying, far enough to be a legitimate reason to come back.
+          The Mashiko Pottery Festival is held twice a year, in late April (Golden Week)
+          and early November, and draws over 500 potters from across Japan selling
+          directly from temporary stalls set up around the town.
+        </p>
+        <p>
+          If you are at all interested in ceramics — or in the particular pleasure of
+          buying things directly from the person who made them — plan your trip around
+          the festival dates. The town is busier but the payoff is significant.
+          This is on my list for the next trip. The clay and I still have things to settle.
+        </p>
+        <p style="font-family:'Noto Serif TC',serif; font-size:12px; font-weight:300; letter-spacing:0.1em; line-height:2.2; color:var(--mid); margin-top:10px;">
+          我錯過了。十一月上旬的陶器市集就在我離開後不久舉辦。<br/>
+          每年四月和十一月各一次，超過500位陶藝家在此擺攤。<br/>
+          如果你對陶藝有任何興趣，請配合市集日期安排行程。<br/>
+          我已經把下次的行程排好了。我和泥土之間，還有些事情沒解決。
+        </p>
+      </div>
+
+    </div>
+
+    <!-- POST FOOTER -->
+    <div class="post-footer">
+      <a href="index.html" class="back-link">← 回首頁 · Back Home</a>
+      <span class="entry-info">Travels · 旅行 · Entry No. 002</span>
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-zh">吃了飯 嗎</div>
+    <div class="footer-en">Have You Eaten (Rice) Yet?</div>
+    <div class="footer-ornament">✦ ✦ ✦</div>
+    <p>A bilingual journal · 中英雙語日記 · Written with both hands</p>
+  </footer>
+
+</body>
+</html>
