@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>One Fine Day in SF — 吃了飯 嗎</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Noto+Serif+TC:wght@300;400;700;900&family=Special+Elite&family=Courier+Prime:ital@0;1&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --paper:        #f7f0e3;
+      --warm-white:   #fdf8f0;
+      --terracotta:   #c4603a;
+      --terra-pale:   #ead5c8;
+      --sage:         #7c9e82;
+      --sage-dark:    #4a6b50;
+      --sage-pale:    #d4e3d6;
+      --ochre:        #c8912a;
+      --ochre-light:  #e5b84a;
+      --ochre-pale:   #f2e0b0;
+      --ink:          #2a1f14;
+      --mid:          #5a3e2b;
+      --border:       #c9a87a;
+      --border-light: #e0c9a0;
+      --sf-blue:      #3a6186;
+      --sf-blue-pale: #dce8f0;
+      --sf-gold:      #c8912a;
+      --sf-green:     #4a6b50;
+      --sf-green-pale:#d4e3d6;
+      --blush:        #d4785a;
+      --blush-pale:   #f5e4dc;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--paper);
+      background-image:
+        radial-gradient(ellipse at 15% 15%, rgba(58,97,134,0.05) 0%, transparent 55%),
+        radial-gradient(ellipse at 85% 85%, rgba(74,107,80,0.05) 0%, transparent 55%),
+        repeating-linear-gradient(
+          0deg, transparent, transparent 32px,
+          rgba(201,168,122,0.1) 32px, rgba(201,168,122,0.1) 33px
+        );
+      color: var(--ink);
+      font-family: 'Courier Prime', monospace;
+      font-size: 15px;
+      line-height: 1.8;
+      min-height: 100vh;
+    }
+
+    /* ── TOP BANNER ── */
+    .top-banner {
+      background: var(--sf-blue);
+      color: var(--warm-white);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 7px 32px;
+      font-family: 'Special Elite', cursive;
+      font-size: 10px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+    }
+    .top-banner .zh {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      font-weight: 300;
+    }
+
+    /* ── MASTHEAD ── */
+    .masthead {
+      background: var(--warm-white);
+      border-bottom: 4px double var(--border);
+      text-align: center;
+      padding: 22px 20px 16px;
+    }
+    .masthead-top {
+      font-family: 'Special Elite', cursive;
+      font-size: 10px;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--terracotta);
+      margin-bottom: 6px;
+    }
+    .masthead h1 {
+      font-family: 'Noto Serif TC', serif;
+      font-weight: 900;
+      font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+      color: var(--terracotta);
+      letter-spacing: 0.08em;
+      text-shadow: 2px 2px 0 var(--terra-pale);
+    }
+    .masthead h1 .en {
+      display: block;
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(0.8rem, 1.6vw, 1rem);
+      font-weight: 400;
+      font-style: italic;
+      color: var(--mid);
+      margin-top: 4px;
+      text-shadow: none;
+    }
+
+    /* ── NAV ── */
+    nav {
+      background: var(--ink);
+      display: flex;
+      justify-content: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 3px solid var(--terracotta);
+    }
+    nav a {
+      font-family: 'Special Elite', cursive;
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--border-light);
+      text-decoration: none;
+      padding: 14px 28px;
+      border-right: 1px solid rgba(255,255,255,0.08);
+      transition: background 0.2s, color 0.2s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+    }
+    nav a:first-child { border-left: 1px solid rgba(255,255,255,0.08); }
+    nav a .nav-zh {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 10px;
+      font-weight: 300;
+      letter-spacing: 0.15em;
+      opacity: 0.6;
+    }
+    nav a:hover, nav a.active {
+      background: var(--terracotta);
+      color: var(--warm-white);
+    }
+
+    /* ── PAGE WRAPPER ── */
+    .page-wrapper {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 56px 24px 100px;
+    }
+
+    /* ── POST HEADER ── */
+    .post-header {
+      text-align: center;
+      margin-bottom: 52px;
+      padding-bottom: 32px;
+      border-bottom: 3px double var(--border);
+      animation: fadeUp 0.6s ease both;
+    }
+    .post-tag-row {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    .post-tag {
+      display: inline-block;
+      background: var(--sf-blue-pale);
+      color: var(--sf-blue);
+      font-family: 'Special Elite', cursive;
+      font-size: 9px;
+      letter-spacing: 0.4em;
+      padding: 4px 14px;
+      text-transform: uppercase;
+    }
+    .post-tag-zh {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 11px;
+      font-weight: 300;
+      color: var(--mid);
+      opacity: 0.6;
+      letter-spacing: 0.2em;
+    }
+    .post-header h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.2rem, 5vw, 3.8rem);
+      font-weight: 900;
+      color: var(--sf-blue);
+      line-height: 1.1;
+      margin-bottom: 6px;
+    }
+    .post-header .zh-title {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 1.1rem;
+      font-weight: 300;
+      color: var(--mid);
+      letter-spacing: 0.2em;
+      margin-bottom: 18px;
+    }
+    .post-header .subtitle {
+      font-family: 'IM Fell English', serif;
+      font-style: italic;
+      font-size: 1.05rem;
+      color: var(--mid);
+      line-height: 1.65;
+      margin-bottom: 18px;
+      max-width: 560px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .weather-strip {
+      display: inline-flex;
+      gap: 18px;
+      align-items: center;
+      background: var(--sf-blue);
+      color: var(--warm-white);
+      font-family: 'Special Elite', cursive;
+      font-size: 10px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      padding: 7px 20px;
+      margin-bottom: 14px;
+    }
+    .post-meta {
+      font-family: 'Special Elite', cursive;
+      font-size: 10px;
+      letter-spacing: 0.3em;
+      color: var(--mid);
+      text-transform: uppercase;
+      opacity: 0.65;
+      margin-top: 10px;
+    }
+    .post-meta span { margin: 0 8px; }
+    .post-ornament { font-size: 18px; letter-spacing: 0.4em; margin-top: 14px; }
+
+    /* ── POST BODY ── */
+    .post-body { animation: fadeUp 0.6s 0.1s ease both; }
+    .post-body p {
+      font-family: 'Courier Prime', monospace;
+      font-size: 15px;
+      line-height: 2.05;
+      color: var(--mid);
+      margin-bottom: 24px;
+    }
+    .post-body p:first-of-type::first-letter {
+      font-family: 'Playfair Display', serif;
+      font-size: 4.5rem;
+      font-weight: 900;
+      color: var(--sf-blue);
+      float: left;
+      line-height: 0.75;
+      margin: 6px 10px 0 0;
+    }
+    .post-body h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      font-style: italic;
+      color: var(--ink);
+      margin: 44px 0 14px;
+      padding-left: 18px;
+      border-left: 3px solid var(--sf-blue);
+      line-height: 1.3;
+    }
+    .post-body .zh-aside {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--mid);
+      opacity: 0.75;
+      letter-spacing: 0.1em;
+      line-height: 2.2;
+      margin-bottom: 24px;
+      padding-left: 18px;
+      border-left: 2px solid var(--border-light);
+    }
+
+    /* ── STOP CARDS ── */
+    .stop {
+      margin: 32px 0;
+      border: 1px solid var(--border-light);
+      background: var(--warm-white);
+      overflow: hidden;
+    }
+    .stop-header {
+      display: grid;
+      grid-template-columns: 64px 1fr;
+      align-items: stretch;
+    }
+    .stop-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      padding: 16px;
+    }
+    .stop.thrift  .stop-icon { background: var(--blush-pale); }
+    .stop.food    .stop-icon { background: var(--ochre-pale); }
+    .stop.shop    .stop-icon { background: var(--sf-blue-pale); }
+    .stop.nature  .stop-icon { background: var(--sf-green-pale); }
+    .stop.dogs    .stop-icon { background: #fdf0e0; }
+    .stop.dinner  .stop-icon { background: var(--terra-pale); }
+
+    .stop-title-block {
+      padding: 14px 18px 12px;
+      border-bottom: 1px dashed var(--border-light);
+    }
+    .stop-label {
+      font-family: 'Special Elite', cursive;
+      font-size: 9px;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      display: block;
+      margin-bottom: 3px;
+    }
+    .stop.thrift .stop-label { color: var(--blush); }
+    .stop.food   .stop-label { color: var(--ochre); }
+    .stop.shop   .stop-label { color: var(--sf-blue); }
+    .stop.nature .stop-label { color: var(--sf-green); }
+    .stop.dogs   .stop-label { color: var(--terracotta); }
+    .stop.dinner .stop-label { color: var(--terracotta); }
+
+    .stop-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--ink);
+      line-height: 1.2;
+    }
+    .stop-address {
+      font-family: 'Special Elite', cursive;
+      font-size: 9px;
+      letter-spacing: 0.2em;
+      color: var(--mid);
+      opacity: 0.6;
+      margin-top: 3px;
+    }
+    .stop-body { padding: 16px 20px 20px; }
+    .stop-body p {
+      font-size: 14px;
+      color: var(--mid);
+      line-height: 1.9;
+      margin-bottom: 12px;
+    }
+    .stop-body p:last-child { margin-bottom: 0; }
+
+    /* ── DID YOU KNOW ── */
+    .did-you-know {
+      background: var(--sf-green-pale);
+      border-left: 4px solid var(--sf-green);
+      padding: 14px 18px;
+      margin-top: 14px;
+      font-family: 'IM Fell English', serif;
+      font-style: italic;
+      font-size: 14px;
+      color: var(--ink);
+      line-height: 1.85;
+    }
+    .did-you-know::before {
+      content: 'Did You Know? · 你知道嗎？';
+      font-family: 'Special Elite', cursive;
+      font-style: normal;
+      font-size: 9px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--sf-green);
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    /* ── PULL QUOTE ── */
+    .pull-quote {
+      margin: 44px 0;
+      padding: 26px 40px;
+      border-top: 3px double var(--sf-blue);
+      border-bottom: 3px double var(--sf-blue);
+      text-align: center;
+      position: relative;
+    }
+    .pull-quote::before {
+      content: '\201C';
+      font-family: 'Playfair Display', serif;
+      font-size: 100px;
+      color: var(--sf-blue-pale);
+      line-height: 0.4;
+      position: absolute;
+      top: 48px; left: 8px;
+      pointer-events: none;
+    }
+    .pull-quote blockquote {
+      font-family: 'IM Fell English', serif;
+      font-style: italic;
+      font-size: 1.15rem;
+      color: var(--sf-blue);
+      line-height: 1.7;
+      position: relative; z-index: 1;
+    }
+    .pull-quote .zh-quote {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 12px;
+      font-weight: 300;
+      color: var(--mid);
+      letter-spacing: 0.15em;
+      margin-top: 10px;
+      display: block;
+      opacity: 0.7;
+      position: relative; z-index: 1;
+    }
+
+    /* ── DAY AT A GLANCE ── */
+    .day-glance {
+      background: var(--warm-white);
+      border: 1px solid var(--border-light);
+      border-top: 5px solid var(--sf-blue);
+      margin: 44px 0;
+      position: relative;
+    }
+    .day-glance::before {
+      content: 'The Day at a Glance · 今日行程一覽';
+      position: absolute;
+      top: -13px; left: 20px;
+      background: var(--sf-blue);
+      color: var(--warm-white);
+      font-family: 'Special Elite', cursive;
+      font-size: 9px;
+      letter-spacing: 0.3em;
+      padding: 3px 14px;
+    }
+    .glance-inner { padding: 28px 28px 20px; }
+    .glance-item {
+      display: grid;
+      grid-template-columns: 76px 1fr;
+      gap: 18px;
+      padding: 11px 0;
+      border-bottom: 1px dashed var(--border-light);
+      align-items: start;
+    }
+    .glance-item:last-child { border-bottom: none; }
+    .glance-time {
+      font-family: 'Special Elite', cursive;
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      color: var(--sf-blue);
+      padding-top: 2px;
+    }
+    .glance-text {
+      font-size: 13px;
+      color: var(--mid);
+      line-height: 1.75;
+    }
+    .glance-text strong { color: var(--ink); }
+    .glance-text .zh {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 11px;
+      font-weight: 300;
+      opacity: 0.6;
+      letter-spacing: 0.08em;
+      display: block;
+      margin-top: 1px;
+    }
+
+    /* ── CLOSING NOTE ── */
+    .closing-note {
+      background: var(--sf-blue);
+      color: var(--warm-white);
+      padding: 30px 34px;
+      margin-top: 52px;
+      position: relative;
+      border-top: 4px solid var(--sf-gold);
+    }
+    .closing-note::before {
+      content: '後記';
+      position: absolute;
+      top: -13px; left: 28px;
+      background: var(--sf-gold);
+      color: var(--ink);
+      font-family: 'Noto Serif TC', serif;
+      font-size: 11px;
+      letter-spacing: 0.3em;
+      padding: 3px 12px;
+      font-weight: 700;
+    }
+    .closing-note p {
+      font-size: 13px;
+      line-height: 1.95;
+      color: rgba(253,248,240,0.85);
+      margin-bottom: 12px;
+    }
+    .closing-note p:last-child { margin-bottom: 0; }
+    .closing-note .zh-closing {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--ochre-light);
+      letter-spacing: 0.12em;
+      line-height: 2.2;
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px dashed rgba(255,255,255,0.15);
+    }
+
+    /* ── POST FOOTER ── */
+    .post-footer {
+      margin-top: 52px;
+      padding-top: 24px;
+      border-top: 3px double var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .post-footer .back-link {
+      font-family: 'Special Elite', cursive;
+      font-size: 10px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--sf-blue);
+      text-decoration: none;
+      border: 1px solid var(--border);
+      padding: 8px 18px;
+      transition: background 0.2s, color 0.2s;
+    }
+    .post-footer .back-link:hover {
+      background: var(--sf-blue);
+      color: var(--warm-white);
+    }
+    .post-footer .entry-info {
+      font-family: 'Special Elite', cursive;
+      font-size: 10px;
+      letter-spacing: 0.25em;
+      color: var(--mid);
+      opacity: 0.55;
+      text-transform: uppercase;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--ink);
+      border-top: 4px double var(--terracotta);
+      text-align: center;
+      padding: 28px 20px;
+    }
+    footer .footer-zh {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--ochre-light);
+      letter-spacing: 0.15em;
+    }
+    footer .footer-en {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 0.95rem;
+      color: var(--terra-pale);
+    }
+    footer .footer-ornament {
+      font-size: 14px;
+      letter-spacing: 0.6em;
+      color: var(--terracotta);
+      margin: 10px 0;
+    }
+    footer p {
+      font-family: 'Special Elite', cursive;
+      font-size: 9px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--border);
+      opacity: 0.4;
+      margin-top: 4px;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(14px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 600px) {
+      .top-banner { flex-direction: column; gap: 4px; }
+      nav a { padding: 12px 12px; font-size: 10px; }
+      .post-body p:first-of-type::first-letter { font-size: 3rem; }
+      .stop-header { grid-template-columns: 52px 1fr; }
+      .glance-item { grid-template-columns: 60px 1fr; gap: 12px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TOP BANNER -->
+  <div class="top-banner">
+    <span>吃了飯 嗎 · Travels · 旅行</span>
+    <span class="zh">舊金山 · 加利福尼亞 · 美國</span>
+  </div>
+
+  <!-- MASTHEAD -->
+  <header class="masthead">
+    <p class="masthead-top">吃了飯 嗎 · A Bilingual Journal</p>
+    <h1>
+      吃了飯 嗎
+      <span class="en">Have You Eaten (Rice) Yet?</span>
+    </h1>
+  </header>
+
+  <!-- NAV -->
+  <nav>
+    <a href="index.html">🏠 Home <span class="nav-zh">首頁</span></a>
+    <a href="index.html#food">🍜 Food <span class="nav-zh">食物</span></a>
+    <a href="index.html#travels" class="active">🗺 Travels <span class="nav-zh">旅行</span></a>
+    <a href="index.html#therapy">✒ Personal Therapy <span class="nav-zh">心靈角落</span></a>
+  </nav>
+
+  <div class="page-wrapper">
+
+    <!-- POST HEADER -->
+    <div class="post-header">
+      <div class="post-tag-row">
+        <span class="post-tag">Travels · 旅行</span>
+        <span class="post-tag-zh">舊金山 · 一日遊</span>
+      </div>
+      <h2>One Fine Day in SF</h2>
+      <p class="zh-title">舊金山美好的一天</p>
+      <p class="subtitle">
+        Early spring. Best friend in town. High of 70°F, no fog,
+        comfortable breeze. San Francisco performing at its absolute best —
+        and a day designed to match it.
+      </p>
+      <div class="weather-strip">
+        🌤 Early Spring &nbsp;·&nbsp; High 70°F &nbsp;·&nbsp; No Fog &nbsp;·&nbsp; Light Breeze
+      </div>
+      <p class="post-meta">
+        <span>Travels</span>·
+        <span>8 min read · 八分鐘</span>·
+        <span>Entry No. 003</span>
+      </p>
+      <div class="post-ornament">🌉 🌿 🥂</div>
+    </div>
+
+    <!-- POST BODY -->
+    <div class="post-body">
+
+      <p>
+        There are two San Franciscos. The one tourists see — the bridges, the cable cars,
+        the sourdough bowl at Fisherman's Wharf — and the one you fall in love with
+        when someone who actually lives there takes you around. This was a day of
+        the second kind. My best friend was in from out of town. The weather had
+        decided to cooperate for once. And we had no plan beyond a loose sequence
+        of places we wanted to be, people we wanted to see, and food we intended to eat.
+        Which is exactly the right amount of plan for a city like this.
+      </p>
+
+      <p class="zh-aside">
+        舊金山有兩種。遊客看到的那種，和真正住在這裡的人帶你去的那種。<br/>
+        這一天屬於第二種。<br/>
+        最好的朋友來訪。天氣難得配合。計劃鬆散得恰到好處。
+      </p>
+
+      <div class="pull-quote">
+        <blockquote>
+          San Francisco is one of the few American cities<br/>
+          where not having a car is not a compromise.<br/>
+          It is a lifestyle choice that rewards you constantly.
+        </blockquote>
+        <span class="zh-quote">舊金山是少數幾個沒有車不是妥協，而是一種選擇的美國城市。</span>
+      </div>
+
+      <!-- DAY AT A GLANCE -->
+      <div class="day-glance">
+        <div class="glance-inner">
+          <div class="glance-item">
+            <div class="glance-time">Morning</div>
+            <div class="glance-text"><strong>GoodWill Thrift</strong> — Two chairs, under $2 each. Starting the day right. <span class="zh">二手店淘寶。兩把椅子，每把不到兩美元。</span></div>
+          </div>
+          <div class="glance-item">
+            <div class="glance-time">Brunch</div>
+            <div class="glance-text"><strong>el Mil Amores</strong>, 2780 21st St — Mexican brunch, Potrero Hill <span class="zh">墨西哥早午餐，Potrero Hill 社區</span></div>
+          </div>
+          <div class="glance-item">
+            <div class="glance-time">After</div>
+            <div class="glance-text"><strong>Muttville</strong> + <strong>Heath Ceramics</strong> + <strong>Rainbow Grocery</strong> — Dogs, ceramics, cheese <span class="zh">老狗救援 · 陶瓷窯 · 彩虹合作社</span></div>
+          </div>
+          <div class="glance-item">
+            <div class="glance-time">Afternoon</div>
+            <div class="glance-text"><strong>Garden for the Environment</strong>, 1590 7th Ave + <strong>Golden Gate Park</strong> + <strong>SF Botanical Garden</strong> <span class="zh">城市農場 · 金門公園 · 植物園</span></div>
+          </div>
+          <div class="glance-item">
+            <div class="glance-time">Dinner</div>
+            <div class="glance-text"><strong>La Ciccia</strong>, 291 30th St — Sardinian. The right ending. <span class="zh">薩丁尼亞料理。完美的結尾。</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- GOODWILL -->
+      <h3>First Stop: Frugality with Good Taste</h3>
+
+      <div class="stop thrift">
+        <div class="stop-header">
+          <div class="stop-icon">🪑</div>
+          <div class="stop-title-block">
+            <span class="stop-label">Morning · Thrifting</span>
+            <div class="stop-name">GoodWill</div>
+            <div class="stop-address">1215 California St, Burlingame, CA</div>
+          </div>
+        </div>
+        <div class="stop-body">
+          <p>
+            There is a particular satisfaction that comes from finding something
+            genuinely good for almost nothing. Two chairs. Under two dollars each.
+            The kind of find that makes you feel simultaneously lucky and slightly
+            superior — not in a mean way, just in the quiet way of someone who
+            knows something others walked past. It set the tone for the whole day:
+            paying attention, moving slowly, keeping your eyes open.
+          </p>
+        </div>
+      </div>
+
+      <!-- BRUNCH -->
+      <h3>Brunch and a Neighbourhood Walk</h3>
+
+      <div class="stop food">
+        <div class="stop-header">
+          <div class="stop-icon">🌮</div>
+          <div class="stop-title-block">
+            <span class="stop-label">Brunch · Mexican · 4.7★</span>
+            <div class="stop-name">el Mil Amores</div>
+            <div class="stop-address">2780 21st St, San Francisco · Open daily 8am–3pm</div>
+          </div>
+        </div>
+        <div class="stop-body">
+          <p>
+            The name means "a thousand loves" and the café de olla alone is worth
+            at least a hundred of them — sweet, spiced, and the kind of warm that
+            a 70-degree SF morning still calls for. El Mil Amores is the kind of
+            neighbourhood spot that is exactly what you want brunch to be: unhurried,
+            genuinely good, unpretentious, and with a menu where everything sounds
+            right. The CDMX plate — chilaquiles, eggs, potatoes, and concha French
+            toast — is the kind of breakfast that makes the rest of the day
+            feel like a gift.
+          </p>
+          <p>
+            There is usually a wait. It is worth it. Bring patience or arrive early.
+            They do not take reservations and they do not need to.
+          </p>
+        </div>
+      </div>
+
+      <p>
+        After brunch, we walked. This is the correct thing to do in Potrero Hill —
+        a neighbourhood that rewards the pedestrian with good views, quiet streets,
+        and the mild smugness of being somewhere that hasn't been fully discovered yet.
+        SF is a walkable city in the truest sense: not because everything is flat
+        (it is famously not), but because every neighbourhood has its own logic,
+        its own pace, and something worth slowing down for.
+      </p>
+
+      <!-- MUTTVILLE -->
+      <div class="stop dogs">
+        <div class="stop-header">
+          <div class="stop-icon">🐾</div>
+          <div class="stop-title-block">
+            <span class="stop-label">Drop-In · Senior Dog Rescue · 4.8★</span>
+            <div class="stop-name">Muttville Senior Dog Rescue</div>
+            <div class="stop-address">750 Florida St, San Francisco · Tue–Sun 11am–4pm</div>
+          </div>
+        </div>
+        <div class="stop-body">
+          <p>
+            Muttville rescues senior dogs — the ones most shelters overlook in favour
+            of puppies — and finds them homes for whatever time they have left.
+            It is one of the more quietly moving organisations in the city.
+            You go in to look at cute dogs. You come out thinking about
+            what it means to give something a good ending. We did not adopt anyone,
+            which required more restraint than I care to admit.
+          </p>
+        </div>
+      </div>
+
+      <!-- HEATH -->
+      <div class="stop shop">
+        <div class="stop-header">
+          <div class="stop-icon">🏺</div>
+          <div class="stop-title-block">
+            <span class="stop-label">Window Shopping · Ceramics · 4.7★</span>
+            <div class="stop-name">Heath Ceramics</div>
+            <div class="stop-address">2900 18th St, San Francisco · Mon–Fri 10am–6pm · Sat–Sun 10am–5pm</div>
+          </div>
+        </div>
+        <div class="stop-body">
+          <p>
+            Every piece is beautiful. This is not an exaggeration — it is a design
+            philosophy that Heath has maintained since Edith Heath founded the company
+            in Sausalito in 1948. Muted glazes, clean lines, the kind of ceramics that
+            make whatever food you put in them look considered. We admired everything.
+            We bought nothing. Our wallets made the final call, which they frequently do
+            at Heath. This is not a complaint. Window shopping at Heath is its own
+            pleasure — it costs nothing and you leave with better taste than when you walked in.
+          </p>
+        </div>
+      </div>
+
+      <!-- RAINBOW -->
+      <div class="stop shop">
+        <div class="stop-header">
+          <div class="stop-icon">🧀</div>
+          <div class="stop-title-block">
+            <span class="stop-label">Grocery · Worker-Owned Co-op · 4.6★</span>
+            <div class="stop-name">Rainbow Grocery Cooperative</div>
+            <div class="stop-address">1745 Folsom St, San Francisco · Daily 9am–9pm</div>
+          </div>
+        </div>
+        <div class="stop-body">
+          <p>
+            Rainbow is worker-owned, vegetarian, and one of the best grocery stores
+            in the city by a comfortable margin. The bulk section alone — herbs, grains,
+            teas, nuts, chocolate — could occupy a serious person for the better part
+            of an hour. We came for cheese, chocolate, and kitchen towels.
+            We left with cheese, chocolate, kitchen towels, and several things we
+            had not planned on but could not justify leaving behind.
+            This is always how Rainbow goes. Budget accordingly.
+          </p>
+        </div>
+      </div>
+
+      <!-- INTO NATURE -->
+      <h3>Into Nature — The SF Version</h3>
+
+      <p>
+        One of the things people outside of SF don't always appreciate is how much
+        green is folded into the city. Not just Golden Gate Park — though that is
+        extraordinary — but neighbourhood gardens, urban farms, community plots,
+        and the general insistence that plants belong in cities as much as people do.
+        The afternoon was built around this idea.
+      </p>
+
+      <!-- GARDEN FOR THE ENVIRONMENT -->
+      <div class="stop nature">
+        <div class="stop-header">
+          <div class="stop-icon">🌱</div>
+          <div class="stop-title-block">
+            <span class="stop-label">Urban Farm · Community Garden · 4.9★</span>
+            <div class="stop-name">Garden for the Environment</div>
+            <div class="stop-address">1590 7th Ave, Sunset District · Daily 7am–6:30pm · Free</div>
+          </div>
+        </div>
+        <div class="stop-body">
+          <p>
+            Hidden in the Sunset on 7th Avenue, Garden for the Environment is a
+            working urban demonstration garden — a teaching space for sustainable
+            gardening, composting, and food growing in a city context. Beehives,
+            vegetable beds, native plants, outdoor classrooms, and an atmosphere
+            of quiet productivity that feels completely removed from the city
+            surrounding it. Entry is free. It is genuinely one of SF's underappreciated gems.
+          </p>
+          <p>
+            If you have any interest in urban farming, edible plants, or simply
+            the idea that a city can grow its own food, this is where that interest
+            gets concrete. The volunteers who tend it clearly love every square foot.
+            That care is visible in every corner.
+          </p>
+        </div>
+      </div>
+
+      <!-- GOLDEN GATE PARK -->
+      <div class="stop nature">
+        <div class="stop-header">
+          <div class="stop-icon">🌳</div>
+          <div class="stop-title-block">
+            <span class="stop-label">Park · Botanical Garden · 4.8★</span>
+            <div class="stop-name">Golden Gate Park & SF Botanical Garden</div>
+            <div class="stop-address">1199 9th Ave, San Francisco · Daily 7:30am–5pm · Free for SF residents</div>
+          </div>
+        </div>
+        <div class="stop-body">
+          <p>
+            Golden Gate Park is 1,017 acres, which is larger than Central Park,
+            a fact New Yorkers find inconvenient. A relaxed stroll through it on
+            a 70-degree spring afternoon, with no agenda beyond moving through trees
+            and air, is one of the better uses of an afternoon in this city.
+            The SF Botanical Garden sits within the park and contains over 9,000
+            plant species from around the world — arranged by region, labelled
+            clearly, and maintained with evident care.
+          </p>
+          <p>
+            In early spring, the magnolias are the reason to go. They are magnificent
+            in the literal sense — large, architectural, and in full bloom before
+            most other trees have decided to wake up.
+          </p>
+          <div class="did-you-know">
+            Magnolia flowers are edible and have been used in tea for centuries —
+            particularly in traditional Chinese and Japanese medicine. The petals
+            have a mild, slightly floral and gingery flavour. Next time you walk
+            past one in bloom, you're looking at a cup of tea. A very beautiful,
+            extremely temporary cup of tea.
+            <br/><br/>
+            <span style="font-family:'Noto Serif TC',serif; font-size:12px; opacity:0.8;">
+            木蘭花可以入茶——在中日傳統醫學中使用已有幾個世紀。<br/>
+            花瓣帶有淡淡的花香和薑的味道。下次看到盛開的木蘭，你看到的是一杯茶。
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- DINNER -->
+      <h3>The Right Ending</h3>
+
+      <div class="stop dinner">
+        <div class="stop-header">
+          <div class="stop-icon">🍝</div>
+          <div class="stop-title-block">
+            <span class="stop-label">Dinner · Sardinian · 4.6★</span>
+            <div class="stop-name">La Ciccia</div>
+            <div class="stop-address">291 30th St, San Francisco · Tue–Sat 5:30pm–9:45pm · Closed Sun & Mon</div>
+          </div>
+        </div>
+        <div class="stop-body">
+          <p>
+            La Ciccia is a small, family-run Sardinian restaurant on 30th Street
+            in Noe Valley — one of those neighbourhood restaurants that has quietly
+            become essential without making a fuss about it. The octopus stew,
+            the gnocchi, the pasta: all of it tastes like someone's grandmother
+            made it, if your grandmother happened to be from Sardinia and have
+            exceptional technique. The room is cozy. The service is warm.
+            The prices are honest for what you get.
+          </p>
+          <p>
+            We ended the day here. After the thrifting and the brunch and the dogs
+            and the ceramics and the urban farm and the magnolias, we sat down
+            and ate well and talked the way you only talk with someone you've known
+            long enough that no topic requires an introduction. That is the best
+            thing a city can do — give you the right container for a day worth having.
+            SF, on this particular day, did that completely.
+          </p>
+        </div>
+      </div>
+
+      <!-- CLOSING -->
+      <div class="closing-note">
+        <p>
+          San Francisco gets a lot wrong. Housing. Cost of living. The fog
+          that arrives in June and forgets to leave until September.
+          But on an early spring day with a best friend and no particular agenda,
+          it does everything right. The neighbourhoods connect on foot.
+          The food is genuinely good across every price point.
+          The parks are serious parks. And the people who love this city
+          love it in a way that is infectious and specific and not quite
+          reproducible anywhere else.
+        </p>
+        <p>
+          Two chairs under four dollars. Chilaquiles. Senior dogs.
+          Magnolia tea. La Ciccia at dusk. One fine day.
+        </p>
+        <div class="zh-closing">
+          舊金山有很多做得不好的地方。房價。生活成本。六月來了不走的霧。<br/>
+          但在一個早春的日子裡，帶著最好的朋友，沒有特別的計劃——<br/>
+          它把一切都做對了。<br/>
+          兩把椅子不到四美元。木蘭花。老狗。La Ciccia 的章魚燉。<br/>
+          美好的一天。
+        </div>
+      </div>
+
+    </div>
+
+    <!-- POST FOOTER -->
+    <div class="post-footer">
+      <a href="index.html" class="back-link">← 回首頁 · Back Home</a>
+      <span class="entry-info">Travels · 旅行 · Entry No. 003</span>
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-zh">吃了飯 嗎</div>
+    <div class="footer-en">Have You Eaten (Rice) Yet?</div>
+    <div class="footer-ornament">✦ ✦ ✦</div>
+    <p>A bilingual journal · 中英雙語日記 · Written with both hands</p>
+  </footer>
+
+</body>
+</html>
