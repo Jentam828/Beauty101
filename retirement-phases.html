@@ -1,0 +1,1081 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>The Three Phases of Early Retirement — 吃了飯 嗎</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Noto+Serif+TC:wght@300;400;700;900&family=Special+Elite&family=Courier+Prime:ital@0;1&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --paper:        #f7f0e3;
+      --warm-white:   #fdf8f0;
+      --terracotta:   #c4603a;
+      --terra-pale:   #ead5c8;
+      --sage:         #7c9e82;
+      --sage-dark:    #4a6b50;
+      --sage-pale:    #d4e3d6;
+      --ochre:        #c8912a;
+      --ochre-light:  #e5b84a;
+      --ochre-pale:   #f2e0b0;
+      --ink:          #2a1f14;
+      --mid:          #5a3e2b;
+      --border:       #c9a87a;
+      --border-light: #e0c9a0;
+      --go-go:        #3a7d44;
+      --go-go-pale:   #d4ead8;
+      --slow-go:      #3a6186;
+      --slow-go-pale: #dce8f0;
+      --no-go:        #6b3a5e;
+      --no-go-pale:   #ecdce8;
+      --money:        #8b5e3c;
+      --money-pale:   #f0e0d0;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--paper);
+      background-image:
+        radial-gradient(ellipse at 20% 20%, rgba(58,125,68,0.05) 0%, transparent 55%),
+        radial-gradient(ellipse at 80% 80%, rgba(107,58,94,0.04) 0%, transparent 55%),
+        repeating-linear-gradient(
+          0deg, transparent, transparent 32px,
+          rgba(201,168,122,0.1) 32px, rgba(201,168,122,0.1) 33px
+        );
+      color: var(--ink);
+      font-family: 'Courier Prime', monospace;
+      font-size: 15px;
+      line-height: 1.8;
+      min-height: 100vh;
+    }
+
+    /* ── TOP BANNER ── */
+    .top-banner {
+      background: var(--money);
+      color: var(--warm-white);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 7px 32px;
+      font-family: 'Special Elite', cursive;
+      font-size: 10px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+    }
+    .top-banner .zh {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      font-weight: 300;
+    }
+
+    /* ── MASTHEAD ── */
+    .masthead {
+      background: var(--warm-white);
+      border-bottom: 4px double var(--border);
+      text-align: center;
+      padding: 22px 20px 16px;
+    }
+    .masthead-top {
+      font-family: 'Special Elite', cursive;
+      font-size: 10px;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--terracotta);
+      margin-bottom: 6px;
+    }
+    .masthead h1 {
+      font-family: 'Noto Serif TC', serif;
+      font-weight: 900;
+      font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+      color: var(--terracotta);
+      letter-spacing: 0.08em;
+      text-shadow: 2px 2px 0 var(--terra-pale);
+    }
+    .masthead h1 .en {
+      display: block;
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(0.8rem, 1.6vw, 1rem);
+      font-weight: 400;
+      font-style: italic;
+      color: var(--mid);
+      margin-top: 4px;
+      text-shadow: none;
+    }
+
+    /* ── NAV ── */
+    nav {
+      background: var(--ink);
+      display: flex;
+      justify-content: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 3px solid var(--terracotta);
+    }
+    nav a {
+      font-family: 'Special Elite', cursive;
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--border-light);
+      text-decoration: none;
+      padding: 14px 28px;
+      border-right: 1px solid rgba(255,255,255,0.08);
+      transition: background 0.2s, color 0.2s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+    }
+    nav a:first-child { border-left: 1px solid rgba(255,255,255,0.08); }
+    nav a .nav-zh {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 10px;
+      font-weight: 300;
+      letter-spacing: 0.15em;
+      opacity: 0.6;
+    }
+    nav a:hover, nav a.active {
+      background: var(--terracotta);
+      color: var(--warm-white);
+    }
+
+    /* ── PAGE WRAPPER ── */
+    .page-wrapper {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 56px 24px 100px;
+    }
+
+    /* ── POST HEADER ── */
+    .post-header {
+      text-align: center;
+      margin-bottom: 52px;
+      padding-bottom: 32px;
+      border-bottom: 3px double var(--border);
+      animation: fadeUp 0.6s ease both;
+    }
+    .post-tag-row {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    .post-tag {
+      display: inline-block;
+      background: var(--money-pale);
+      color: var(--money);
+      font-family: 'Special Elite', cursive;
+      font-size: 9px;
+      letter-spacing: 0.4em;
+      padding: 4px 14px;
+      text-transform: uppercase;
+    }
+    .post-tag-zh {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 11px;
+      font-weight: 300;
+      color: var(--mid);
+      opacity: 0.6;
+      letter-spacing: 0.2em;
+    }
+    .post-header h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 4.5vw, 3.2rem);
+      font-weight: 900;
+      color: var(--ink);
+      line-height: 1.15;
+      margin-bottom: 6px;
+    }
+    .post-header .zh-title {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 1.1rem;
+      font-weight: 300;
+      color: var(--mid);
+      letter-spacing: 0.2em;
+      margin-bottom: 18px;
+    }
+    .post-header .subtitle {
+      font-family: 'IM Fell English', serif;
+      font-style: italic;
+      font-size: 1.05rem;
+      color: var(--mid);
+      line-height: 1.65;
+      margin-bottom: 18px;
+      max-width: 560px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .post-meta {
+      font-family: 'Special Elite', cursive;
+      font-size: 10px;
+      letter-spacing: 0.3em;
+      color: var(--mid);
+      text-transform: uppercase;
+      opacity: 0.65;
+      margin-top: 10px;
+    }
+    .post-meta span { margin: 0 8px; }
+    .post-ornament { font-size: 18px; letter-spacing: 0.4em; margin-top: 14px; }
+
+    /* ── POST BODY ── */
+    .post-body { animation: fadeUp 0.6s 0.1s ease both; }
+    .post-body p {
+      font-family: 'Courier Prime', monospace;
+      font-size: 15px;
+      line-height: 2.05;
+      color: var(--mid);
+      margin-bottom: 24px;
+    }
+    .post-body p:first-of-type::first-letter {
+      font-family: 'Playfair Display', serif;
+      font-size: 4.5rem;
+      font-weight: 900;
+      color: var(--money);
+      float: left;
+      line-height: 0.75;
+      margin: 6px 10px 0 0;
+    }
+    .post-body .zh-aside {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--mid);
+      opacity: 0.75;
+      letter-spacing: 0.1em;
+      line-height: 2.2;
+      margin-bottom: 24px;
+      padding-left: 18px;
+      border-left: 2px solid var(--border-light);
+    }
+
+    /* ── PULL QUOTE ── */
+    .pull-quote {
+      margin: 44px 0;
+      padding: 26px 40px;
+      border-top: 3px double var(--ochre);
+      border-bottom: 3px double var(--ochre);
+      text-align: center;
+      position: relative;
+    }
+    .pull-quote::before {
+      content: '\201C';
+      font-family: 'Playfair Display', serif;
+      font-size: 100px;
+      color: var(--ochre-pale);
+      line-height: 0.4;
+      position: absolute;
+      top: 48px; left: 8px;
+      pointer-events: none;
+    }
+    .pull-quote blockquote {
+      font-family: 'IM Fell English', serif;
+      font-style: italic;
+      font-size: 1.15rem;
+      color: var(--money);
+      line-height: 1.7;
+      position: relative; z-index: 1;
+    }
+    .pull-quote .zh-quote {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 12px;
+      font-weight: 300;
+      color: var(--mid);
+      letter-spacing: 0.15em;
+      margin-top: 10px;
+      display: block;
+      opacity: 0.7;
+      position: relative; z-index: 1;
+    }
+
+    /* ── PHASE CARDS ── */
+    .phase {
+      margin: 44px 0;
+      border: 1px solid var(--border-light);
+      background: var(--warm-white);
+      overflow: hidden;
+    }
+    .phase-header {
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      align-items: stretch;
+    }
+    .phase-badge {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px 10px;
+      font-size: 28px;
+      gap: 6px;
+    }
+    .phase.go-go   .phase-badge { background: var(--go-go-pale); }
+    .phase.slow-go .phase-badge { background: var(--slow-go-pale); }
+    .phase.no-go   .phase-badge { background: var(--no-go-pale); }
+
+    .phase-badge .phase-num {
+      font-family: 'Special Elite', cursive;
+      font-size: 9px;
+      letter-spacing: 0.2em;
+      text-align: center;
+    }
+    .phase.go-go   .phase-badge .phase-num { color: var(--go-go); }
+    .phase.slow-go .phase-badge .phase-num { color: var(--slow-go); }
+    .phase.no-go   .phase-badge .phase-num { color: var(--no-go); }
+
+    .phase-title-block {
+      padding: 16px 22px 14px;
+      border-bottom: 1px dashed var(--border-light);
+    }
+    .phase-label {
+      font-family: 'Special Elite', cursive;
+      font-size: 9px;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      display: block;
+      margin-bottom: 3px;
+    }
+    .phase.go-go   .phase-label { color: var(--go-go); }
+    .phase.slow-go .phase-label { color: var(--slow-go); }
+    .phase.no-go   .phase-label { color: var(--no-go); }
+
+    .phase-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      font-weight: 900;
+      color: var(--ink);
+      line-height: 1.1;
+    }
+    .phase.go-go   .phase-name { color: var(--go-go); }
+    .phase.slow-go .phase-name { color: var(--slow-go); }
+    .phase.no-go   .phase-name { color: var(--no-go); }
+
+    .phase-ages {
+      font-family: 'Special Elite', cursive;
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      color: var(--mid);
+      opacity: 0.6;
+      margin-top: 3px;
+    }
+    .phase-body { padding: 20px 24px 24px; }
+    .phase-body p {
+      font-size: 14px;
+      color: var(--mid);
+      line-height: 1.95;
+      margin-bottom: 16px;
+    }
+    .phase-body p:last-child { margin-bottom: 0; }
+
+    /* ── ACTIVITY & MONEY ROWS ── */
+    .phase-section-title {
+      font-family: 'Special Elite', cursive;
+      font-size: 9px;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      margin: 18px 0 10px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid var(--border-light);
+    }
+    .phase.go-go   .phase-section-title { color: var(--go-go); }
+    .phase.slow-go .phase-section-title { color: var(--slow-go); }
+    .phase.no-go   .phase-section-title { color: var(--no-go); }
+
+    .activity-list {
+      list-style: none;
+      margin-bottom: 16px;
+    }
+    .activity-list li {
+      font-size: 13px;
+      color: var(--mid);
+      line-height: 1.8;
+      padding: 5px 0 5px 22px;
+      position: relative;
+      border-bottom: 1px dashed var(--border-light);
+    }
+    .activity-list li:last-child { border-bottom: none; }
+    .activity-list li::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      font-family: 'Special Elite', cursive;
+      font-size: 11px;
+    }
+    .phase.go-go   .activity-list li::before { color: var(--go-go); }
+    .phase.slow-go .activity-list li::before { color: var(--slow-go); }
+    .phase.no-go   .activity-list li::before { color: var(--no-go); }
+
+    .activity-list li .zh {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 11px;
+      font-weight: 300;
+      opacity: 0.6;
+      letter-spacing: 0.08em;
+      display: block;
+    }
+
+    /* ── MONEY BOX ── */
+    .money-box {
+      padding: 16px 18px;
+      margin-top: 6px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 16px;
+    }
+    .phase.go-go   .money-box { background: var(--go-go-pale); }
+    .phase.slow-go .money-box { background: var(--slow-go-pale); }
+    .phase.no-go   .money-box { background: var(--no-go-pale); }
+
+    .money-box .money-label {
+      font-family: 'Special Elite', cursive;
+      font-size: 9px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      display: block;
+      margin-bottom: 3px;
+    }
+    .phase.go-go   .money-label { color: var(--go-go); }
+    .phase.slow-go .money-label { color: var(--slow-go); }
+    .phase.no-go   .money-label { color: var(--no-go); }
+
+    .money-box .money-desc {
+      font-size: 12px;
+      color: var(--mid);
+      line-height: 1.6;
+    }
+    .money-box .money-amount {
+      text-align: right;
+      white-space: nowrap;
+    }
+    .money-box .money-annual {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      font-weight: 900;
+      line-height: 1;
+      display: block;
+    }
+    .phase.go-go   .money-annual { color: var(--go-go); }
+    .phase.slow-go .money-annual { color: var(--slow-go); }
+    .phase.no-go   .money-annual { color: var(--no-go); }
+
+    .money-box .money-period {
+      font-family: 'Special Elite', cursive;
+      font-size: 9px;
+      letter-spacing: 0.2em;
+      color: var(--mid);
+      display: block;
+      margin-top: 2px;
+    }
+    .money-box .money-total {
+      font-family: 'Courier Prime', monospace;
+      font-size: 11px;
+      color: var(--mid);
+      opacity: 0.7;
+      margin-top: 3px;
+      display: block;
+    }
+
+    /* ── GRAND TOTAL ── */
+    .grand-total {
+      background: var(--ink);
+      color: var(--warm-white);
+      padding: 32px 36px;
+      margin: 52px 0;
+      position: relative;
+      border-top: 4px solid var(--ochre);
+    }
+    .grand-total::before {
+      content: 'The Grand Total · 總計';
+      position: absolute;
+      top: -13px; left: 24px;
+      background: var(--ochre);
+      color: var(--ink);
+      font-family: 'Special Elite', cursive;
+      font-size: 9px;
+      letter-spacing: 0.35em;
+      padding: 3px 14px;
+      font-weight: 700;
+    }
+    .total-rows { margin-bottom: 24px; }
+    .total-row {
+      display: grid;
+      grid-template-columns: 1fr auto auto;
+      gap: 20px;
+      padding: 12px 0;
+      border-bottom: 1px dashed rgba(255,255,255,0.1);
+      align-items: center;
+    }
+    .total-row:last-child { border-bottom: none; }
+    .total-phase {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      font-weight: 700;
+    }
+    .total-row.go-go   .total-phase { color: var(--go-go-pale); }
+    .total-row.slow-go .total-phase { color: var(--slow-go-pale); }
+    .total-row.no-go   .total-phase { color: var(--no-go-pale); }
+    .total-years {
+      font-family: 'Special Elite', cursive;
+      font-size: 9px;
+      letter-spacing: 0.2em;
+      color: rgba(255,255,255,0.4);
+      text-align: right;
+    }
+    .total-amount {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--ochre-light);
+      text-align: right;
+      white-space: nowrap;
+    }
+    .grand-sum {
+      border-top: 2px solid var(--ochre);
+      padding-top: 20px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 20px;
+    }
+    .grand-sum-label {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      font-style: italic;
+      color: rgba(253,248,240,0.7);
+      line-height: 1.4;
+    }
+    .grand-sum-label .zh {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 12px;
+      font-weight: 300;
+      opacity: 0.6;
+      letter-spacing: 0.1em;
+      display: block;
+      margin-top: 4px;
+    }
+    .grand-sum-number {
+      text-align: right;
+    }
+    .grand-sum-number .big {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2rem;
+      font-weight: 900;
+      color: var(--ochre-light);
+      line-height: 1;
+      display: block;
+    }
+    .grand-sum-number .caveat {
+      font-family: 'Special Elite', cursive;
+      font-size: 9px;
+      letter-spacing: 0.2em;
+      color: rgba(255,255,255,0.4);
+      display: block;
+      margin-top: 4px;
+    }
+
+    /* ── CLOSING NOTE ── */
+    .closing-note {
+      background: var(--money);
+      color: var(--warm-white);
+      padding: 30px 34px;
+      margin-top: 44px;
+      position: relative;
+      border-top: 4px solid var(--ochre);
+    }
+    .closing-note::before {
+      content: '後記';
+      position: absolute;
+      top: -13px; left: 28px;
+      background: var(--ochre);
+      color: var(--ink);
+      font-family: 'Noto Serif TC', serif;
+      font-size: 11px;
+      letter-spacing: 0.3em;
+      padding: 3px 12px;
+      font-weight: 700;
+    }
+    .closing-note p {
+      font-size: 13px;
+      line-height: 1.95;
+      color: rgba(253,248,240,0.85);
+      margin-bottom: 12px;
+    }
+    .closing-note p:last-child { margin-bottom: 0; }
+    .closing-note .zh-closing {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--ochre-light);
+      letter-spacing: 0.12em;
+      line-height: 2.2;
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px dashed rgba(255,255,255,0.15);
+    }
+
+    /* ── DISCLAIMER ── */
+    .disclaimer {
+      background: var(--terra-pale);
+      border: 1px dashed var(--border);
+      padding: 12px 18px;
+      margin-top: 32px;
+      font-family: 'Special Elite', cursive;
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      color: var(--mid);
+      line-height: 1.8;
+      text-align: center;
+    }
+
+    /* ── POST FOOTER ── */
+    .post-footer {
+      margin-top: 44px;
+      padding-top: 24px;
+      border-top: 3px double var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .post-footer .back-link {
+      font-family: 'Special Elite', cursive;
+      font-size: 10px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--money);
+      text-decoration: none;
+      border: 1px solid var(--border);
+      padding: 8px 18px;
+      transition: background 0.2s, color 0.2s;
+    }
+    .post-footer .back-link:hover {
+      background: var(--money);
+      color: var(--warm-white);
+    }
+    .post-footer .entry-info {
+      font-family: 'Special Elite', cursive;
+      font-size: 10px;
+      letter-spacing: 0.25em;
+      color: var(--mid);
+      opacity: 0.55;
+      text-transform: uppercase;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--ink);
+      border-top: 4px double var(--terracotta);
+      text-align: center;
+      padding: 28px 20px;
+    }
+    footer .footer-zh {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--ochre-light);
+      letter-spacing: 0.15em;
+    }
+    footer .footer-en {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 0.95rem;
+      color: var(--terra-pale);
+    }
+    footer .footer-ornament {
+      font-size: 14px;
+      letter-spacing: 0.6em;
+      color: var(--terracotta);
+      margin: 10px 0;
+    }
+    footer p {
+      font-family: 'Special Elite', cursive;
+      font-size: 9px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--border);
+      opacity: 0.4;
+      margin-top: 4px;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(14px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 600px) {
+      .top-banner { flex-direction: column; gap: 4px; }
+      nav a { padding: 12px 12px; font-size: 10px; }
+      .post-body p:first-of-type::first-letter { font-size: 3rem; }
+      .phase-header { grid-template-columns: 64px 1fr; }
+      .money-box { grid-template-columns: 1fr; gap: 10px; }
+      .money-box .money-amount { text-align: left; }
+      .total-row { grid-template-columns: 1fr auto; }
+      .total-years { display: none; }
+      .grand-sum { grid-template-columns: 1fr; gap: 12px; }
+      .grand-sum-number { text-align: left; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="top-banner">
+    <span>吃了飯 嗎 · Personal Therapy · 心靈角落</span>
+    <span class="zh">提早退休 · 三個階段</span>
+  </div>
+
+  <header class="masthead">
+    <p class="masthead-top">吃了飯 嗎 · A Bilingual Journal</p>
+    <h1>吃了飯 嗎<span class="en">Have You Eaten (Rice) Yet?</span></h1>
+  </header>
+
+  <nav>
+    <a href="index.html">🏠 Home <span class="nav-zh">首頁</span></a>
+    <a href="index.html#food">🍜 Food <span class="nav-zh">食物</span></a>
+    <a href="index.html#travels">🗺 Travels <span class="nav-zh">旅行</span></a>
+    <a href="index.html#therapy" class="active">✒ Personal Therapy <span class="nav-zh">心靈角落</span></a>
+  </nav>
+
+  <div class="page-wrapper">
+
+    <div class="post-header">
+      <div class="post-tag-row">
+        <span class="post-tag">Personal Therapy · 心靈角落</span>
+        <span class="post-tag-zh">提早退休</span>
+      </div>
+      <h2>The Three Phases of Early Retirement</h2>
+      <p class="zh-title">提早退休的三個階段</p>
+      <p class="subtitle">
+        A map for the road ahead. Not a guarantee — maps never are —
+        but a way of thinking about time, money, and what you want
+        to do with both before you no longer can.
+      </p>
+      <p class="post-meta">
+        <span>Personal Therapy</span>·
+        <span>9 min read · 九分鐘</span>·
+        <span>Entry No. 003</span>
+      </p>
+      <div class="post-ornament">🟢 🔵 🟣</div>
+    </div>
+
+    <div class="post-body">
+
+      <p>
+        Nobody talks about retirement the way it actually unfolds. The financial
+        planning industry hands you a number — save this much, withdraw this percentage,
+        you'll be fine — and treats the next thirty years as a single, undifferentiated
+        block of time. But retirement isn't one thing. It's three very different things,
+        happening sequentially, each with its own energy, its own demands, and its own
+        price tag. Getting the map wrong doesn't just cost you money. It costs you time.
+        And time, unlike money, cannot be earned back.
+      </p>
+
+      <p class="zh-aside">
+        沒有人用它真實的樣子談退休。<br/>
+        理財顧問給你一個數字，然後把接下來三十年當成一整塊來規劃。<br/>
+        但退休不是一件事。它是三件截然不同的事，按順序發生，<br/>
+        各有各的精力、各有各的需求、各有各的價格。
+      </p>
+
+      <p>
+        The framework is simple. Financial planners have known it for years,
+        though they don't always lead with it. Your retirement happens in three phases —
+        Go-Go, Slow-Go, and No-Go — and understanding the shape of each one changes
+        how you think about both your money and your days. Especially if you've retired
+        early. Especially if you live somewhere expensive. Especially if you're honest
+        with yourself about what the numbers actually mean.
+      </p>
+
+      <div class="pull-quote">
+        <blockquote>
+          "The goal of investing isn't to maximize returns.<br/>
+          It's to maximize the odds of not running out of money<br/>
+          before you run out of time."
+        </blockquote>
+        <span class="zh-quote">— 投資的目標不是最大化報酬。而是最大化在時間耗盡之前，錢不會先耗盡的機率。</span>
+      </div>
+
+      <!-- PHASE 1: GO-GO -->
+      <div class="phase go-go">
+        <div class="phase-header">
+          <div class="phase-badge">
+            🏃
+            <span class="phase-num">Phase<br/>One</span>
+          </div>
+          <div class="phase-title-block">
+            <span class="phase-label">Ages 55–69 · 第一階段</span>
+            <div class="phase-name">The Go-Go Years</div>
+            <div class="phase-ages">55 to 69 · 15 years · 十五年</div>
+          </div>
+        </div>
+        <div class="phase-body">
+          <p>
+            This is the phase most people picture when they imagine retirement —
+            and they are right to. Your body still does what you ask it to.
+            Your curiosity is intact. You have the energy to go places, try things,
+            and come back wanting more. The Go-Go years are the ones you spend,
+            in the best sense of the word.
+          </p>
+          <p>
+            The mistake people make here is under-spending, out of anxiety
+            about the years ahead. But there is a real cost to saving your best
+            years for later — later has a way of arriving with different capabilities
+            than you planned for. The Go-Go years are when international travel
+            is still genuinely comfortable, when learning something new still feels
+            like growth rather than effort, when a part-time job is a choice
+            rather than a necessity.
+          </p>
+
+          <div class="phase-section-title">Activities · 活動</div>
+          <ul class="activity-list">
+            <li>At least 2 international trips per year — this is the window <span class="zh">每年至少兩次國際旅行——這是最佳時機</span></li>
+            <li>Road trips through California and beyond — flexible, spontaneous <span class="zh">加州及周邊公路旅行——靈活、自在</span></li>
+            <li>Volunteering — giving time when time is abundant <span class="zh">志工服務——時間充裕時，給予時間</span></li>
+            <li>Classes for self-improvement — language, ceramics, cooking, whatever calls <span class="zh">自我提升課程——語言、陶藝、烹飪，任何吸引你的</span></li>
+            <li>Part-time work on your own terms — for stimulation, not survival <span class="zh">兼職工作，按自己的條件——為了刺激感，不是為了生存</span></li>
+          </ul>
+
+          <div class="phase-section-title">Money · 財務</div>
+          <div class="money-box">
+            <div>
+              <span class="money-label">Annual Budget · Bay Area</span>
+              <div class="money-desc">
+                Housing, travel (2 international + several road trips), classes, dining,
+                healthcare, daily life in one of the most expensive regions in the US.
+                This is not extravagant — it is realistic for the Bay Area.
+              </div>
+            </div>
+            <div class="money-amount">
+              <span class="money-annual">$100K</span>
+              <span class="money-period">per year</span>
+              <span class="money-total">× 15 years = $1,500,000</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PHASE 2: SLOW-GO -->
+      <div class="phase slow-go">
+        <div class="phase-header">
+          <div class="phase-badge">
+            🚶
+            <span class="phase-num">Phase<br/>Two</span>
+          </div>
+          <div class="phase-title-block">
+            <span class="phase-label">Ages 70–79 · 第二階段</span>
+            <div class="phase-name">The Slow-Go Years</div>
+            <div class="phase-ages">70 to 79 · 10 years · 十年</div>
+          </div>
+        </div>
+        <div class="phase-body">
+          <p>
+            The pace changes. Not dramatically — this isn't decline, it's recalibration.
+            You still want to be out in the world, still want to learn, still want to
+            grow things and be with people. But the appetite for jet lag decreases.
+            The appeal of a long haul flight to somewhere unfamiliar diminishes
+            relative to the appeal of somewhere known, comfortable, and close.
+          </p>
+          <p>
+            The Slow-Go years are underrated. There is a particular quality to life
+            at 70 that the Go-Go years don't have — a deeper comfort with yourself,
+            a less anxious relationship with time, a genuine pleasure in smaller
+            pleasures. Growing herbs on a balcony. A book club that meets every month
+            with the same people. One carefully chosen trip instead of two rushed ones.
+          </p>
+
+          <div class="phase-section-title">Activities · 活動</div>
+          <ul class="activity-list">
+            <li>One international trip per year — chosen with more care, enjoyed more fully <span class="zh">每年一次國際旅行——更謹慎挑選，更充分享受</span></li>
+            <li>Local road trips — the familiar places, revisited with new eyes <span class="zh">本地公路旅行——重訪熟悉的地方，用新的眼光</span></li>
+            <li>Book club — the same people, every month, a constant <span class="zh">讀書會——同一群人，每個月，穩定的存在</span></li>
+            <li>Volunteering — still giving, still connected to something larger <span class="zh">志工服務——仍在給予，仍與更大的事物相連</span></li>
+            <li>Growing herbs and vegetables for the table — small, productive, grounding <span class="zh">種植香草與蔬菜自用——小而有產出，讓人踏實</span></li>
+          </ul>
+
+          <div class="phase-section-title">Money · 財務</div>
+          <div class="money-box">
+            <div>
+              <span class="money-label">Annual Budget · Bay Area</span>
+              <div class="money-desc">
+                Reduced travel spend. More modest daily pace. But healthcare costs
+                begin rising meaningfully in this decade — budget for that reality,
+                not the optimistic version.
+              </div>
+            </div>
+            <div class="money-amount">
+              <span class="money-annual">$60K</span>
+              <span class="money-period">per year</span>
+              <span class="money-total">× 10 years = $600,000</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PHASE 3: NO-GO -->
+      <div class="phase no-go">
+        <div class="phase-header">
+          <div class="phase-badge">
+            🪑
+            <span class="phase-num">Phase<br/>Three</span>
+          </div>
+          <div class="phase-title-block">
+            <span class="phase-label">Age 80–End · 第三階段</span>
+            <div class="phase-name">The No-Go Years</div>
+            <div class="phase-ages">80 onward · 10 years estimated · 估計十年</div>
+          </div>
+        </div>
+        <div class="phase-body">
+          <p>
+            The name sounds bleak. The reality is more nuanced. The No-Go years
+            are not necessarily years of suffering — they are years of smaller radius.
+            The world contracts, not because it has become less interesting,
+            but because the body sensibly begins to negotiate. You work with what you have.
+            You find depth in proximity rather than distance.
+          </p>
+          <p>
+            This is also the phase where the unexpected expenses live — healthcare,
+            care support, home modifications, and ideally the AI-assisted technology
+            that by the 2030s and 2040s will likely look very different from anything
+            we can fully imagine today. A robot that helps around the home,
+            powered by agents that genuinely understand context, is not science fiction
+            for this generation. It is a reasonable budget line item.
+          </p>
+
+          <div class="phase-section-title">Activities · 活動</div>
+          <ul class="activity-list">
+            <li>A few road trips — closer to home, well-planned, still worth doing <span class="zh">幾次公路旅行——離家近一些，規劃周全，仍然值得</span></li>
+            <li>An annual cruise with friends — structured, comfortable, sociable <span class="zh">每年一次郵輪旅行——有組織、舒適、有社交</span></li>
+            <li>Book club — now a lifeline as much as a pleasure <span class="zh">讀書會——此時既是樂趣，也是生命線</span></li>
+            <li>Home as sanctuary — garden, kitchen, the quiet pleasures of a well-kept life <span class="zh">家作為庇護所——花園、廚房、井然有序的安靜生活</span></li>
+            <li>AI-assisted home support — by then, not a luxury but a practical tool <span class="zh">AI 輔助居家支援——到那時，不是奢侈，而是實用工具</span></li>
+          </ul>
+
+          <div class="phase-section-title">Money · 財務</div>
+          <div class="money-box">
+            <div>
+              <span class="money-label">Annual Budget · Bay Area</span>
+              <div class="money-desc">
+                Spending rises again — not for adventure, but for care, comfort,
+                and support. Healthcare, in-home assistance, and technology costs
+                make this phase more expensive than Slow-Go despite the smaller life radius.
+              </div>
+            </div>
+            <div class="money-amount">
+              <span class="money-annual">$80K</span>
+              <span class="money-period">per year</span>
+              <span class="money-total">× 10 years = $800,000</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- GRAND TOTAL -->
+      <div class="grand-total">
+        <div class="total-rows">
+          <div class="total-row go-go">
+            <div class="total-phase">Go-Go Years</div>
+            <div class="total-years">15 years × $100K</div>
+            <div class="total-amount">$1,500,000</div>
+          </div>
+          <div class="total-row slow-go">
+            <div class="total-phase">Slow-Go Years</div>
+            <div class="total-years">10 years × $60K</div>
+            <div class="total-amount">$600,000</div>
+          </div>
+          <div class="total-row no-go">
+            <div class="total-phase">No-Go Years</div>
+            <div class="total-years">10 years × $80K</div>
+            <div class="total-amount">$800,000</div>
+          </div>
+        </div>
+        <div class="grand-sum">
+          <div class="grand-sum-label">
+            Total estimated cost of early retirement in the Bay Area,
+            across all three phases, over approximately 35 years.
+            <span class="zh">三個階段合計，在灣區提早退休，約三十五年的估算總費用。</span>
+          </div>
+          <div class="grand-sum-number">
+            <span class="big">$2,900,000</span>
+            <span class="caveat">Before inflation adjustment</span>
+          </div>
+        </div>
+      </div>
+
+      <p>
+        Nearly three million dollars. Said plainly, that number is alarming.
+        Said in context, it is simply what a long life in an expensive place costs —
+        spread over 35 years, adjusted for the fact that the Slow-Go years cost
+        significantly less than the Go-Go years, and that the No-Go years,
+        while more expensive in care costs, require far less of everything else.
+        The number is large. It is also, with enough lead time and reasonable investment
+        returns, achievable. The math is not the enemy. Waiting too long to look at it is.
+      </p>
+
+      <p class="zh-aside">
+        將近三百萬美元。直說的話，這個數字很嚇人。<br/>
+        放在背景下看，它只是一段漫長的生命在昂貴地方的代價——<br/>
+        分散在三十五年裡，考慮到各階段的不同需求。<br/>
+        這個數字很大。但只要有足夠的時間和合理的投資回報，它是可以實現的。<br/>
+        數字不是敵人。太晚才去面對它，才是。
+      </p>
+
+      <p>
+        One more thing worth saying. Plans don't survive contact with life fully intact —
+        health changes, markets move, priorities shift, people we love need things
+        we didn't budget for. The point of the plan is not precision. It is orientation.
+        Knowing roughly where you're going lets you notice when you've drifted,
+        and course-correct before the drift becomes a problem. The big picture
+        is not naive. The big picture is the only place where the whole thing makes sense.
+      </p>
+
+      <div class="closing-note">
+        <p>
+          The best financial plan is not the most optimized one.
+          It is the one you can actually live with — through the Go-Go years
+          when you are spending freely and the Slow-Go years when you are
+          spending wisely and the No-Go years when you are spending on things
+          you never thought you'd need to spend on.
+        </p>
+        <p>
+          Save enough to fund all three phases. Spend freely in the first.
+          Spend thoughtfully in the second. Spend without guilt in the third.
+          That is the whole plan. Everything else is detail.
+        </p>
+        <div class="zh-closing">
+          最好的財務計劃不是最優化的那個。<br/>
+          而是你真正能與之共存的那個——<br/>
+          在大步走的年份自由地花，在慢慢走的年份謹慎地花，<br/>
+          在停下來的年份毫無愧疚地花。<br/>
+          存夠三個階段的錢。其他的，都是細節。
+        </div>
+      </div>
+
+      <div class="disclaimer">
+        ⚠ This post reflects personal estimates for planning purposes only and is not financial advice.
+        Actual costs vary significantly based on health, lifestyle, market conditions, and inflation.
+        Please consult a qualified financial planner for your specific situation.
+        · 本文僅供個人規劃參考，非財務建議。實際費用因健康、生活方式、市場及通膨而異。請諮詢合格理財顧問。
+      </div>
+
+    </div>
+
+    <div class="post-footer">
+      <a href="index.html" class="back-link">← 回首頁 · Back Home</a>
+      <span class="entry-info">Personal Therapy · 心靈角落 · Entry No. 003</span>
+    </div>
+
+  </div>
+
+  <footer>
+    <div class="footer-zh">吃了飯 嗎</div>
+    <div class="footer-en">Have You Eaten (Rice) Yet?</div>
+    <div class="footer-ornament">✦ ✦ ✦</div>
+    <p>A bilingual journal · 中英雙語日記 · Written with both hands</p>
+  </footer>
+
+</body>
+</html>
