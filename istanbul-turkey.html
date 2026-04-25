@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Istanbul, Turkey — 吃了飯 嗎</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Noto+Serif+TC:wght@300;400;700;900&family=Special+Elite&family=Courier+Prime:ital@0;1&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --paper:          #f7f0e3;
+      --warm-white:     #fdf8f0;
+      --terracotta:     #c4603a;
+      --terra-pale:     #ead5c8;
+      --ochre:          #c8912a;
+      --ochre-light:    #e5b84a;
+      --ochre-pale:     #f2e0b0;
+      --ink:            #2a1f14;
+      --mid:            #5a3e2b;
+      --border:         #c9a87a;
+      --border-light:   #e0c9a0;
+      --istanbul:       #8b2a2a;
+      --istanbul-pale:  #f5e0d8;
+      --istanbul-dark:  #5c1a1a;
+      --bosphorus:      #2a5a7a;
+      --bosphorus-pale: #d8eaf5;
+      --sage:           #4a6b50;
+      --sage-pale:      #d4e3d6;
+      --hamam:          #5a4a7a;
+      --hamam-pale:     #ece4f5;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--paper);
+      background-image:
+        radial-gradient(ellipse at 15% 15%, rgba(139,42,42,0.05) 0%, transparent 55%),
+        radial-gradient(ellipse at 85% 85%, rgba(42,90,122,0.04) 0%, transparent 55%),
+        repeating-linear-gradient(
+          0deg, transparent, transparent 32px,
+          rgba(201,168,122,0.1) 32px, rgba(201,168,122,0.1) 33px
+        );
+      color: var(--ink);
+      font-family: 'Courier Prime', monospace;
+      font-size: 15px;
+      line-height: 1.8;
+      min-height: 100vh;
+    }
+
+    .top-banner {
+      background: var(--istanbul-dark);
+      color: var(--warm-white);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 7px 32px;
+      font-family: 'Special Elite', cursive;
+      font-size: 10px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+    }
+    .top-banner .zh {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      font-weight: 300;
+    }
+
+    .masthead {
+      background: var(--warm-white);
+      border-bottom: 4px double var(--border);
+      text-align: center;
+      padding: 22px 20px 16px;
+    }
+    .masthead-top {
+      font-family: 'Special Elite', cursive;
+      font-size: 10px;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--terracotta);
+      margin-bottom: 6px;
+    }
+    .masthead h1 {
+      font-family: 'Noto Serif TC', serif;
+      font-weight: 900;
+      font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+      color: var(--terracotta);
+      letter-spacing: 0.08em;
+      text-shadow: 2px 2px 0 var(--terra-pale);
+    }
+    .masthead h1 .en {
+      display: block;
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(0.8rem, 1.6vw, 1rem);
+      font-weight: 400;
+      font-style: italic;
+      color: var(--mid);
+      margin-top: 4px;
+      text-shadow: none;
+    }
+
+    nav {
+      background: var(--ink);
+      display: flex;
+      justify-content: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 3px solid var(--terracotta);
+    }
+    nav a {
+      font-family: 'Special Elite', cursive;
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--border-light);
+      text-decoration: none;
+      padding: 14px 28px;
+      border-right: 1px solid rgba(255,255,255,0.08);
+      transition: background 0.2s, color 0.2s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+    }
+    nav a:first-child { border-left: 1px solid rgba(255,255,255,0.08); }
+    nav a .nav-zh {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 10px;
+      font-weight: 300;
+      letter-spacing: 0.15em;
+      opacity: 0.6;
+    }
+    nav a:hover, nav a.active { background: var(--terracotta); color: var(--warm-white); }
+
+    .page-wrapper {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 56px 24px 100px;
+    }
+
+    .post-header {
+      text-align: center;
+      margin-bottom: 52px;
+      padding-bottom: 32px;
+      border-bottom: 3px double var(--border);
+      animation: fadeUp 0.6s ease both;
+    }
+    .post-tag-row {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    .post-tag {
+      display: inline-block;
+      background: var(--istanbul-pale);
+      color: var(--istanbul);
+      font-family: 'Special Elite', cursive;
+      font-size: 9px;
+      letter-spacing: 0.4em;
+      padding: 4px 14px;
+      text-transform: uppercase;
+    }
+    .post-tag-zh {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 11px;
+      font-weight: 300;
+      color: var(--mid);
+      opacity: 0.6;
+      letter-spacing: 0.2em;
+    }
+    .post-header h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.2rem, 5vw, 3.8rem);
+      font-weight: 900;
+      color: var(--istanbul-dark);
+      line-height: 1.1;
+      margin-bottom: 6px;
+    }
+    .post-header .zh-title {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 1.1rem;
+      font-weight: 300;
+      color: var(--mid);
+      letter-spacing: 0.2em;
+      margin-bottom: 18px;
+    }
+    .post-header .subtitle {
+      font-family: 'IM Fell English', serif;
+      font-style: italic;
+      font-size: 1.05rem;
+      color: var(--mid);
+      line-height: 1.65;
+      margin-bottom: 18px;
+      max-width: 560px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .post-meta {
+      font-family: 'Special Elite', cursive;
+      font-size: 10px;
+      letter-spacing: 0.3em;
+      color: var(--mid);
+      text-transform: uppercase;
+      opacity: 0.65;
+      margin-top: 10px;
+    }
+    .post-meta span { margin: 0 8px; }
+    .publish-date {
+      display: inline-block;
+      background: var(--istanbul-dark);
+      color: var(--warm-white);
+      font-family: 'Special Elite', cursive;
+      font-size: 9px;
+      letter-spacing: 0.3em;
+      padding: 5px 16px;
+      margin-top: 14px;
+      text-transform: uppercase;
+    }
+    .post-ornament { font-size: 18px; letter-spacing: 0.4em; margin-top: 14px; }
+
+    .post-body { animation: fadeUp 0.6s 0.1s ease both; }
+    .post-body p {
+      font-family: 'Courier Prime', monospace;
+      font-size: 15px;
+      line-height: 2.05;
+      color: var(--mid);
+      margin-bottom: 24px;
+    }
+    .post-body p:first-of-type::first-letter {
+      font-family: 'Playfair Display', serif;
+      font-size: 4.5rem;
+      font-weight: 900;
+      color: var(--istanbul);
+      float: left;
+      line-height: 0.75;
+      margin: 6px 10px 0 0;
+    }
+    .post-body .zh-aside {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--mid);
+      opacity: 0.75;
+      letter-spacing: 0.1em;
+      line-height: 2.2;
+      margin-bottom: 24px;
+      padding-left: 18px;
+      border-left: 2px solid var(--border-light);
+    }
+
+    /* ── SECTION DIVIDER ── */
+    .section-divider {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 16px;
+      margin: 52px 0 30px;
+    }
+    .section-divider .line {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border), transparent);
+    }
+    .section-divider .center { text-align: center; }
+    .section-divider .label-zh {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 11px;
+      font-weight: 300;
+      letter-spacing: 0.4em;
+      color: var(--istanbul);
+      display: block;
+      margin-bottom: 4px;
+    }
+    .section-divider h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+      color: var(--ink);
+      font-style: italic;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+    .section-divider .deco {
+      color: var(--istanbul);
+      font-size: 13px;
+      letter-spacing: 0.5em;
+      margin-top: 4px;
+      display: block;
+    }
+
+    /* ── STOP CARDS ── */
+    .stop {
+      margin: 28px 0;
+      border: 1px solid var(--border-light);
+      background: var(--warm-white);
+      overflow: hidden;
+    }
+    .stop-header {
+      display: grid;
+      grid-template-columns: 64px 1fr;
+      align-items: stretch;
+    }
+    .stop-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 26px;
+      padding: 16px 10px;
+    }
+    .stop.food    .stop-icon { background: var(--istanbul-pale); }
+    .stop.water   .stop-icon { background: var(--bosphorus-pale); }
+    .stop.hamam   .stop-icon { background: var(--hamam-pale); }
+    .stop.mosque  .stop-icon { background: var(--sage-pale); }
+    .stop.cafe    .stop-icon { background: var(--ochre-pale); }
+    .stop.accident .stop-icon { background: #fff8e8; }
+
+    .stop-title-block {
+      padding: 14px 18px 12px;
+      border-bottom: 1px dashed var(--border-light);
+    }
+    .stop-label {
+      font-family: 'Special Elite', cursive;
+      font-size: 9px;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      display: block;
+      margin-bottom: 3px;
+    }
+    .stop.food    .stop-label { color: var(--istanbul); }
+    .stop.water   .stop-label { color: var(--bosphorus); }
+    .stop.hamam   .stop-label { color: var(--hamam); }
+    .stop.mosque  .stop-label { color: var(--sage); }
+    .stop.cafe    .stop-label { color: var(--ochre); }
+    .stop.accident .stop-label { color: var(--ochre); }
+
+    .stop-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--ink);
+      line-height: 1.25;
+    }
+    .stop-name-zh {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 12px;
+      font-weight: 300;
+      color: var(--mid);
+      letter-spacing: 0.12em;
+      margin-top: 2px;
+    }
+    .stop-address {
+      font-family: 'Special Elite', cursive;
+      font-size: 9px;
+      letter-spacing: 0.12em;
+      color: var(--mid);
+      opacity: 0.55;
+      margin-top: 3px;
+    }
+    .stop-body { padding: 16px 20px 20px; }
+    .stop-body p {
+      font-size: 14px;
+      color: var(--mid);
+      line-height: 1.95;
+      margin-bottom: 14px;
+    }
+    .stop-body p:last-child { margin-bottom: 0; }
+
+    /* ── PERSONAL NOTE ── */
+    .personal-note {
+      background: var(--ochre-pale);
+      border-left: 4px solid var(--ochre);
+      padding: 14px 18px;
+      margin-top: 14px;
+      font-family: 'IM Fell English', serif;
+      font-style: italic;
+      font-size: 14px;
+      color: var(--ink);
+      line-height: 1.85;
+    }
+    .personal-note::before {
+      content: 'My Take · 我的看法';
+      font-family: 'Special Elite', cursive;
+      font-style: normal;
+      font-size: 9px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--ochre);
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    /* ── PULL QUOTE ── */
+    .pull-quote {
+      margin: 44px 0;
+      padding: 26px 40px;
+      border-top: 3px double var(--istanbul);
+      border-bottom: 3px double var(--istanbul);
+      text-align: center;
+      position: relative;
+    }
+    .pull-quote::before {
+      content: '\201C';
+      font-family: 'Playfair Display', serif;
+      font-size: 100px;
+      color: var(--istanbul-pale);
+      line-height: 0.4;
+      position: absolute;
+      top: 48px; left: 8px;
+      pointer-events: none;
+    }
+    .pull-quote blockquote {
+      font-family: 'IM Fell English', serif;
+      font-style: italic;
+      font-size: 1.12rem;
+      color: var(--istanbul-dark);
+      line-height: 1.75;
+      position: relative; z-index: 1;
+    }
+    .pull-quote .zh-quote {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 12px;
+      font-weight: 300;
+      color: var(--mid);
+      letter-spacing: 0.15em;
+      margin-top: 10px;
+      display: block;
+      opacity: 0.7;
+      position: relative; z-index: 1;
+    }
+
+    /* ── GRATITUDE BOX ── */
+    .gratitude-box {
+      background: var(--istanbul-dark);
+      color: var(--warm-white);
+      padding: 28px 32px;
+      margin: 44px 0;
+      position: relative;
+      border-top: 4px solid var(--ochre);
+    }
+    .gratitude-box::before {
+      content: 'With Gratitude · 感謝';
+      position: absolute;
+      top: -13px; left: 24px;
+      background: var(--ochre);
+      color: var(--ink);
+      font-family: 'Special Elite', cursive;
+      font-size: 9px;
+      letter-spacing: 0.35em;
+      padding: 3px 14px;
+      font-weight: 700;
+    }
+    .gratitude-box p {
+      font-size: 13px;
+      line-height: 2;
+      color: rgba(253,248,240,0.88);
+      margin-bottom: 12px;
+    }
+    .gratitude-box p:last-child { margin-bottom: 0; }
+    .gratitude-box .zh {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--ochre-light);
+      letter-spacing: 0.12em;
+      line-height: 2.2;
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px dashed rgba(255,255,255,0.15);
+    }
+
+    /* ── POST FOOTER ── */
+    .post-footer {
+      margin-top: 52px;
+      padding-top: 24px;
+      border-top: 3px double var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .post-footer .back-link {
+      font-family: 'Special Elite', cursive;
+      font-size: 10px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--istanbul);
+      text-decoration: none;
+      border: 1px solid var(--border);
+      padding: 8px 18px;
+      transition: background 0.2s, color 0.2s;
+    }
+    .post-footer .back-link:hover { background: var(--istanbul-dark); color: var(--warm-white); }
+    .post-footer .entry-info {
+      font-family: 'Special Elite', cursive;
+      font-size: 10px;
+      letter-spacing: 0.25em;
+      color: var(--mid);
+      opacity: 0.55;
+      text-transform: uppercase;
+    }
+
+    footer {
+      background: var(--ink);
+      border-top: 4px double var(--terracotta);
+      text-align: center;
+      padding: 28px 20px;
+    }
+    footer .footer-zh {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--ochre-light);
+      letter-spacing: 0.15em;
+    }
+    footer .footer-en {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 0.95rem;
+      color: var(--terra-pale);
+    }
+    footer .footer-ornament { font-size: 14px; letter-spacing: 0.6em; color: var(--terracotta); margin: 10px 0; }
+    footer p {
+      font-family: 'Special Elite', cursive;
+      font-size: 9px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--border);
+      opacity: 0.4;
+      margin-top: 4px;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(14px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 600px) {
+      .top-banner { flex-direction: column; gap: 4px; }
+      nav a { padding: 12px 12px; font-size: 10px; }
+      .post-body p:first-of-type::first-letter { font-size: 3rem; }
+      .stop-header { grid-template-columns: 52px 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="top-banner">
+    <span>吃了飯 嗎 · Travels · 旅行</span>
+    <span class="zh">伊斯坦堡 · 土耳其 · April 2026</span>
+  </div>
+
+  <header class="masthead">
+    <p class="masthead-top">吃了飯 嗎 · A Bilingual Journal</p>
+    <h1>吃了飯 嗎<span class="en">Have You Eaten (Rice) Yet?</span></h1>
+  </header>
+
+  <nav>
+    <a href="index.html">🏠 Home <span class="nav-zh">首頁</span></a>
+    <a href="index.html#food">🍜 Food <span class="nav-zh">食物</span></a>
+    <a href="index.html#travels" class="active">🗺 Travels <span class="nav-zh">旅行</span></a>
+    <a href="index.html#therapy">✒ Personal Therapy <span class="nav-zh">心靈角落</span></a>
+  </nav>
+
+  <div class="page-wrapper">
+
+    <div class="post-header">
+      <div class="post-tag-row">
+        <span class="post-tag">Travels · 旅行</span>
+        <span class="post-tag-zh">土耳其 · 伊斯坦堡</span>
+      </div>
+      <h2>Istanbul, Turkey</h2>
+      <p class="zh-title">土耳其 · 伊斯坦堡</p>
+      <p class="subtitle">
+        Seven days between two continents, in the care of generous friends,
+        eating and wandering and occasionally walking into places
+        we had absolutely no business being in.
+      </p>
+      <p class="post-meta">
+        <span>Travels</span>·
+        <span>10 min read · 十分鐘</span>·
+        <span>April 16–22, 2026</span>
+      </p>
+      <div class="publish-date">📅 Published · April 25, 2026</div>
+      <div class="post-ornament">🕌 🌊 🫖</div>
+    </div>
+
+    <div class="post-body">
+
+      <p>
+        Let me tell you something about Istanbul. It does not ease you in gently.
+        From the moment you arrive, the city is simply happening — all of it, all at once,
+        the minarets and the ferries and the smell of simit on the morning air and the
+        particular light off the Bosphorus that makes everything look like it has been
+        painted by someone who understood exactly what they were doing. You either
+        surrender to it or you don't. We surrendered immediately, and it was the
+        best decision we made.
+      </p>
+
+      <p class="zh-aside">
+        讓我告訴你關於伊斯坦堡的事。它不會輕輕地把你帶入。<br/>
+        一到那裡，城市就是在發生——全部，同時，<br/>
+        清真寺的尖塔，輪渡，清晨空氣中的芝麻圈香氣，<br/>
+        還有博斯普魯斯海峽上那種光，讓一切都像是被懂得光線的人畫出來的。<br/>
+        你要麼臣服，要麼不。我們立刻臣服了。
+      </p>
+
+      <p>
+        We were lucky — and I do not use that word lightly — to have David,
+        who lives in Istanbul, as our guide and our host. He and Alberto opened
+        their apartment to Paul and me for the week, and what an apartment it was:
+        a front-row seat overlooking the Istanbul Modern museum and the water,
+        in a neighbourhood that hums with the particular energy of somewhere
+        that knows it is having a moment and is entirely comfortable with that.
+        Trendy cafés, Turkish coffee served in small glasses, tea at every turn,
+        simit vendors on the corner. We unpacked, looked out the window at the
+        Bosphorus, and agreed that this was going to be a very good week.
+      </p>
+
+      <!-- SECTION: NEIGHBOURHOOD & TABLE -->
+      <div class="section-divider">
+        <div class="line"></div>
+        <div class="center">
+          <span class="label-zh">餐桌與街道</span>
+          <h3>The Table & The Streets</h3>
+          <span class="deco">— 🍽 —</span>
+        </div>
+        <div class="line"></div>
+      </div>
+
+      <p>
+        Food in Istanbul is not just sustenance. It is the argument the city
+        makes for itself — the mezes arriving in waves, the bread warm from the
+        oven, the raki poured generously, the view through the window always
+        somehow better than expected. We ate very well. We ate together.
+        We ate in the way that travel is supposed to make you eat —
+        slowly, gratefully, with nowhere else to be.
+      </p>
+
+      <div class="stop food">
+        <div class="stop-header">
+          <div class="stop-icon">🍷</div>
+          <div class="stop-title-block">
+            <span class="stop-label">Meyhane · Traditional Tavern · Beyoğlu</span>
+            <div class="stop-name">Demeti Meyhanesi</div>
+            <div class="stop-name-zh">傳統土耳其小館 · 貝伊奧盧區</div>
+            <div class="stop-address">Şimşirci Sok. No:6, Cihangir-Beyoğlu, Istanbul</div>
+          </div>
+        </div>
+        <div class="stop-body">
+          <p>
+            A meyhane is not simply a restaurant. It is a state of mind — an old
+            Turkish tavern tradition where the evening unfolds slowly over shared
+            plates of meze, a bottle of raki, and conversation that has nowhere
+            particular to go. Demeti is the first meyhane in the Cihangir district,
+            and it wears its history without fuss. The cozy, homey atmosphere, with cabinets filled with antiques and celebrity portraits rubbing shoulders with family photos on the walls, opens onto a small balcony with a view of the Bosphorus that stops you mid-sentence.
+          </p>
+          <p>
+            We chose our mezes from the counter — pickled tomatoes, pomegranate salad,
+            börek filled with fish and eggplant and cheese, shrimp casserole — and ate
+            the way the place asks you to eat: without hurry, with appreciation,
+            watching the boats move across the water through the window.
+            It felt, entirely, like someone's family dining room. In the best possible way.
+          </p>
+          <div class="personal-note">
+            One of the finest meals of the trip. The food is delicious, the service warm,
+            and the view through those windows is the kind that makes you put your fork down
+            and just look for a moment. Reserve ahead. This place deserves to be found,
+            and other people have found it.
+          </div>
+        </div>
+      </div>
+
+      <div class="stop cafe">
+        <div class="stop-header">
+          <div class="stop-icon">☕</div>
+          <div class="stop-title-block">
+            <span class="stop-label">Café · Cihangir Neighbourhood</span>
+            <div class="stop-name">Susam Cafe & Kahve 6</div>
+            <div class="stop-name-zh">蘇薩姆咖啡 & 卡赫維6號 · 吉漢吉爾區</div>
+            <div class="stop-address">Cihangir, Beyoğlu, Istanbul</div>
+          </div>
+        </div>
+        <div class="stop-body">
+          <p>
+            Cihangir is the neighbourhood where Istanbul's artists, writers and
+            expats have quietly congregated for decades — the kind of area where
+            every café has a personality, the streets are steep and handsome, and
+            you can spend a very pleasant morning doing nothing more ambitious than
+            drinking coffee and watching the neighbourhood go about its business.
+            Susam Cafe and Kahve 6 both deliver exactly what you want from a
+            morning in Cihangir: good coffee, good light, good company.
+            Shared meals, unhurried conversations, the city below.
+          </p>
+        </div>
+      </div>
+
+      <!-- SECTION: THE FERRY -->
+      <div class="section-divider">
+        <div class="line"></div>
+        <div class="center">
+          <span class="label-zh">渡輪 · 亞洲那側</span>
+          <h3>Across the Water — The Asian Side</h3>
+          <span class="deco">— ⛴ —</span>
+        </div>
+        <div class="line"></div>
+      </div>
+
+      <div class="stop water">
+        <div class="stop-header">
+          <div class="stop-icon">⛴️</div>
+          <div class="stop-title-block">
+            <span class="stop-label">Ferry Crossing · Bosphorus</span>
+            <div class="stop-name">Ferry to the Asian Side</div>
+            <div class="stop-name-zh">渡輪 · 博斯普魯斯海峽 · 亞洲</div>
+            <div class="stop-address">Eminönü to Kadıköy or Üsküdar · approx. 20 min</div>
+          </div>
+        </div>
+        <div class="stop-body">
+          <p>
+            There is something almost philosophical about the Istanbul ferry crossing —
+            the act of sitting on a boat in a glass of tea, watching one continent
+            recede as another approaches. The Asian side receives you differently:
+            quieter in feeling, the shops more local, the restaurants full of
+            residents rather than tourists, the back alleys worth every wrong turn.
+            We wandered for hours. We ate. We looked in shop windows. We walked
+            through streets that had no intention of impressing us and were therefore,
+            entirely, impressive.
+          </p>
+        </div>
+      </div>
+
+      <div class="pull-quote">
+        <blockquote>
+          Istanbul is the only city in the world that sits on two continents.<br/>
+          Once you have crossed between them on a ferry with a glass of tea in your hand,<br/>
+          every other city feels like it is missing something.
+        </blockquote>
+        <span class="zh-quote">伊斯坦堡是世界上唯一橫跨兩個大陸的城市。<br/>一旦你手持茶杯乘渡輪往返兩岸，其他城市都會讓你覺得缺少了什麼。</span>
+      </div>
+
+      <!-- THE ACCIDENT / BI NEVI DELI -->
+      <div class="stop accident">
+        <div class="stop-header">
+          <div class="stop-icon">🚪</div>
+          <div class="stop-title-block">
+            <span class="stop-label">The Best Accident of the Trip · 最美麗的意外</span>
+            <div class="stop-name">The Lady with the Tea — Bi Nevi Deli, Beşiktaş</div>
+            <div class="stop-name-zh">那位端茶出來的女士 · 貝希克塔什區</div>
+            <div class="stop-address">Etiler, Dilhayat Sk. No:10/1, 34337 Beşiktaş, Istanbul</div>
+          </div>
+        </div>
+        <div class="stop-body">
+          <p>
+            I need to tell you about the hill. After the ferry, Istanbul's traffic
+            being what Istanbul's traffic is, we decided to walk to Bi Nevi Deli —
+            a journey that involved approximately fifteen minutes of climbing a
+            gradient that a city with less confidence would describe as a cliff.
+            We arrived at the top, thirsty and slightly winded, and looked up to
+            find a beautiful space with outdoor seating overlooking the town.
+            Exactly what we needed. We walked in.
+          </p>
+          <p>
+            A smiling woman appeared, showed us to the outdoor seats, and brought
+            tea, water, and cookies. We sat. We drank. We had a second round of tea.
+            We were restored. When we finally moved to pay the bill, we discovered,
+            gently and with some embarrassment, that there was no bill. There was
+            no café. What we had walked into — helped ourselves to the outdoor seating of,
+            accepted the hospitality of — was, in fact, an office. Possibly a private
+            residence. We had, quite thoroughly, intruded on someone's home.
+          </p>
+          <p>
+            The woman, for her part, seemed entirely unbothered. She had seen two
+            tired strangers arrive at her door — David, Paul, and me — and had simply done what the best
+            version of hospitality asks: offered what she had, asked nothing in return.
+            We left more grateful than words can comfortably hold.
+            That, I think, is Turkey in a single moment.
+          </p>
+          <div class="personal-note">
+            We did eventually make it to Bi Nevi Deli. But I will remember the
+            accidental stop far longer than the destination. Some of the best
+            moments in travel are the ones you could never have planned —
+            the woman at the top of the hill, the tea, the cookies, the complete
+            absence of any transaction. Pure, unreasonable kindness. Istanbul gave us
+            that, and I will not forget it.
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION: THE HAMAM -->
+      <div class="section-divider">
+        <div class="line"></div>
+        <div class="center">
+          <span class="label-zh">土耳其浴 · 療癒</span>
+          <h3>Sunday Morning — The Hamam</h3>
+          <span class="deco">— 🛁 —</span>
+        </div>
+        <div class="line"></div>
+      </div>
+
+      <div class="stop hamam">
+        <div class="stop-header">
+          <div class="stop-icon">💧</div>
+          <div class="stop-title-block">
+            <span class="stop-label">Turkish Bath · 16th Century · Tophane</span>
+            <div class="stop-name">Kılıç Ali Paşa Hamamı</div>
+            <div class="stop-name-zh">克勒奇·阿里帕夏浴場 · 托法內區</div>
+            <div class="stop-address">Kemankeş Mah. Hamam Sok. No:1, Karaköy, Beyoğlu, Istanbul</div>
+          </div>
+        </div>
+        <div class="stop-body">
+          <p>
+            The Kılıç Ali Paşa Hamamı was built by the great Ottoman architect Mimar Sinan between 1578 and 1580, commissioned by Kılıç Ali Pasha — hailed as the "conqueror of the seas" — to serve the mariners of Tophane, Istanbul's seafront district. The man himself was born Giovanni Dionigi Galeni, a Christian boy from Calabria, Italy, who was captured by Ottoman forces, converted to Islam, rose to become Grand Admiral of the Ottoman fleet, and crossed paths with Miguel de Cervantes in Algiers — who later paid tribute to him in Don Quixote. You do not simply come here to wash. You come here to sit inside several centuries of history and let the steam do its work.
+          </p>
+          <p>
+            The hamam reopened in 2012 after seven years of meticulous restoration, receiving a Europa Nostra award for outstanding achievement in heritage preservation. Under the great marble dome, in the warm silence of the caldarium, with the light falling through the star-shaped apertures above, a deep tissue massage delivers the particular kind of surrender that only a place like this can produce. Heavenly is not too strong a word.
+          </p>
+          <div class="personal-note">
+            Reserve well in advance — this is not a secret. But nothing about the
+            experience feels touristic once you are inside. The marble, the steam,
+            the dome, the attendants who clearly understand what they are doing —
+            all of it adds up to something that sits outside the normal categories
+            of spa and sightseeing. It is its own thing entirely. Do not skip it.
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION: THE MONUMENTS -->
+      <div class="section-divider">
+        <div class="line"></div>
+        <div class="center">
+          <span class="label-zh">歷史遺蹟</span>
+          <h3>The Monuments — Humbled & Grateful</h3>
+          <span class="deco">— 🕌 —</span>
+        </div>
+        <div class="line"></div>
+      </div>
+
+      <div class="stop mosque">
+        <div class="stop-header">
+          <div class="stop-icon">🕌</div>
+          <div class="stop-title-block">
+            <span class="stop-label">UNESCO World Heritage · Sultanahmet</span>
+            <div class="stop-name">The Blue Mosque & Hagia Sophia Grand Mosque</div>
+            <div class="stop-name-zh">藍色清真寺 & 聖索菲亞大清真寺 · 蘇丹艾哈邁德區</div>
+            <div class="stop-address">Sultanahmet, Fatih, Istanbul</div>
+          </div>
+        </div>
+        <div class="stop-body">
+          <p>
+            There are places that photographs simply cannot prepare you for —
+            not because the photographs are bad, but because the photographs can only
+            capture what something looks like, and these places are about what they feel like.
+            The Blue Mosque, with its six minarets and its cascade of domes, is one.
+            The Hagia Sophia, which has been a basilica, a mosque, a museum, and a mosque
+            again across nearly fifteen centuries, is another. You stand inside them
+            and feel, without quite being able to articulate why, both very small and
+            very lucky to be there.
+          </p>
+          <p>
+            We were not religious pilgrims, but the reverence required of visitors
+            here is not merely procedural — it is a genuine response to what these
+            buildings carry. Centuries of prayer, of history, of human ambition
+            directed toward something larger than itself. We walked the grounds slowly.
+            We looked up often. We were humbled.
+          </p>
+        </div>
+      </div>
+
+      <!-- GRATITUDE -->
+      <div class="gratitude-box">
+        <p>
+          Seven days is not enough for Istanbul. It never could be. But with the
+          right people — and we had the right people — seven days can give you enough
+          to understand why this city gets under your skin and stays there. The food,
+          the history, the water, the light, the woman at the top of the hill with
+          her tea and her inexhaustible generosity — all of it.
+        </p>
+        <p>
+          David and Alberto: thank you. For opening your home, for showing us your
+          Istanbul rather than the tourist version of it, for the meals and the walks
+          and the ferry and the laughter. Paul and I came as guests and left as people
+          who feel they have been given something they cannot fully repay. That is the
+          best kind of travel, and it only happens because of the best kind of friends.
+        </p>
+        <div class="zh">
+          七天對伊斯坦堡來說不夠。永遠不夠。<br/>
+          但有對的人陪伴——我們有——七天已足夠讓你明白這座城市為何讓人難以忘懷。<br/>
+          食物、歷史、海水、光線，還有那位山頂上捧茶而來的女士。<br/>
+          David 和 Alberto：謝謝你們。<br/>
+          為我們開門，帶我們看屬於你們的伊斯坦堡，而不是觀光版本的。<br/>
+          Paul 和我以客人的身份來，以受到無可回報饋贈的人的身份離開。<br/>
+          這是最好的旅行，只因為有最好的朋友。
+        </div>
+      </div>
+
+    </div>
+
+    <div class="post-footer">
+      <a href="index.html" class="back-link">← 回首頁 · Back Home</a>
+      <span class="entry-info">Travels · 旅行 · Istanbul 2026</span>
+    </div>
+
+  </div>
+
+  <footer>
+    <div class="footer-zh">吃了飯 嗎</div>
+    <div class="footer-en">Have You Eaten (Rice) Yet?</div>
+    <div class="footer-ornament">✦ ✦ ✦</div>
+    <p>A bilingual journal · 中英雙語日記 · Written with both hands</p>
+  </footer>
+
+</body>
+</html>
